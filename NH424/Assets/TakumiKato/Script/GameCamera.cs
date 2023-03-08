@@ -5,15 +5,13 @@ using UnityEngine;
 public class GameCamera : MonoBehaviour
 {
     Camera cam;
-    float sensitiveMove;
-    float sensitiveZoom;
+    public float sensitiveMove = 0.8f;
+    public float sensitiveZoom = 10.0f;
 
     // Start is called before the first frame update
     void Start()
     {
         cam = GetComponent<Camera>();
-        sensitiveMove = 0.8f;
-        sensitiveZoom = 10.0f;
     }
 
     // Update is called once per frame
