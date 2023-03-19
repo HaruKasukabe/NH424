@@ -13,12 +13,12 @@ GameObject:
   - component: {fileID: 639822126552376278}
   - component: {fileID: -3017558463368488330}
   - component: {fileID: -7026352787261449782}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: HexFood
   m_TagString: Hex
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &639822126554276150
 Transform:
@@ -97,6 +97,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db06f52a95671964fb15f4570efb1512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Unit: {fileID: 0}
+  bUnit: 0
+  bReverse: 0
+  bDiscover: 0
 --- !u!65 &-7026352787261449782
 BoxCollider:
   m_ObjectHideFlags: 0

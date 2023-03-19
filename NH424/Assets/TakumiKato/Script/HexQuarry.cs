@@ -5,9 +5,9 @@ using UnityEngine;
 public class HexQuarry : Hex
 {
     // Start is called before the first frame update
-    new void Start()
+    new void Awake()
     {
-        base.Start();
+        base.Awake();
     }
 
     // Update is called once per frame
@@ -15,12 +15,6 @@ public class HexQuarry : Hex
     {
         base.Update();
 
-        if (bUnit)
-        {
-            if (Unit.sta.abilityKind == UNIT_ACT.QUARRY)
-                GameManager.instance.stone += 5.0f;
-            else
-                GameManager.instance.stone += 1.0f;
-        }
+        GetMaterial(UNIT_ACT.QUARRY);
     }
 }

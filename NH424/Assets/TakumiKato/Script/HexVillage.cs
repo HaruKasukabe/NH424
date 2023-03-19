@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class HexVillage : Hex
 {
+
+
     // Start is called before the first frame update
-    new void Start()
+    new void Awake()
     {
-        base.Start();
-        GetComponent<Renderer>().material.color = new Color32(255, 255, 255, 1);
+        base.Awake();
+        rend.material.color = new Color32(255, 255, 255, 1);
         bReverse = true;
     }
 

@@ -4,32 +4,68 @@ using UnityEngine;
 
 public class VillageCollision : MonoBehaviour
 {
+    Hex hex;
     int level;
-    int num = 0;
+    bool b = false;
 
     // Start is called before the first frame update
     void Start()
     {
         level = GameManager.instance.level;
+        hex = GetComponent<Hex>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(num < 2)
+        if (!b)
         {
             if (level != GameManager.instance.level)
             {
-                List<Transform> hexList = HexManager.instance.GetVillageHex(transform.position);
-                for (int i = 0; i < hexList.Count; i++)
+                for (int i = 0; i < hex.nextNum.Length; i++)
                 {
-                    Vector3 pos = hexList[i].transform.position;
-                    HexManager.instance.AddVillage(Instantiate(this.gameObject, new Vector3(pos.x, 0.0f, pos.z), Quaternion.identity).transform, 0);
-                    Destroy(hexList[i].gameObject);
-                    
+                    INT2 num = hex.nextNum[i];
+                    GameObject obj = Map.instance.map[num.x, num.z];
+                    if (!obj.CompareTag("Village"))
+                    {
+                        Unit unit = null;
+                        Vector3 pos = obj.transform.position;
+
+                        if (obj.GetComponent<Hex>().bUnit)
+                            unit = obj.GetComponent<Hex>().Unit;
+
+                        Destroy(obj);
+
+                        obj = Instantiate(this.gameObject, pos, Quaternion.identity);
+                        if (unit)
+                        {
+                            if(unit.bFriend)
+                                obj.GetComponent<Hex>().SetUnit(unit);
+                            else
+                                obj.GetComponent<Hex>().SetStrayUnit(unit);
+                        }
+                        obj.GetComponent<Hex>().SetHexNum(num);
+                        
+                        Map.instance.map[num.x, num.z] = obj;
+                    }
                 }
-                num++;
+
+                b = true;
             }
         }
     }
+
+    //GameObject GetChildTag(Transform obj, string tag)
+    //{
+    //    for (var i = 0; i < obj.childCount; ++i)
+    //    {
+    //        Transform child = obj.GetChild(i);
+    //        if (child.gameObject.CompareTag(tag))
+    //        {
+    //            return child.gameObject;
+    //        }
+    //    }
+
+    //    return null;
+    //}
 }

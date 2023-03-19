@@ -5,9 +5,9 @@ using UnityEngine;
 public class HexCoalMine : Hex
 {
     // Start is called before the first frame update
-    new void Start()
+    new void Awake()
     {
-        base.Start();
+        base.Awake();
     }
 
     // Update is called once per frame
@@ -15,12 +15,6 @@ public class HexCoalMine : Hex
     {
         base.Update();
 
-        if (bUnit)
-        {
-            if (Unit.sta.abilityKind == UNIT_ACT.COAL_MINE)
-                GameManager.instance.iron += 5.0f;
-            else
-                GameManager.instance.iron += 1.0f;
-        }
+        GetMaterial(UNIT_ACT.COAL_MINE);
     }
 }

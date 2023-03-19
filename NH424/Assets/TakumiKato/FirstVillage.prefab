@@ -14,12 +14,12 @@ GameObject:
   - component: {fileID: -7372971463198580427}
   - component: {fileID: 5655283155843203850}
   - component: {fileID: 7910944816173675485}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FirstVillage
   m_TagString: Village
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &639822126554276150
 Transform:
@@ -98,6 +98,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 202897e3cffe73147acd35215d3ef00b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Unit: {fileID: 0}
+  bUnit: 0
+  bReverse: 0
+  bDiscover: 0
 --- !u!114 &5655283155843203850
 MonoBehaviour:
   m_ObjectHideFlags: 0

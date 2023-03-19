@@ -13,12 +13,12 @@ GameObject:
   - component: {fileID: 639822126552376278}
   - component: {fileID: 3095093485138323754}
   - component: {fileID: -3738130307863125309}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hex10
   m_TagString: Hex
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &639822126554276150
 Transform:
@@ -97,6 +97,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 914a278852ad7f64982e6af0466bed3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Unit: {fileID: 0}
+  bUnit: 0
+  bReverse: 0
+  bDiscover: 0
 --- !u!65 &-3738130307863125309
 BoxCollider:
   m_ObjectHideFlags: 0

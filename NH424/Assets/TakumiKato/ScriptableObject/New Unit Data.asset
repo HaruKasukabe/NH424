@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1
   charName: a
-  abilityKind: 4
+  abilityKind: 0
   maxHp: 100
+  cost: 30
   moveLong: 2.86
   serchRange: 0.1

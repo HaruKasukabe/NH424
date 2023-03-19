@@ -301,6 +301,7 @@ MonoBehaviour:
   sta: {fileID: 11400000, guid: 5caf0ebec56d1d94a94fb1efb60031f2, type: 2}
   bFriend: 1
   height: 0.2
+  bVillage: 0
 --- !u!136 &1512698642744100226
 CapsuleCollider:
   m_ObjectHideFlags: 0

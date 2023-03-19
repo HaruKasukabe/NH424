@@ -5,10 +5,11 @@ using UnityEngine;
 public class GameCamera : MonoBehaviour
 {
     Camera cam;
+    float moveX;
+    float moveY;
     public float sensitiveMove = 0.8f;
     public float sensitiveZoom = 10.0f;
 
-    // Start is called before the first frame update
     void Start()
     {
         cam = GetComponent<Camera>();
@@ -21,6 +22,7 @@ public class GameCamera : MonoBehaviour
         {
             float moveX = Input.GetAxis("Mouse X") * sensitiveMove;
             float moveY = Input.GetAxis("Mouse Y") * sensitiveMove;
+            //Vector3 cameraForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
             cam.transform.localPosition -= new Vector3(moveX, 0.0f, moveY);
         }
 

@@ -11,7 +11,9 @@ public class FirstUnit : Unit
     {
         base.Start();
 
+        bFriend = true;
         bVillage = true;
+        GameManager.instance.AddUnit(this);
     }
 
     // Update is called once per frame
@@ -21,7 +23,7 @@ public class FirstUnit : Unit
 
         if (!b)
         {
-            GameObject g = GameObject.Find("FirstArea(Clone)/FirstVillage");
+            GameObject g = Map.instance.GetCenter();
             OriginPos = new Vector3(g.transform.position.x, g.transform.position.y + height, g.transform.position.z);
             transform.position = OriginPos;
             b = true;
