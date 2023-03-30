@@ -65,6 +65,7 @@ public class ConverSation : MonoBehaviour
         SelectBox.SetActive(false);
         SelectNum = -1;
         EventFlg = false;
+        CSNum = 0;
     }
 
     //  **************************
@@ -77,6 +78,7 @@ public class ConverSation : MonoBehaviour
         {
             // ---リストを次の行へ---
             CSNum++;
+            Debug.Log("会話内容通過");
         }
         // ---イベントが発生したらているか判定---
         if (csvDatas[CSNum].Select == 1)
@@ -99,8 +101,12 @@ public class ConverSation : MonoBehaviour
             EventFlg = false;
         }
 
+        Debug.Log("現在会話内容" + csvDatas[CSNum].TConverSation+csvDatas[CSNum].Select);
         // ---テキスト描画---
-        DisplayText(csvDatas[CSNum].TConverSation, csvDatas[CSNum].TCharaName, csvDatas[CSNum].LRNum);
+        if (csvDatas[CSNum].TConverSation != "-1")
+        {
+            DisplayText(csvDatas[CSNum].TConverSation, csvDatas[CSNum].TCharaName, csvDatas[CSNum].LRNum);
+        }
         // 左のキャラか右のキャラか
         if (csvDatas[CSNum].LRNum == 0)// 左
         {
@@ -197,7 +203,7 @@ public class ConverSation : MonoBehaviour
         LoadSCVFile(CSVFileName);
         // ---必要全オブジェクトを有効化---
         CSMainObj.SetActive(true); // 会話メインオブジェクト有効化
-        CSNum = 1; // CSVファイルの会話計算用の整数は1にする(1行目は説明用)
+        CSNum = 0; // CSVファイルの会話計算用の整数は1にする(1行目は説明用)
 
         // ---最初の会話を表示---
         DisplayText(csvDatas[CSNum].TConverSation, csvDatas[CSNum].TCharaName, csvDatas[CSNum].LRNum);
