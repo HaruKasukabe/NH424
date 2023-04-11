@@ -5,10 +5,11 @@ using UnityEngine;
 public class Map : MonoBehaviour
 {
     public static Map instance = null;
-
-    public GameObject[] hex;
-    public GameObject hexVillage;
     public GameObject[,] map;
+
+    public GameObject hexVillage;
+    public GameObject[] hex;
+    public GameObject firstUnit;
     public GameObject[] unit;
     public int mapSize = 30;
     public int startRound = 5;
@@ -19,6 +20,8 @@ public class Map : MonoBehaviour
     public float hexSizeZ = 5.0f;
     public float startPos2 = 0.0f;
     float startPosOddX;
+    int unitId = 1;
+    public int unitProbability = 10;
 
     private void Awake()
     {
@@ -35,6 +38,7 @@ public class Map : MonoBehaviour
 
     void Start()
     {
+        Instantiate(firstUnit);
         map = new GameObject[mapSize, mapSize];
         round = startRound * (6 + (startRound - 1) * 3) - 6;
         centerNum = mapSize / 2;
@@ -81,11 +85,16 @@ public class Map : MonoBehaviour
                     map[x, z].GetComponent<Hex>().SetHexNum(new INT2(x, z));
                     map[x, z].SetActive(false);
 
-                    if(Random.Range(0, 70) == 0)
+                    if(Random.Range(0, unitProbability) == 0)
                     {
-                        GameObject obj = Instantiate(unit[Random.Range(0, unit.Length)], new Vector3(pos.x, 0.65f, pos.z), Quaternion.identity);
-                        map[x, z].GetComponent<Hex>().SetStrayUnit(obj.GetComponent<Unit>());
+                        GameObject obj = Instantiate(unit[Random.Range(0, unit.Length)], new Vector3(pos.x, 0.2f, pos.z), Quaternion.identity);
+                        obj.transform.rotation = new Quaternion(0, 180, 0, 0);
+                        Unit objUnit = obj.GetComponent<Unit>();
+                        map[x, z].GetComponent<Hex>().SetStrayUnit(objUnit);
+                        objUnit.id = unitId;
                         obj.SetActive(false);
+
+                        unitId++;
                     }
                 }
                 
@@ -108,6 +117,21 @@ public class Map : MonoBehaviour
     {
         return map[num.x, num.z];
     }
+    public Hex GetVillageHex()
+    {
+        Hex hex = map[centerNum, centerNum].GetComponent<Hex>();
+        if (!hex.bUnit)
+            return hex;
+
+        for (int i = 0; i < centerNextNum.Length; i++)
+        {
+            hex = map[centerNextNum[i].x, centerNextNum[i].z].GetComponent<Hex>();
+            if (!hex.bUnit)
+                return hex;
+        }
+
+        return null;
+    }
     bool BCenter(INT2 num)
     {
         for (int i = 0; i < centerNextNum.Length; i++)
@@ -116,5 +140,18 @@ public class Map : MonoBehaviour
                     return true;
 
         return false;
+    }
+    public GameObject GetUnit(int number)
+    {
+        return unit[number];
+    }
+    public GameObject RandomGetUnitSprite()
+    {
+        return unit[Random.Range(0, unit.Length)].GetComponent<Unit>().sta.sprite;
+    }
+    public int GetUnitId()
+    {
+        unitId++;
+        return unitId - 1;
     }
 }

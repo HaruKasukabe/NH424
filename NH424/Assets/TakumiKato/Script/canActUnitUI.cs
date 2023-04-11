@@ -16,6 +16,6 @@ public class canActUnitUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.text = "動かせるユニット数：" + GameManager.instance.canActUnitNum;
+        text.text = "動かせる回数：" + GameManager.instance.canActUnitNum;
     }
 }

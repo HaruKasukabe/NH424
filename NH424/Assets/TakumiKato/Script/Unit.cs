@@ -15,32 +15,39 @@ public enum UNIT_ACT
 public class Unit : MonoBehaviour
 {
     public UnitData sta;
+    public int id;
     float hp;
     public bool bFriend = false;
-    protected bool bAct = false;
+    public int actNum = 0;
 
-    public float height = 0.65f;
+    float move1HexLong = 1.0f;
+    public float height = 0.2f;
     protected Vector3 OriginPos;
-    protected Hex Hex;
-    protected Hex OldHex;
+    public Hex Hex;
+    public Hex OldHex;
     protected Hex OldHitHex;
     CapsuleCollider col;
     RaycastHit hit;
     RaycastHit hitDown;
     Vector3 oldHexa;
     public bool bVillage = false;
+    public bool bMoveNumDisplay = false;
+
+    public GameObject effectObject;
+    private float deleteTime = 1.5f;
+    private float offsetY = -0.55f;
 
     // Start is called before the first frame update
     protected void Start()
     {
         col = GetComponent<CapsuleCollider>();
         hp = sta.maxHp;
+        actNum = sta.moveNum;
     }
 
     // Update is called once per frame
     protected void Update()
     {
-
     }
 
     virtual public void Special()
@@ -50,66 +57,117 @@ public class Unit : MonoBehaviour
 
     void OnMouseDrag()
     {
-        if (bFriend && !bAct)
+        if (GameManager.instance.bMenuDisplay())
         {
-            col.enabled = false;
-            var pos = transform.position;
-
-            int mask = 1 << 6;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit, mask))
+            if (bFriend && actNum > 0)
             {
-                pos = new Vector3(hit.point.x, hit.point.y + height, hit.point.z);
-                if (!(hit.transform.gameObject.CompareTag("Village") && bVillage))
-                {
-                    pos.x = Mathf.Clamp(pos.x, OriginPos.x - sta.moveLong, OriginPos.x + sta.moveLong);
-                    pos.z = Mathf.Clamp(pos.z, OriginPos.z - sta.moveLong, OriginPos.z + sta.moveLong);
-                }
-            }
-            if (Physics.Raycast(pos, Vector3.down, out hitDown, 2.0f, mask))
-            {
-                Hex hitHex = hitDown.transform.GetComponent<Hex>();
-                if (Hex != hitHex)
-                {
-                    if (!Hex.bUnit && Hex.bDiscover)
-                        OldHitHex = Hex;
-                    Hex = hitHex;
-                }
-                Hex.SetCursol(true);
-            }
+                bMoveNumDisplay = true;
+                col.enabled = false;
+                var pos = transform.position;
 
-            if (!OldHex)
-                OldHex = OldHitHex = Hex;
+                int mask = 1 << 6;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out hit, mask))
+                {
+                    pos = new Vector3(hit.point.x, hit.point.y + height, hit.point.z);
+                    if (!(hit.transform.gameObject.CompareTag("Village") && bVillage))
+                    {
+                        float moveLimit = move1HexLong * sta.moveLong;
+                        pos.x = Mathf.Clamp(pos.x, OriginPos.x - moveLimit, OriginPos.x + moveLimit);
+                        pos.z = Mathf.Clamp(pos.z, OriginPos.z - moveLimit, OriginPos.z + moveLimit);
+                    }
+                }
+                if (Physics.Raycast(pos, Vector3.down, out hitDown, 2.0f, mask))
+                {
+                    Hex hitHex = hitDown.transform.GetComponent<Hex>();
+                    if (Hex != hitHex)
+                    {
+                        if (!Hex.bUnit && Hex.bDiscover)
+                            OldHitHex = Hex;
+                        Hex = hitHex;
+                    }
+                    Hex.SetCursol(true);
+                }
 
-            transform.position = pos;
+                if (!OldHex)
+                    OldHex = OldHitHex = Hex;
+
+                transform.position = pos;
+            }
         }
     }
 
     void OnMouseUp()
     {
-        if (bFriend && !bAct)
-        {
-            col.enabled = true;
-            if (Hex != OldHex)
-            {
-                if (Hex.bDiscover)
-                {
+        MouseUp();
+    }
 
-                    if (Hex.bUnit && Hex.Unit != this)
+    public void PadDrag(RaycastHit hit)
+    {
+        if (GameManager.instance.bMenuDisplay())
+        {
+            if (bFriend && actNum > 0)
+            {
+                bMoveNumDisplay = true;
+                col.enabled = false;
+                var pos = transform.position;
+
+                pos = new Vector3(hit.point.x, hit.point.y + height, hit.point.z);
+                if (!(hit.transform.gameObject.CompareTag("Village") && bVillage))
+                {
+                    float moveLimit = move1HexLong * sta.moveLong;
+                    pos.x = Mathf.Clamp(pos.x, OriginPos.x - moveLimit, OriginPos.x + moveLimit);
+                    pos.z = Mathf.Clamp(pos.z, OriginPos.z - moveLimit, OriginPos.z + moveLimit);
+                }
+
+                int mask = 1 << 6;
+                if (Physics.Raycast(pos, Vector3.down, out hitDown, 2.0f, mask))
+                {
+                    Hex hitHex = hitDown.transform.GetComponent<Hex>();
+                    if (Hex != hitHex)
                     {
-                        UpActUnit();
+                        if (!Hex.bUnit && Hex.bDiscover)
+                            OldHitHex = Hex;
+                        Hex = hitHex;
+                    }
+                    Hex.SetCursol(true);
+                }
+
+                if (!OldHex)
+                    OldHex = OldHitHex = Hex;
+
+                transform.position = pos;
+            }
+        }
+    }
+
+    public void MouseUp()
+    {
+        if (GameManager.instance.bMenuDisplay())
+        {
+            if (bFriend && actNum > 0)
+            {
+                col.enabled = true;
+                if (Hex != OldHex)
+                {
+                    if (Hex.bDiscover)
+                    {
+                        if (Hex.bUnit && Hex.Unit != this)
+                        {
+                            if (!Hex.Unit.bFriend)
+                                UpActUnit();
+                            else
+                                UpActSameHex();
+                        }
+                        else
+                            UpActDefault();
                     }
                     else
-                        UpActDefault();
-
-                    bAct = true;
-                    GameManager.instance.canActUnitNum--;
+                        UpActSameHex();
                 }
                 else
                     UpActSameHex();
             }
-            else
-                UpActSameHex();
         }
     }
 
@@ -144,12 +202,17 @@ public class Unit : MonoBehaviour
         }
 
         OldHex.DisUnit();
-        OldHex = Hex;
+        OldHitHex = OldHex = Hex;
 
         if (delHp)
             hp -= 3.0f;
         else
             hp -= 1.0f;
+
+        actNum--;
+        GameManager.instance.canActUnitNum--;
+        GameManager.instance.moveNumTotal--;
+        bMoveNumDisplay = false;
     }
     void UpActSameHex()
     {
@@ -157,6 +220,7 @@ public class Unit : MonoBehaviour
         transform.position = OriginPos;
         OldHex.SetCursol(false);
         OldHex.SetUnit(this);
+        bMoveNumDisplay = false;
     }
     void UpActUnit()
     {
@@ -200,6 +264,11 @@ public class Unit : MonoBehaviour
         {
             StartCoroutine(SelectButtons.instance.CorGetInput(Hex.Unit));
         }
+
+        actNum--;
+        GameManager.instance.canActUnitNum--;
+        GameManager.instance.moveNumTotal--;
+        bMoveNumDisplay = false;
     }
 
     public void SetHex(Hex hex)
@@ -210,6 +279,10 @@ public class Unit : MonoBehaviour
             bVillage = false;
 
         OldHex = OldHitHex = Hex = hex;
+        OriginPos = new Vector3(Hex.transform.position.x, Hex.transform.position.y + height, Hex.transform.position.z);
+        transform.position = OriginPos;
+        Hex.SetCursol(false);
+        Hex.SetUnit(this);
     }
 
     public void BeMyFriend()
@@ -220,11 +293,24 @@ public class Unit : MonoBehaviour
             GameManager.instance.food -= sta.cost;
             Hex.SetUnit(this);
             GameManager.instance.AddUnit(this);
+            GameManager.instance.friendNum++;
         }
     }
 
     public void SetAct()
     {
-        bAct = false;
+        actNum = sta.moveNum;
+
+        GameObject instantiateEffect = Instantiate(effectObject, transform.position + new Vector3(0f, offsetY, 0f), Quaternion.identity);
+        Destroy(instantiateEffect, deleteTime);
+    }
+
+    private void OnDestroy()
+    {
+        if (Hex)
+        {
+            Hex.DisUnit();
+            OldHex.DisUnit();
+        }
     }
 }
