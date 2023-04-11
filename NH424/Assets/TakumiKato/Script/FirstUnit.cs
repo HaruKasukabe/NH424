@@ -13,6 +13,7 @@ public class FirstUnit : Unit
 
         bFriend = true;
         bVillage = true;
+        id = 0;
         GameManager.instance.AddUnit(this);
     }
 
@@ -28,6 +29,7 @@ public class FirstUnit : Unit
             transform.position = OriginPos;
             b = true;
             OldHex = Hex = g.GetComponent<Hex>();
+            Hex.SetUnit(this);
         }
     }
 }

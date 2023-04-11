@@ -101,6 +101,8 @@ MonoBehaviour:
   bUnit: 0
   bReverse: 0
   bDiscover: 0
+  normalHex: {fileID: 639822126554316054, guid: 6739c962151eda54ab7230fc9867a33d, type: 3}
+  effectObject: {fileID: 7986504087968017091, guid: 3a2073ab9eedb61468feba6f98e70ea1, type: 3}
 --- !u!65 &-4227368003993054301
 BoxCollider:
   m_ObjectHideFlags: 0

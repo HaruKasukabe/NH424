@@ -102,6 +102,7 @@ MonoBehaviour:
   bUnit: 0
   bReverse: 0
   bDiscover: 0
+  effectObject: {fileID: 7986504087968017091, guid: 3a2073ab9eedb61468feba6f98e70ea1, type: 3}
 --- !u!114 &5655283155843203850
 MonoBehaviour:
   m_ObjectHideFlags: 0

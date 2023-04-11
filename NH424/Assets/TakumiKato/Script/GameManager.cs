@@ -40,22 +40,22 @@ public struct INT2
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
+    public Fade fade;
 
     public SEASON season = SEASON.SPRING;
     public int seasonTurnNum = 5;
     public int nowTurn = 0;
-    public List<Unit> activeUnitList = new List<Unit>();
     public int canActUnitNum = 0;
+    public int moveNumTotal = 0;
+    public int clearFriendNum = 3;
+    public int friendNum = 1;
 
     public int level = 0;
-    public float wood = 0.0f;
     public float food = 0.0f;
+    public float wood = 0.0f;
     public float stone = 0.0f;
     public float iron = 0.0f;
     public float levelUpNeed = 100.0f;
-
-    float foodTime = 0;
-    float Hex_Width = 1.1f;
 
     private void Awake()
     {
@@ -72,24 +72,33 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        moveNumTotal = KemokoListOut.instance.GetMoveNumTotal();
+        if (moveNumTotal < 5)
+            canActUnitNum = moveNumTotal;
+        else
+            canActUnitNum = KemokoListOut.instance.maxOutNum;
+
+        fade.FadeOut(2.0f);
     }
 
     void Update()
     {
-        foodTime += Time.deltaTime;
-        if (foodTime > 1.0f)
+        if (friendNum >= clearFriendNum)// || Input.GetKeyDown(KeyCode.A))
         {
-            food += food / 1000.0f;
-            foodTime = 0;
+            //fade.FadeIn(2.0f, () => { SceneManager.LoadScene("ClearScene"); });
+            SceneManager.LoadScene("ClearScene");
         }
 
         if (canActUnitNum <= 0)
             EndTurn();
 
-        if(nowTurn == seasonTurnNum)
+        if (nowTurn == seasonTurnNum)
         {
-            if(!SeasonMission.instance.Check(season))
+            if (!SeasonMission.instance.Check(season))
+            {
+                //fade.FadeIn(2.0f, () => { SceneManager.LoadScene("TitleScene"); });
                 SceneManager.LoadScene("TitleScene");
+            }
             nowTurn = 0;
             season++;
         }
@@ -111,34 +120,59 @@ public class GameManager : MonoBehaviour
 
     public void AddUnit(Unit unit)
     {
-        activeUnitList.Add(unit);
-        canActUnitNum++;
+        if (!KemokoListOut.instance.Add(unit))
+            KemokoListVillage.instance.Add(unit);
+    }
+    public void AddSelectUnit(Unit unit)
+    {
+        if (!KemokoListOut.instance.SelectAdd(unit))
+            KemokoListVillage.instance.Add(unit);
     }
 
     public void EndTurn()
     {
         nowTurn++;
-        canActUnitNum = activeUnitList.Count;
-        for (int i = 0; i < activeUnitList.Count; i++)
-            activeUnitList[i].SetAct();
-    }
+        List<Unit> unitList = KemokoListOut.instance.outUnitList;
 
-    public Vector3 Cal_HexPosToViewLocalPos(Vector3 hexPos)
-    {
-        // Yï˚å¸çÇÇ≥
-        float Hex_Height = Hex_Width * Mathf.Sin(60.0f * Mathf.Deg2Rad);
+        ShopList.instance.ChengeList();
 
-        // Xï˚å¸ÇÃÇ∏ÇÍ
-        float Hex_Adjust = Hex_Width * Mathf.Cos(60.0f * Mathf.Deg2Rad);
+        moveNumTotal = KemokoListOut.instance.GetMoveNumTotal();
+        if (moveNumTotal < KemokoListOut.instance.maxOutNum)
+            canActUnitNum = moveNumTotal;
+        else
+            canActUnitNum = KemokoListOut.instance.maxOutNum;
 
-        float grid_X = Hex_Width * hexPos.x + Hex_Adjust * Mathf.Abs(hexPos.z % 2);
-        float grid_Z = Hex_Height * hexPos.z;
-
-        return new Vector3(grid_X, 0.0f, grid_Z);
+        for (int i = 0; i < unitList.Count; i++)
+            unitList[i].SetAct();
     }
 
     public bool IsEven(int num)
     {
         return (num % 2 == 0);
+    }
+    public bool MoveUnitInFhase()
+    {
+        int max = KemokoListOut.instance.maxOutNum;
+        if (moveNumTotal >= max)
+        {
+            if (canActUnitNum == max)
+                return true;
+            else
+                return false;
+        }
+        else
+        {
+            if (canActUnitNum == moveNumTotal)
+                return true;
+            else
+                return false;
+        }
+    }
+    public bool bMenuDisplay()
+    {
+        if (ShopButton.instance.GetbMenu() && VillageButton.instance.GetbMenu())
+            return true;
+        else
+            return false;
     }
 }

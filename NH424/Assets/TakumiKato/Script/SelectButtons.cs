@@ -51,7 +51,7 @@ public class SelectButtons : MonoBehaviour
         //ゲームオブジェクトを表示
         gameObject.SetActive(true);
 
-        title.text = "仲間にしますか？\n必要食材：" + unit.sta.cost + "\n所持食材：" + GameManager.instance.food;
+        title.text = "仲間にしますか？\n必要食材：" + unit.sta.cost + "\n所持食材：" + GameManager.instance.food.ToString("f0");
 
         //いずれかのボタンが押されるまで待機
         yield return new WaitWhile(() => Selected == -1);

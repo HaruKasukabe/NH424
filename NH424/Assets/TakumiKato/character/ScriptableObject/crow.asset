@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8fc475d01f4eb8458a1cda6d895bed8, type: 3}
+  m_Name: crow
+  m_EditorClassIdentifier: 
+  obj: {fileID: 3431804161947223861, guid: b0444c84ec1468a46a908a4455809e4d, type: 3}
+  number: 1
+  charName: a
+  unitTag: 
+  sprite: {fileID: 8160446217370900617, guid: 608b474cdc7ac5a4da74a0115b04e9ad, type: 3}
+  abilityKind: 1
+  maxHp: 100
+  cost: 30
+  moveLong: 2
+  moveNum: 1
+  serchRange: 0.1

@@ -165,6 +165,8 @@ public class ConverSation : MonoBehaviour
 
         StringReader reader = new StringReader(csvFile.text);
 
+        Resources.UnloadAsset(csvFile);
+
         while(reader.Peek() != -1)
         {
             string line = reader.ReadLine(); // 1s‚¸‚Â“Ç‚İ‚İ

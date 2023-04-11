@@ -13,12 +13,18 @@ public class Hex : MonoBehaviour
 
     int level;
     protected int turn = 0;
+    int pickTime = 3;
     public bool bUnit = false;
     bool bCursol = false;
     public bool bReverse = false;
     public bool bDiscover = false;
     bool bSetDiscover = false;
     bool bEnd = false;
+    public GameObject normalHex;
+
+    public GameObject effectObject;
+    private float deleteTime = 1;
+    private float offsetY = 0.15f;
 
     // Start is called before the first frame update
     protected void Awake()
@@ -52,24 +58,28 @@ public class Hex : MonoBehaviour
                 Hex hex = Map.instance.GetHex(nextNum[i]).GetComponent<Hex>();
                 hex.SetDiscover(true);
                 if (hex.bUnit && hex.gameObject.activeSelf)
-                    hex.Unit.gameObject.SetActive(true);
+                    if(!hex.Unit.bFriend)
+                        hex.Unit.gameObject.SetActive(true);
                 bSetDiscover = true;
             }
         }
 
-        if((level != GameManager.instance.level) || Map.instance.round > 0)
+        if (level < 2)
         {
-            if (bEnd)
+            if ((level != GameManager.instance.level) || Map.instance.round > 0)
             {
-                for (int i = 0; i < nextNum.Length; i++)
+                if (bEnd)
                 {
-                    INT2 num = nextNum[i];
-                    GameObject obj = Map.instance.map[num.x, num.z];
-                    if (!obj.activeSelf)
+                    for (int i = 0; i < nextNum.Length; i++)
                     {
-                        obj.SetActive(true);
-                        obj.GetComponent<Hex>().SetEnd();
-                        Map.instance.round--;
+                        INT2 num = nextNum[i];
+                        GameObject obj = Map.instance.map[num.x, num.z];
+                        if (!obj.activeSelf)
+                        {
+                            obj.SetActive(true);
+                            obj.GetComponent<Hex>().SetEnd();
+                            Map.instance.round--;
+                        }
                     }
                 }
             }
@@ -111,10 +121,29 @@ public class Hex : MonoBehaviour
                                 GameManager.instance.stone += 50.0f;
                             break;
                     }
+
+                    pickTime--;
+                    if (pickTime < 1)
+                        ChangeNormalHex();
                 }
             }
             turn = GameManager.instance.nowTurn;
         }
+    }
+    void ChangeNormalHex()
+    {
+        GameObject newObj = Instantiate(normalHex, transform.position, Quaternion.identity);
+        Hex newHex = newObj.GetComponent<Hex>();
+
+        if (Unit)
+            newHex.SetUnit(Unit);
+
+        newHex.rend.material.color = new Color32(255, 255, 255, 1);
+        newHex.SetHexNum(hexNum);
+        newHex.bReverse = true;
+
+        Map.instance.map[hexNum.x, hexNum.z] = newObj;
+        Destroy(this.gameObject);
     }
     public void SetCursol(bool b)
     {
@@ -137,6 +166,9 @@ public class Hex : MonoBehaviour
             rend.material.color = new Color32(255, 255, 255, 1);
             bUnit = true;
             bReverse = true;
+
+            GameObject instantiateEffect = Instantiate(effectObject, transform.position + new Vector3(0f, offsetY, 0f), Quaternion.identity);
+            Destroy(instantiateEffect, deleteTime);
         }
     }
     public void SetStrayUnit(Unit unit)
@@ -151,6 +183,10 @@ public class Hex : MonoBehaviour
         {
             rend.material.color = new Color32(255, 255, 255, 1);
             bReverse = true;
+
+            GameObject instantiateEffect = Instantiate(effectObject, transform.position + new Vector3(0f, offsetY, 0f), Quaternion.identity);
+            Destroy(instantiateEffect, deleteTime);
+
             return true;
         }
         else

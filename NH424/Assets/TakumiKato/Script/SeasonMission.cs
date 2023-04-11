@@ -30,12 +30,13 @@ public class SeasonMission : MonoBehaviour
         level = new int[8];
         for (int i = 0; i < 8; i++)
         {
-            if (i > 6)
-                level[i] = 3;
-            else if (i > 2)
-                level[i] = 2;
-            else
-                level[i] = 1;
+            //if (i > 6)
+            //    level[i] = 3;
+            //else if (i > 2)
+            //    level[i] = 2;
+            //else
+            //    level[i] = 1;
+            level[i] += i + 1;
         }
     }
 
@@ -47,7 +48,8 @@ public class SeasonMission : MonoBehaviour
 
     public bool Check(SEASON season)
     {
-        TentativeMission(season);
+        if (TentativeMission(season))
+            return true;
         //switch(season)
         //{
         //    case SEASON.SPRING:
@@ -83,7 +85,7 @@ public class SeasonMission : MonoBehaviour
 
     bool TentativeMission(SEASON season)
     {
-        if (GameManager.instance.level > level[(int)season])
+        if (GameManager.instance.level >= level[(int)season])
             return true;
 
         return false;

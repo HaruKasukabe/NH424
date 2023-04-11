@@ -16,9 +16,7 @@ public class MaterialUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.text = "季節：" + GameManager.instance.season + "\nターン：" + GameManager.instance.nowTurn + "/" + GameManager.instance.seasonTurnNum
-                    + "\nレベル：" + GameManager.instance.level
-                    + "\n食材：" + GameManager.instance.food + "\n木材：" + GameManager.instance.wood 
-                    + "\n石材：" + GameManager.instance.stone + "\n鉄材：" + GameManager.instance.iron;
+        text.text = "木材：" + GameManager.instance.wood + "\n石材：" + GameManager.instance.stone + "\n鉄材：" + GameManager.instance.iron
+                    + "\n\n食材：" + GameManager.instance.food.ToString("f0");
     }
 }
