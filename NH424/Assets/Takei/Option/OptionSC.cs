@@ -13,6 +13,9 @@ using UnityEngine;
 
 public class OptionSC : MonoBehaviour
 {
+    // スクリプト参照
+    ManagementAudio m_audiosc; // オーディオ管理スクリプト
+
     // 変数宣言
     private float Camerasensitivity; // カメラ感度保存関数
     private bool OpenMOption; // メインのオプションの画面が開かれているか
@@ -22,10 +25,6 @@ public class OptionSC : MonoBehaviour
     public GameObject ImageMOption; // メインのOptionのUI画像
     public GameObject ImageCOption; // カメラのOptionのUI画像
     public GameObject ImageSOption; // サウンドのOptionのUI画像
-    public AudioSource ASbgm; // BGMのオーディオソース
-    public AudioSource ASSE; // SEのオーディオソース
-    [SerializeField]AudioClip BGM1; // BGMのクリップ(ソース)増えるなら別スクリプトで管理予定
-
 
     // Initialize
     void Start()
@@ -34,11 +33,7 @@ public class OptionSC : MonoBehaviour
         OpenCOption = false;
         OpenSOption = false;
         OpenOption = false;
-        ImageMOption.SetActive(OpenMOption); // 最初は非表示のためfalse
-        ASbgm = GetComponent<AudioSource>();
-        ASbgm.loop = true;
-        ASSE = GetComponent<AudioSource>();
-        ASSE.loop = false;
+        ImageMOption.SetActive(OpenMOption); // 最初は非表示のためfals
     }
 
     // Update is called once per frame
@@ -67,11 +62,6 @@ public class OptionSC : MonoBehaviour
                 ImageSOption.SetActive(OpenSOption);
             }
             
-        }
-        // デバッグ用インプット
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            PlayBGM(BGM1);
         }
     }
 
@@ -124,26 +114,10 @@ public class OptionSC : MonoBehaviour
     // =============================
     public void SetBGMVolume(float volume)
     {
-        ASbgm.volume = volume;
+        m_audiosc.SetBGMVolume(volume);
     }
     public void SetSEVolume(float volume)
     {
-        ASSE.volume = volume;
+        m_audiosc.SetSEVolume(volume);
     }
-
-    // =============================
-    // サウンドの再生処理関数
-    // =============================
-    // BGMの再生管理
-    public void PlayBGM(AudioClip BGMclip)
-    {
-        // Playだと引数指定できないのでPlayOneShotを使用
-        ASbgm.PlayOneShot(BGMclip);
-    }
-    // SEの再生管理
-    public void PlaySE(AudioClip SEclip)
-    {
-        ASSE.PlayOneShot(SEclip);
-    }
-
 }
