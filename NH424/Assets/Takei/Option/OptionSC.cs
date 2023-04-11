@@ -14,7 +14,7 @@ using UnityEngine;
 public class OptionSC : MonoBehaviour
 {
     // スクリプト参照
-    ManagementAudio m_audiosc; // オーディオ管理スクリプト
+    //ManagementAudio m_audiosc; // オーディオ管理スクリプト
 
     // 変数宣言
     private float Camerasensitivity; // カメラ感度保存関数
@@ -114,10 +114,10 @@ public class OptionSC : MonoBehaviour
     // =============================
     public void SetBGMVolume(float volume)
     {
-        m_audiosc.SetBGMVolume(volume);
+        //m_audiosc.SetBGMVolume(volume);
     }
     public void SetSEVolume(float volume)
     {
-        m_audiosc.SetSEVolume(volume);
+        //m_audiosc.SetSEVolume(volume);
     }
 }

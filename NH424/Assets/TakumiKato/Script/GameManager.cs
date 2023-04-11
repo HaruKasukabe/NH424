@@ -170,8 +170,13 @@ public class GameManager : MonoBehaviour
     }
     public bool bMenuDisplay()
     {
-        if (ShopButton.instance.GetbMenu() && VillageButton.instance.GetbMenu())
-            return true;
+        if (MissionButton.instance.GetbMenu())
+        {
+            if (ShopButton.instance.GetbMenu() && VillageButton.instance.GetbMenu())
+                return true;
+            else
+                return false;
+        }
         else
             return false;
     }
