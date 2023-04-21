@@ -39,7 +39,7 @@ public class ShopButton : MonoBehaviour
 
     public void OnClick()
     {
-        if (bCanMenu && GameManager.instance.MoveUnitInFhase())
+        if (bCanMenu)
         {
             trs.position = new Vector2(Screen.width / 2, Screen.height / 2);
             listTrs.position = new Vector2(Screen.width / 2, Screen.height / 6);

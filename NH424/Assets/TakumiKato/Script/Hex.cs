@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Hex : MonoBehaviour
 {
-    public Unit Unit;
-    public INT2 hexNum;
-    public INT2[] nextNum = new INT2[6];
+    public Unit Unit;                       // 今置かれているユニット
+    public INT2 hexNum;                     // このマスのマップ座標
+    public INT2[] nextNum = new INT2[6];    // 隣接しているマスのマップ座標
 
     protected Renderer rend;
     MeshRenderer mesh;
@@ -20,6 +20,8 @@ public class Hex : MonoBehaviour
     public bool bDiscover = false;
     bool bSetDiscover = false;
     bool bEnd = false;
+    bool bSetNextHex = false;
+    public bool bMaterial = false;
     public GameObject normalHex;
 
     public GameObject effectObject;
@@ -50,7 +52,7 @@ public class Hex : MonoBehaviour
             bCursol = false;
         }
 
-
+        // 隣接しているマスを発見設定にしていない且つ反転されている場合
         if (!bSetDiscover && bReverse)
         {
             for (int i = 0; i < nextNum.Length; i++)
@@ -64,70 +66,84 @@ public class Hex : MonoBehaviour
             }
         }
 
-        if (level < 2)
-        {
-            if ((level != GameManager.instance.level) || Map.instance.round > 0)
-            {
-                if (bEnd)
-                {
-                    for (int i = 0; i < nextNum.Length; i++)
-                    {
-                        INT2 num = nextNum[i];
-                        GameObject obj = Map.instance.map[num.x, num.z];
-                        if (!obj.activeSelf)
-                        {
-                            obj.SetActive(true);
-                            obj.GetComponent<Hex>().SetEnd();
-                            Map.instance.round--;
-                        }
-                    }
-                }
-            }
-        }
+        if ((level != GameManager.instance.level) || Map.instance.round > 0)
+            SetNextHex2();
+        else if (bSetNextHex)
+            SetNextHex();
     }
 
     protected void GetMaterial(UNIT_ACT act)
     {
-        if (turn != GameManager.instance.nowTurn)
+        //if (turn != GameManager.instance.nowTurn)
+        //{
+        if (bUnit && bMaterial)
         {
-            if (bUnit)
+            if (Unit.bFriend)
             {
-                if (Unit.bFriend)
+                switch (act)
                 {
-                    switch (act)
-                    {
-                        case UNIT_ACT.COAL_MINE:
-                            if (Unit.sta.abilityKind == UNIT_ACT.COAL_MINE)
-                                GameManager.instance.iron += 100.0f;
-                            else
-                                GameManager.instance.iron += 50.0f;
-                            break;
-                        case UNIT_ACT.FOREST:
-                            if (Unit.sta.abilityKind == UNIT_ACT.FOREST)
-                                GameManager.instance.wood += 100.0f;
-                            else
-                                GameManager.instance.wood += 50.0f;
-                            break;
-                        case UNIT_ACT.GARDEN:
-                            if (Unit.sta.abilityKind == UNIT_ACT.GARDEN)
-                                GameManager.instance.food += 100.0f;
-                            else
-                                GameManager.instance.food += 50.0f;
-                            break;
-                        case UNIT_ACT.QUARRY:
-                            if (Unit.sta.abilityKind == UNIT_ACT.QUARRY)
-                                GameManager.instance.stone += 100.0f;
-                            else
-                                GameManager.instance.stone += 50.0f;
-                            break;
-                    }
+                    case UNIT_ACT.GARDEN:
+                        GameManager.instance.food += Unit.sta.food;
+                        Unit.food += Unit.sta.food;
+                        break;
+                    case UNIT_ACT.FOREST:
+                        GameManager.instance.wood += Unit.sta.wood;
+                        Unit.wood += Unit.sta.wood;
+                        break;
+                    case UNIT_ACT.QUARRY:
+                        GameManager.instance.stone += Unit.sta.stone;
+                        Unit.stone += Unit.sta.stone;
+                        break;
+                    case UNIT_ACT.COAL_MINE:
+                        GameManager.instance.iron += Unit.sta.iron;
+                        Unit.iron += Unit.sta.iron;
+                        break;
+                }
 
-                    pickTime--;
-                    if (pickTime < 1)
-                        ChangeNormalHex();
+                bMaterial = false;
+                pickTime--;
+                if (pickTime < 1)
+                    ChangeNormalHex();
+            }
+        }
+        turn = GameManager.instance.nowTurn;
+        //}
+    }
+    void SetNextHex()
+    {
+        // マップ端のマスならば
+        if (bEnd)
+        {
+            for (int i = 0; i < nextNum.Length; i++)
+            {
+                INT2 num = nextNum[i];
+                GameObject obj = Map.instance.map[num.x, num.z];
+                if (!obj.activeSelf)
+                {
+                    obj.SetActive(true);
+                    obj.GetComponent<Hex>().SetEnd();
+                    Map.instance.round--;
                 }
             }
-            turn = GameManager.instance.nowTurn;
+        }
+    }
+    void SetNextHex2()
+    {
+        // マップ端のマスならば
+        if (bEnd)
+        {
+            for (int i = 0; i < nextNum.Length; i++)
+            {
+                INT2 num = nextNum[i];
+                GameObject obj = Map.instance.map[num.x, num.z];
+                if (!obj.activeSelf)
+                {
+                    obj.SetActive(true);
+                    obj.GetComponent<Hex>().SetEnd();
+                    obj.GetComponent<Hex>().bSetNextHex = true;
+                    Map.instance.round--;
+                }
+            }
         }
     }
     void ChangeNormalHex()

@@ -12,14 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8fc475d01f4eb8458a1cda6d895bed8, type: 3}
   m_Name: giraffe
   m_EditorClassIdentifier: 
-  obj: {fileID: 5076067991322438185, guid: f178a16168236f743a62c85b109b9edc, type: 3}
-  number: 2
-  charName: a
-  unitTag: 
-  sprite: {fileID: 8160446217370900617, guid: 3819564fd0dcbaa4bbab0b8974806c22, type: 3}
-  abilityKind: 2
-  maxHp: 100
-  cost: 30
-  moveLong: 2
-  moveNum: 1
-  serchRange: 0.1
+  initObj: {fileID: 5076067991322438185, guid: f178a16168236f743a62c85b109b9edc, type: 3}
+  initNumber: 2
+  initCharName: "\u304D\u308A\u3093"
+  initUnitTag: 09000000
+  initSprite: {fileID: 8160446217370900617, guid: 3819564fd0dcbaa4bbab0b8974806c22, type: 3}
+  initFood: 40
+  initWood: 20
+  initStone: 20
+  initIron: 40
+  initAbilityKind: 0
+  initCost: 50
+  initMoveLong: 5
+  initMoveNum: 1
+  initSerchRange: 0

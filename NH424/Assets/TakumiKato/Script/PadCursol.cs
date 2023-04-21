@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class PadCursol : MonoBehaviour
 {
-    public float padCursolSpeed = 0.1f;
-    Unit padSelectUnit = null;
-    RaycastHit hitDown;
-    Hex Hex;
+    public float padCursolSpeed = 0.1f;     // 動かす速度
+    Unit padSelectUnit = null;              // 今掴んでいるユニット
+    RaycastHit hitDown;                     // カーソルの下を取得
+    Hex Hex;                                // 今下にあるマス
 
     // Start is called before the first frame update
     void Start()
@@ -18,14 +18,14 @@ public class PadCursol : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.instance.bMenuDisplay())
+        if (GameManager.instance.bMenuDisplay())    // 何かメニューを表示しているかどうか
         {
             float moveX = Input.GetAxis("Horizontal") * padCursolSpeed;
             float moveY = Input.GetAxis("Vertical") * padCursolSpeed;
             transform.localPosition += new Vector3(moveX, 0.0f, moveY);
 
-
-            int mask = 1 << 6;
+            // カーソルの下にあるマスを取得
+            int mask = 1 << 6;  // Rayがマスにしか当たらないように設定
             if (Physics.Raycast(transform.position, Vector3.down, out hitDown, 2.0f, mask))
             {
                 Hex hitHex = hitDown.transform.GetComponent<Hex>();
@@ -35,18 +35,20 @@ public class PadCursol : MonoBehaviour
 
                 Hex.SetCursol(true);
 
+                // 掴んでいるユニットを動かす
                 if (padSelectUnit)
                     padSelectUnit.PadDrag(hitDown);
             }
 
+            // ユニットを掴む、置く
             if (Input.GetButtonDown("Fire1"))
             {
-                if (padSelectUnit == null)
+                if (padSelectUnit == null)　// ユニットを掴んでいない時
                 {
                     if (Hex.bUnit)
                         padSelectUnit = Hex.Unit;
                 }
-                else
+                else // ユニットを掴んでいる時
                 {
                     padSelectUnit.MouseUp();
                     padSelectUnit = null;

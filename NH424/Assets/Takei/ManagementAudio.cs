@@ -44,10 +44,10 @@ public class ManagementAudio : MonoBehaviour
         ASSE.loop = false;
 
         // Resources.Loadで指定する場合拡張子は省略
-        ACBGMSpring = (AudioClip)Resources.Load("BGM/Spring");
-        ACBGMSummer = (AudioClip)Resources.Load("BGM/Summer");
-        ACBGMFall = (AudioClip)Resources.Load("BGM/Fall");
-        ACBGMWinter = (AudioClip)Resources.Load("BGM/Winter");
+        //ACBGMSpring = (AudioClip)Resources.Load("BGM/Spring");
+        //ACBGMSummer = (AudioClip)Resources.Load("BGM/Summer");
+        //ACBGMFall = (AudioClip)Resources.Load("BGM/Fall");
+        //ACBGMWinter = (AudioClip)Resources.Load("BGM/Winter");
 
         fadeBGM = 0; // 0:初期値 1:フェードアウト 2:フェードイン
         NowBGMVolume = 0.6f; // 1.0が100%

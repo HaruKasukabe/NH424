@@ -16,6 +16,6 @@ public class SeasonText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.text = GameManager.instance.season + " " + GameManager.instance.nowTurn + "/" + GameManager.instance.seasonTurnNum;
+        text.text = "" + GameManager.instance.nowTurn + "/" + GameManager.instance.seasonTurnNum;
     }
 }
