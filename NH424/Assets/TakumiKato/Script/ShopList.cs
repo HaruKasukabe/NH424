@@ -52,6 +52,8 @@ public class ShopList : MonoBehaviour
             unit.bFriend = true;
             GameManager.instance.AddSelectUnit(unit);
 
+            GameManager.instance.friendNum++;
+            GameManager.instance.nowTurn++;
             GameManager.instance.food -= unit.sta.cost * 2;
             RemoveList(id);
         }

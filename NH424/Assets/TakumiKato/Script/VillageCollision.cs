@@ -20,37 +20,40 @@ public class VillageCollision : MonoBehaviour
     {
         if (!b)
         {
-            if (level != GameManager.instance.level)
+            if (level < GameManager.instance.maxVillageLevel)
             {
-                for (int i = 0; i < hex.nextNum.Length; i++)
+                if (level != GameManager.instance.level)
                 {
-                    INT2 num = hex.nextNum[i];
-                    GameObject obj = Map.instance.map[num.x, num.z];
-                    if (!obj.CompareTag("Village"))
+                    for (int i = 0; i < hex.nextNum.Length; i++)
                     {
-                        Unit unit = null;
-                        Vector3 pos = obj.transform.position;
-
-                        if (obj.GetComponent<Hex>().bUnit)
-                            unit = obj.GetComponent<Hex>().Unit;
-
-                        Destroy(obj);
-
-                        obj = Instantiate(this.gameObject, pos, Quaternion.identity);
-                        if (unit)
+                        INT2 num = hex.nextNum[i];
+                        GameObject obj = Map.instance.map[num.x, num.z];
+                        if (!obj.CompareTag("Village"))
                         {
-                            if(unit.bFriend)
-                                obj.GetComponent<Hex>().SetUnit(unit);
-                            else
-                                obj.GetComponent<Hex>().SetStrayUnit(unit);
-                        }
-                        obj.GetComponent<Hex>().SetHexNum(num);
-                        
-                        Map.instance.map[num.x, num.z] = obj;
-                    }
-                }
+                            Unit unit = null;
+                            Vector3 pos = obj.transform.position;
 
-                b = true;
+                            if (obj.GetComponent<Hex>().bUnit)
+                                unit = obj.GetComponent<Hex>().Unit;
+
+                            Destroy(obj);
+
+                            obj = Instantiate(this.gameObject, pos, Quaternion.identity);
+                            if (unit)
+                            {
+                                if (unit.bFriend)
+                                    obj.GetComponent<Hex>().SetUnit(unit);
+                                else
+                                    obj.GetComponent<Hex>().SetStrayUnit(unit);
+                            }
+                            obj.GetComponent<Hex>().SetHexNum(num);
+
+                            Map.instance.map[num.x, num.z] = obj;
+                        }
+                    }
+
+                    b = true;
+                }
             }
         }
     }

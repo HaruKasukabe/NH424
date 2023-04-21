@@ -12,14 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8fc475d01f4eb8458a1cda6d895bed8, type: 3}
   m_Name: rabit
   m_EditorClassIdentifier: 
-  obj: {fileID: 8920747968713613834, guid: 73c9d016060a79441b0bb55d8ee47e7e, type: 3}
-  number: 3
-  charName: a
-  unitTag: 
-  sprite: {fileID: 8160446217370900617, guid: 5a4f429601195d445a0a2b1670aed4ff, type: 3}
-  abilityKind: 3
-  maxHp: 100
-  cost: 50
-  moveLong: 2
-  moveNum: 2
-  serchRange: 0.1
+  initObj: {fileID: 8920747968713613834, guid: 73c9d016060a79441b0bb55d8ee47e7e, type: 3}
+  initNumber: 3
+  initCharName: "\u3046\u3055\u304E"
+  initUnitTag: 000000000b00000011000000
+  initSprite: {fileID: 8160446217370900617, guid: 5a4f429601195d445a0a2b1670aed4ff, type: 3}
+  initFood: 20
+  initWood: 20
+  initStone: 20
+  initIron: 20
+  initAbilityKind: 0
+  initCost: 50
+  initMoveLong: 2
+  initMoveNum: 2
+  initSerchRange: 0.1

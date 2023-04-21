@@ -11,6 +11,9 @@ public class Map : MonoBehaviour
     public GameObject[] hex;
     public GameObject firstUnit;
     public GameObject[] unit;
+    public GameObject[] house;
+    GameObject houseNow;
+    int houseNum = 0;
     public int mapSize = 30;
     public int startRound = 5;
     public int round;
@@ -28,7 +31,6 @@ public class Map : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            //DontDestroyOnLoad(this.gameObject);
         }
         else
         {
@@ -72,7 +74,18 @@ public class Map : MonoBehaviour
 
             for (int x = 0; x < mapSize; x++)
             {
-                if ((x == centerNum) && (z == centerNum) || BCenter(new INT2(x, z)))
+                if ((x == centerNum) && (z == centerNum))
+                {
+                    map[x, z] = Instantiate(hexVillage, new Vector3(pos.x, 0.0f, pos.z), Quaternion.identity);
+                    Hex hex = map[x, z].GetComponent<Hex>();
+                    hex.SetHexNum(new INT2(x, z));
+                    hex.SetEnd();
+
+                    houseNow = Instantiate(house[0], new Vector3(pos.x + 3.0f, 0.2f, pos.z), Quaternion.identity);
+                    houseNow.transform.Rotate(new Vector3(0, 90, 0));
+                    houseNow.GetComponent<ObjectOnHex>().SetHex(hex);
+                }
+                else if (BCenter(new INT2(x, z)))
                 {
                     map[x, z] = Instantiate(hexVillage, new Vector3(pos.x, 0.0f, pos.z), Quaternion.identity);
                     Hex hex = map[x, z].GetComponent<Hex>();
@@ -97,7 +110,6 @@ public class Map : MonoBehaviour
                         unitId++;
                     }
                 }
-                
                 pos.x += hexSizeX;
             }
             pos.z += hexSizeZ;
@@ -153,5 +165,18 @@ public class Map : MonoBehaviour
     {
         unitId++;
         return unitId - 1;
+    }
+    public void LevelUpHouse()
+    {
+        houseNum++;
+        Vector3 pos = houseNow.transform.position;
+        Hex hex = houseNow.GetComponent<ObjectOnHex>().GetHex();
+        Destroy(houseNow);
+        if(houseNum == 1)
+            houseNow = Instantiate(house[houseNum], new Vector3(pos.x - 3.0f, pos.y + 0.35f, pos.z), Quaternion.identity);
+        else
+            houseNow = Instantiate(house[houseNum], new Vector3(pos.x, pos.y + 0.1f, pos.z), Quaternion.identity);
+        houseNow.transform.Rotate(new Vector3(0, 90, 0));
+        houseNow.GetComponent<ObjectOnHex>().SetHex(hex);
     }
 }

@@ -14,7 +14,7 @@ using UnityEngine;
 public class OptionSC : MonoBehaviour
 {
     // スクリプト参照
-    //ManagementAudio m_audiosc; // オーディオ管理スクリプト
+    ManagementAudio m_audiosc; // オーディオ管理スクリプト
 
     // 変数宣言
     private float Camerasensitivity; // カメラ感度保存関数
@@ -69,6 +69,28 @@ public class OptionSC : MonoBehaviour
     // ボタン処理関数
     // ==========================
     // ゲームに戻るを押したとき
+    public void SetOption()
+    {
+        // オプション画面が開かれていいない
+        if (!OpenOption)
+        {
+            OpenOption = true;
+            // メインのオプション画面開く
+            OpenMOption = true;
+            ImageMOption.SetActive(OpenMOption);
+        }
+        else if (OpenOption)
+        {
+            // 全てのオプション画面をオフにする
+            OpenOption = false;
+            OpenMOption = false;
+            OpenCOption = false;
+            OpenSOption = false;
+            ImageMOption.SetActive(OpenMOption);
+            ImageCOption.SetActive(OpenCOption);
+            ImageSOption.SetActive(OpenSOption);
+        }
+    }
     public void SetActiveFlg()
     {
         OpenMOption = !OpenMOption;
@@ -114,10 +136,10 @@ public class OptionSC : MonoBehaviour
     // =============================
     public void SetBGMVolume(float volume)
     {
-        //m_audiosc.SetBGMVolume(volume);
+        m_audiosc.SetBGMVolume(volume);
     }
     public void SetSEVolume(float volume)
     {
-        //m_audiosc.SetSEVolume(volume);
+        m_audiosc.SetSEVolume(volume);
     }
 }

@@ -12,14 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8fc475d01f4eb8458a1cda6d895bed8, type: 3}
   m_Name: squirrel
   m_EditorClassIdentifier: 
-  obj: {fileID: 3952831816749189551, guid: 40c9a3d003166404faded4659603f5a7, type: 3}
-  number: 5
-  charName: a
-  unitTag: 
-  sprite: {fileID: 8160446217370900617, guid: a62c3ddbdab27db4ea5cbfd896ad61e4, type: 3}
-  abilityKind: 1
-  maxHp: 100
-  cost: 30
-  moveLong: 2
-  moveNum: 1
-  serchRange: 0.1
+  initObj: {fileID: 3952831816749189551, guid: 40c9a3d003166404faded4659603f5a7, type: 3}
+  initNumber: 5
+  initCharName: "\u308A\u3059"
+  initUnitTag: 020000000f0000000e000000
+  initSprite: {fileID: 8160446217370900617, guid: a62c3ddbdab27db4ea5cbfd896ad61e4, type: 3}
+  initFood: 30
+  initWood: 10
+  initStone: 10
+  initIron: 30
+  initAbilityKind: 0
+  initCost: 50
+  initMoveLong: 1
+  initMoveNum: 3
+  initSerchRange: 0.1

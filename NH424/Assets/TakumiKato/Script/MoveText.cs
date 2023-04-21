@@ -23,6 +23,7 @@ public class MoveText : MonoBehaviour
         {
             text.color = new Color32(255, 255, 255, 255);
             text.text = "" + unit.actNum;
+            unit.bMoveNumDisplay = false;
         }
         else if(unit.bFriend && !unit.bMoveNumDisplay)
         {

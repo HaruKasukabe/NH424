@@ -12,14 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8fc475d01f4eb8458a1cda6d895bed8, type: 3}
   m_Name: rat
   m_EditorClassIdentifier: 
-  obj: {fileID: 8890617557414746318, guid: 9ed5db5b113a5dd438037098969b0faa, type: 3}
-  number: 4
-  charName: a
-  unitTag: 
-  sprite: {fileID: 8160446217370900617, guid: 4a395df5a35c3ad4abfe086c02e508ab, type: 3}
-  abilityKind: 0
-  maxHp: 100
-  cost: 30
-  moveLong: 2
-  moveNum: 1
-  serchRange: 0.1
+  initObj: {fileID: 8890617557414746318, guid: 9ed5db5b113a5dd438037098969b0faa, type: 3}
+  initNumber: 4
+  initCharName: "\u306D\u305A\u307F"
+  initUnitTag: 010000000f00000012000000
+  initSprite: {fileID: 8160446217370900617, guid: 4a395df5a35c3ad4abfe086c02e508ab, type: 3}
+  initFood: 30
+  initWood: 10
+  initStone: 10
+  initIron: 30
+  initAbilityKind: 0
+  initCost: 50
+  initMoveLong: 1
+  initMoveNum: 3
+  initSerchRange: 0.1

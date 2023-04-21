@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class HexGarden : Hex
 {
+    GameObject child;
     // Start is called before the first frame update
     new void Awake()
     {
         base.Awake();
+
+        child = transform.GetChild(0).gameObject;
+        child.SetActive(false);
     }
 
     // Update is called once per frame
@@ -16,5 +20,7 @@ public class HexGarden : Hex
         base.Update();
 
         GetMaterial(UNIT_ACT.GARDEN);
+        if (bReverse)
+            child.SetActive(true);
     }
 }

@@ -45,6 +45,7 @@ public class KemokoListOut : MonoBehaviour
             image.id = unit.id;
 
             outUnitList.Add(unit);
+            UnitTagAbility.instance.addTag(unit);
             outImageList.Add(image);
             return true;
         }
@@ -65,6 +66,7 @@ public class KemokoListOut : MonoBehaviour
             unit.SetHex(Map.instance.GetVillageHex());
 
             outUnitList.Add(unit);
+            UnitTagAbility.instance.addTag(unit);
             outImageList.Add(image);
             return true;
         }
@@ -77,7 +79,9 @@ public class KemokoListOut : MonoBehaviour
         {
             if (outUnitList[i].id == selectId)
             {
+                Unit unit = outUnitList[i];
                 outUnitList.RemoveAt(i);
+                UnitTagAbility.instance.deleteTag(unit);
             }
         }
         for (int i = 0; i < outImageList.Count; i++)

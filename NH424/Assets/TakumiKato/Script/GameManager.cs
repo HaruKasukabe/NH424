@@ -40,6 +40,7 @@ public struct INT2
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
+    public ManagementAudio m_audiosc; // オーディオ管理スクリプト
     public Fade fade;
 
     public SEASON season = SEASON.SPRING;
@@ -51,6 +52,7 @@ public class GameManager : MonoBehaviour
     public int friendNum = 1;
 
     public int level = 0;
+    public int maxVillageLevel = 3;
     public float food = 0.0f;
     public float wood = 0.0f;
     public float stone = 0.0f;
@@ -79,6 +81,7 @@ public class GameManager : MonoBehaviour
             canActUnitNum = KemokoListOut.instance.maxOutNum;
 
         fade.FadeOut(2.0f);
+        m_audiosc.StartBGM();
     }
 
     void Update()
@@ -99,6 +102,7 @@ public class GameManager : MonoBehaviour
                 //fade.FadeIn(2.0f, () => { SceneManager.LoadScene("TitleScene"); });
                 SceneManager.LoadScene("TitleScene");
             }
+            m_audiosc.SelectBGM();
             nowTurn = 0;
             season++;
         }
@@ -114,7 +118,9 @@ public class GameManager : MonoBehaviour
                     stone -= levelUpNeed;
                     iron -= levelUpNeed;
                     level++;
-                    levelUpNeed = 100.0f * (level + 1); 
+                    levelUpNeed = 100.0f * (level + 1);
+                    if(level < 4)
+                        Map.instance.LevelUpHouse();
                 }
     }
 

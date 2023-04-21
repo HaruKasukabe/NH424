@@ -40,7 +40,7 @@ public class SelectButtons : MonoBehaviour
         }
     }
 
-    public IEnumerator CorGetInput(Unit unit)
+    public IEnumerator CorGetInput(Unit unit, Unit myUnit)
     {
         //keysをすべてfalseにする
         for (int i = 0; i < keys.Count; i++)
@@ -56,8 +56,10 @@ public class SelectButtons : MonoBehaviour
         //いずれかのボタンが押されるまで待機
         yield return new WaitWhile(() => Selected == -1);
 
+        // 仲間にする選択をした時
         if (Selected == 0)
-            unit.BeMyFriend();
+            if (unit.BeMyFriend())
+                myUnit.friendNum++;
 
         //ゲームオブジェクトを非表示
         gameObject.SetActive(false);
