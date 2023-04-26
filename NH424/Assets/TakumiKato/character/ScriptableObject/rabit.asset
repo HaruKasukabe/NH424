@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initObj: {fileID: 8920747968713613834, guid: 73c9d016060a79441b0bb55d8ee47e7e, type: 3}
   initNumber: 3
-  initCharName: "\u3046\u3055\u304E"
+  initMotifName: "\u3046\u3055\u304E"
+  initCharName: "\u3061\u30FC\u304F\u3093"
   initUnitTag: 000000000b00000011000000
   initSprite: {fileID: 8160446217370900617, guid: 5a4f429601195d445a0a2b1670aed4ff, type: 3}
   initFood: 20
@@ -22,7 +23,7 @@ MonoBehaviour:
   initStone: 20
   initIron: 20
   initAbilityKind: 0
-  initCost: 50
+  initCost: 60
   initMoveLong: 2
   initMoveNum: 2
   initSerchRange: 0.1

@@ -50,6 +50,7 @@ public class SelectButtons : MonoBehaviour
 
         //ゲームオブジェクトを表示
         gameObject.SetActive(true);
+        GameManager.instance.SetUICursol(true);
 
         title.text = "仲間にしますか？\n必要食材：" + unit.sta.cost + "\n所持食材：" + GameManager.instance.food.ToString("f0");
 
@@ -63,6 +64,7 @@ public class SelectButtons : MonoBehaviour
 
         //ゲームオブジェクトを非表示
         gameObject.SetActive(false);
+        GameManager.instance.SetUICursol(false);
     }
 
     // 各ボタンに処理を割り当て

@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8fc475d01f4eb8458a1cda6d895bed8, type: 3}
   m_Name: crow
   m_EditorClassIdentifier: 
-  initObj: {fileID: 3431804161947223861, guid: b0444c84ec1468a46a908a4455809e4d, type: 3}
+  initObj: {fileID: 4184299444437645725, guid: b0444c84ec1468a46a908a4455809e4d, type: 3}
   initNumber: 1
-  initCharName: "\u304B\u3089\u3059"
+  initMotifName: "\u304B\u3089\u3059"
+  initCharName: "\u30E8\u30A4\u30A2\u3061\u3083\u3093"
   initUnitTag: 000000000a00000010000000
   initSprite: {fileID: 8160446217370900617, guid: 608b474cdc7ac5a4da74a0115b04e9ad, type: 3}
   initFood: 10
@@ -22,7 +23,7 @@ MonoBehaviour:
   initStone: 10
   initIron: 10
   initAbilityKind: 0
-  initCost: 50
+  initCost: 40
   initMoveLong: 3
   initMoveNum: 2
   initSerchRange: 0.1

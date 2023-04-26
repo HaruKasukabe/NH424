@@ -32,6 +32,7 @@ public class UnitData : ScriptableObject, ISerializationCallbackReceiver
 {
     [SerializeField] private GameObject initObj;          // キャラクターのオブジェクト
     [SerializeField] private int initNumber;              // ケモコごとのナンバー
+    [SerializeField] private string initMotifName;        // キャラクターのモチーフ名
     [SerializeField] private string initCharName;         // キャラクターの名前
     [SerializeField] private UnitTag[] initUnitTag;       // 持っているタグ
     [SerializeField] private GameObject initSprite;       // キャラ画像
@@ -48,7 +49,8 @@ public class UnitData : ScriptableObject, ISerializationCallbackReceiver
     [SerializeField] private float initSerchRange = 0.1f;        // 探索範囲
 
     [NonSerialized] public GameObject obj;
-    [NonSerialized] public int number;              
+    [NonSerialized] public int number;
+    [NonSerialized] public string motifName;
     [NonSerialized] public string charName;         
     [NonSerialized] public UnitTag[] unitTag;      
     [NonSerialized] public GameObject sprite;      
@@ -70,6 +72,7 @@ public class UnitData : ScriptableObject, ISerializationCallbackReceiver
         // ランタイムでの書き込み用に値をコピーする
         obj = initObj;
         number = initNumber;
+        motifName = initMotifName;
         charName = initCharName;
         unitTag = initUnitTag;
         sprite = initSprite;

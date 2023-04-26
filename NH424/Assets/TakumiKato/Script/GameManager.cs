@@ -9,10 +9,8 @@ public enum SEASON
     SUMMER,
     FALL,
     WINTER,
-    SPRING_2,
-    SUMMER_2,
-    FALL_2,
-    WINTER_2
+
+    MAX
 }
 struct FLOAT2
 {
@@ -41,14 +39,17 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
     public ManagementAudio m_audiosc; // オーディオ管理スクリプト
+    public GameObject UICursol;
+    public GameObject CharacterUI;
     public Fade fade;
 
     public SEASON season = SEASON.SPRING;
-    public int seasonTurnNum = 5;
-    public int nowTurn = 0;
+    public int seasonRoundNum = 0;
+    public int seasonTurnNum = 31;
+    public int nowTurn = 1;
     public int canActUnitNum = 0;
     public int moveNumTotal = 0;
-    public int clearFriendNum = 3;
+    public List<int> friendCatList = new List<int>();
     public int friendNum = 1;
 
     public int level = 0;
@@ -58,6 +59,8 @@ public class GameManager : MonoBehaviour
     public float stone = 0.0f;
     public float iron = 0.0f;
     public float levelUpNeed = 100.0f;
+
+    bool bFirstReset = true;
 
     private void Awake()
     {
@@ -74,26 +77,28 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        moveNumTotal = KemokoListOut.instance.GetMoveNumTotal();
-        if (moveNumTotal < 5)
-            canActUnitNum = moveNumTotal;
-        else
-            canActUnitNum = KemokoListOut.instance.maxOutNum;
-
         fade.FadeOut(2.0f);
         m_audiosc.StartBGM();
     }
 
     void Update()
     {
-        if (friendNum >= clearFriendNum)// || Input.GetKeyDown(KeyCode.A))
+        if(bFirstReset)
+        {
+            FirstReset();
+            if(canActUnitNum > 0)
+                bFirstReset = false;
+        }
+
+        if (friendCatList.Count >= 20)// || Input.GetKeyDown(KeyCode.A))
         {
             //fade.FadeIn(2.0f, () => { SceneManager.LoadScene("ClearScene"); });
             SceneManager.LoadScene("ClearScene");
         }
 
-        if (canActUnitNum <= 0)
-            EndTurn();
+        if(!bFirstReset)
+            if (canActUnitNum <= 0 || (Input.GetButtonDown("TurnEnd") && bMenuDisplay()))
+                EndTurn();
 
         if (nowTurn == seasonTurnNum)
         {
@@ -103,8 +108,15 @@ public class GameManager : MonoBehaviour
                 SceneManager.LoadScene("TitleScene");
             }
             m_audiosc.SelectBGM();
-            nowTurn = 0;
+            nowTurn = 1;
             season++;
+            SeasonIconUI.SetSeasonIcon();
+            
+            if(season == SEASON.MAX)
+            {
+                season = SEASON.SPRING;
+                seasonRoundNum++;
+            }
         }
     }
 
@@ -138,6 +150,21 @@ public class GameManager : MonoBehaviour
     public void EndTurn()
     {
         nowTurn++;
+        List<Unit> unitList = KemokoListOut.instance.outUnitList;
+
+        ShopList.instance.ChengeList();
+
+        moveNumTotal = KemokoListOut.instance.GetMoveNumTotal();
+        if (moveNumTotal < KemokoListOut.instance.maxOutNum)
+            canActUnitNum = moveNumTotal;
+        else
+            canActUnitNum = KemokoListOut.instance.maxOutNum;
+
+        for (int i = 0; i < unitList.Count; i++)
+            unitList[i].SetAct();
+    }
+    void FirstReset()
+    {
         List<Unit> unitList = KemokoListOut.instance.outUnitList;
 
         ShopList.instance.ChengeList();
@@ -185,5 +212,28 @@ public class GameManager : MonoBehaviour
         }
         else
             return false;
+    }
+    public void SetUICursol(bool act)
+    {
+        UICursol.gameObject.SetActive(act);
+    }
+    public void SetCharacterUI(bool act, Unit unit)
+    {
+        CharacterUI.gameObject.SetActive(act);
+        if(act)
+            CharacterUI.GetComponentInChildren<SelectCharaUI>().SetUnit(unit);
+    }
+    public void AddFriendCatNum(Unit unit)
+    {
+        bool bAdd = true;
+        for(int i = 0; i < friendCatList.Count; i++)
+        {
+            if (friendCatList[i] == unit.sta.number)
+                bAdd = false;
+        }
+        if(bAdd)
+        {
+            friendCatList.Add(unit.sta.number);
+        }
     }
 }

@@ -41,6 +41,7 @@ public class Map : MonoBehaviour
     void Start()
     {
         Instantiate(firstUnit);
+        GameManager.instance.AddFriendCatNum(firstUnit.GetComponent<Unit>());
         map = new GameObject[mapSize, mapSize];
         round = startRound * (6 + (startRound - 1) * 3) - 6;
         centerNum = mapSize / 2;

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8fc475d01f4eb8458a1cda6d895bed8, type: 3}
+  m_Name: swan
+  m_EditorClassIdentifier: 
+  initObj: {fileID: 4488765530148732032, guid: c1c2252259243ca449456806c64c27ea, type: 3}
+  initNumber: 16
+  initMotifName: "\u306F\u304F\u3061\u3087\u3046"
+  initCharName: "\u3053\u3050\u3044\u3055\u3093"
+  initUnitTag: 070000000c000000
+  initSprite: {fileID: 8160446217370900617, guid: 3d56acfde331d7b4d9509c5d02d08189, type: 3}
+  initFood: 10
+  initWood: 10
+  initStone: 10
+  initIron: 10
+  initAbilityKind: 0
+  initCost: 40
+  initMoveLong: 3
+  initMoveNum: 2
+  initSerchRange: 0.1

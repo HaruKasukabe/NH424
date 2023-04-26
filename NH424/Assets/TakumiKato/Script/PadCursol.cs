@@ -54,6 +54,12 @@ public class PadCursol : MonoBehaviour
                     padSelectUnit = null;
                 }
             }
+            // íuÇ¢ÇΩÇ‹Ç‹ëfçﬁÇälìæ
+            if (Input.GetButtonDown("Fire3"))
+            {
+                if(Hex.bUnit)
+                    Hex.Unit.ActMaterial();
+            }
         }
     }
 }

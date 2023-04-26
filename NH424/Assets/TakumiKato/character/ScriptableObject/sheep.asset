@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8fc475d01f4eb8458a1cda6d895bed8, type: 3}
+  m_Name: sheep
+  m_EditorClassIdentifier: 
+  initObj: {fileID: 8652750478506702628, guid: 298642300c8a2354e98a4e397c0c19c7, type: 3}
+  initNumber: 15
+  initMotifName: "\u3072\u3064\u3058"
+  initCharName: "\u3058\u3085\u3044\u3061\u3083\u3093"
+  initUnitTag: 080000000a00000010000000
+  initSprite: {fileID: 8160446217370900617, guid: f3efba82fb8510c48ada4365450083d0, type: 3}
+  initFood: 30
+  initWood: 20
+  initStone: 20
+  initIron: 20
+  initAbilityKind: 0
+  initCost: 60
+  initMoveLong: 2
+  initMoveNum: 2
+  initSerchRange: 0.1

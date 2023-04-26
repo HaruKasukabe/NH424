@@ -6,7 +6,7 @@ using TMPro;
 public class MoveText : MonoBehaviour
 {
     TextMeshPro text;
-    public Unit unit;
+    Unit unit;
 
     // Start is called before the first frame update
     void Start()
