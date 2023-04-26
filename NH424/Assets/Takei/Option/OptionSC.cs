@@ -40,7 +40,7 @@ public class OptionSC : MonoBehaviour
     void Update()
     {
         // キーボードのMでオプションを開く
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.M) || Input.GetButtonDown("Option"))
         {
             // オプション画面が開かれていいない
             if(!OpenOption)
@@ -49,6 +49,8 @@ public class OptionSC : MonoBehaviour
                 // メインのオプション画面開く
                 OpenMOption = true;
                 ImageMOption.SetActive(OpenMOption);
+
+                GameManager.instance.SetUICursol(true);
             }
             else if(OpenOption)
             {
@@ -60,8 +62,20 @@ public class OptionSC : MonoBehaviour
                 ImageMOption.SetActive(OpenMOption);
                 ImageCOption.SetActive(OpenCOption);
                 ImageSOption.SetActive(OpenSOption);
-            }
-            
+
+                GameManager.instance.SetUICursol(false);
+            }   
+        }
+        if (Input.GetButtonDown("Fire2"))
+        {
+            // 全てのオプション画面をオフにする
+            OpenOption = false;
+            OpenMOption = false;
+            OpenCOption = false;
+            OpenSOption = false;
+            ImageMOption.SetActive(OpenMOption);
+            ImageCOption.SetActive(OpenCOption);
+            ImageSOption.SetActive(OpenSOption);
         }
     }
 

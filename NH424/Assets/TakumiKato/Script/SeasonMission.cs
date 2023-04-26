@@ -43,7 +43,7 @@ public class SeasonMission : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.text = "ミッション\nレベル " + level[(int)GameManager.instance.season] + " 以上";
+        text.text = "レベル " + level[(int)GameManager.instance.season] + " 以上";
     }
 
     public bool Check(SEASON season)

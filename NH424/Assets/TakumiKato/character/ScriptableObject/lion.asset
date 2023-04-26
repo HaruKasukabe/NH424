@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8fc475d01f4eb8458a1cda6d895bed8, type: 3}
+  m_Name: lion
+  m_EditorClassIdentifier: 
+  initObj: {fileID: 2025105519788292090, guid: c8b16b486e0749a4eb44d852071e6041, type: 3}
+  initNumber: 13
+  initMotifName: "\u3089\u3044\u304A\u3093"
+  initCharName: "\u30EA\u30AA\u304F\u3093"
+  initUnitTag: 0d00000011000000
+  initSprite: {fileID: 8160446217370900617, guid: a3345259afd2f874f972603649ad5993, type: 3}
+  initFood: 40
+  initWood: 20
+  initStone: 20
+  initIron: 40
+  initAbilityKind: 0
+  initCost: 80
+  initMoveLong: 4
+  initMoveNum: 1
+  initSerchRange: 0.1

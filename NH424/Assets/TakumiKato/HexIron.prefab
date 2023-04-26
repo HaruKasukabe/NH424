@@ -115,6 +115,8 @@ MonoBehaviour:
   bUnit: 0
   bReverse: 0
   bDiscover: 0
+  bMaterialHex: 0
+  bGetMaterial: 0
   normalHex: {fileID: 639822126554316054, guid: 6739c962151eda54ab7230fc9867a33d, type: 3}
   effectObject: {fileID: 7986504087968017091, guid: 3a2073ab9eedb61468feba6f98e70ea1, type: 3}
 --- !u!1001 &5701836563958001714
@@ -138,7 +140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1733259412891847377, guid: 041641fa39ea65a4f9caa3da43c943bb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.212
+      value: 0.226
       objectReference: {fileID: 0}
     - target: {fileID: 1733259412891847377, guid: 041641fa39ea65a4f9caa3da43c943bb, type: 3}
       propertyPath: m_LocalPosition.z

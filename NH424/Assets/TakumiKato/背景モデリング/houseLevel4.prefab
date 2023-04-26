@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5891242373410137213}
   - component: {fileID: 8513231494004068535}
   - component: {fileID: 1608983467148429172}
+  - component: {fileID: -3892578872817914389}
   m_Layer: 0
   m_Name: houseLevel4
   m_TagString: Untagged
@@ -105,3 +106,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   alphaMaterial: {fileID: 2100000, guid: 47ff2137fd218644bbb83be843ca4df3, type: 2}
+--- !u!114 &-3892578872817914389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7864954559480230242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  outlineWidth: 8
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []

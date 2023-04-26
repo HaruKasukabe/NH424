@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8fc475d01f4eb8458a1cda6d895bed8, type: 3}
+  m_Name: horse
+  m_EditorClassIdentifier: 
+  initObj: {fileID: 7354289057514404633, guid: d5f5bf86293042640a6ebfa21aa7afab, type: 3}
+  initNumber: 12
+  initMotifName: "\u3046\u307E"
+  initCharName: "\u30A8\u30EA\u30FC\u30B5\u3061\u3083\u3093"
+  initUnitTag: 0600000012000000
+  initSprite: {fileID: 8160446217370900617, guid: 5b24d08bccac37247967e02d59aa3df5, type: 3}
+  initFood: 20
+  initWood: 30
+  initStone: 30
+  initIron: 30
+  initAbilityKind: 0
+  initCost: 100
+  initMoveLong: 4
+  initMoveNum: 2
+  initSerchRange: 0.1

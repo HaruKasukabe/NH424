@@ -60,6 +60,8 @@ public class Unit : MonoBehaviour
         {
             if (bFriend && actNum > 0)
             {
+                if(col.enabled)
+                    GameManager.instance.SetCharacterUI(true, this);
                 bMoveNumDisplay = true;
                 col.enabled = false;
                 var pos = transform.position;
@@ -106,6 +108,8 @@ public class Unit : MonoBehaviour
         {
             if (bFriend && actNum > 0)
             {
+                if (col.enabled)
+                    GameManager.instance.SetCharacterUI(true, this);
                 bMoveNumDisplay = true;
                 col.enabled = false;
                 var pos = transform.position;
@@ -152,6 +156,7 @@ public class Unit : MonoBehaviour
         {
             if (bFriend && actNum > 0)  // 仲間で且つまだ移動可能数があるとき
             {
+                GameManager.instance.SetCharacterUI(false, this);
                 col.enabled = true;
                 if (Hex != OldHex)  // 前と今のマスが同じでなければ
                 {
@@ -188,7 +193,7 @@ public class Unit : MonoBehaviour
         transform.position = OriginPos;
         Hex.SetCursol(false);
         Hex.SetUnit(this);
-        Hex.bMaterial = true;
+        Hex.bGetMaterial = true;
 
         Vector3 origin = OldHex.transform.position;
         Vector3 target = Hex.transform.position;
@@ -235,7 +240,7 @@ public class Unit : MonoBehaviour
         transform.position = OriginPos;
         OldHitHex.SetCursol(false);
         OldHitHex.SetUnit(this);
-        OldHitHex.bMaterial = true;
+        OldHitHex.bGetMaterial = true;
 
         Vector3 origin = OldHitHex.transform.position;
         Vector3 target = OldHitHex.transform.position;
@@ -267,10 +272,13 @@ public class Unit : MonoBehaviour
     // 置いたまま素材を獲得する時
     public void ActMaterial()
     {
-        Hex.bMaterial = true;
-        actNum--;
-        GameManager.instance.canActUnitNum--;
-        bMoveNumDisplay = true;
+        if (bFriend && Hex.bMaterialHex)
+        {
+            Hex.bGetMaterial = true;
+            actNum--;
+            GameManager.instance.canActUnitNum--;
+            bMoveNumDisplay = true;
+        }
     }
 
     // マスを設定
@@ -291,12 +299,13 @@ public class Unit : MonoBehaviour
     // 仲間にするときの動作
     public bool BeMyFriend()
     {
-        if (GameManager.instance.food > sta.cost)
+        if (GameManager.instance.food >= sta.cost)
         {
             bFriend = true;
             GameManager.instance.food -= sta.cost;
             Hex.SetUnit(this);
             GameManager.instance.AddUnit(this);
+            GameManager.instance.AddFriendCatNum(this);
             GameManager.instance.friendNum++;
 
             return true;

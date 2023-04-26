@@ -9,7 +9,7 @@ public class HexGarden : Hex
     new void Awake()
     {
         base.Awake();
-
+        bMaterialHex = true;
         child = transform.GetChild(0).gameObject;
         child.SetActive(false);
     }

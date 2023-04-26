@@ -31,7 +31,29 @@ public class MissionButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetButton("Trigger_L"))
+        {
+            if (Input.GetButtonDown("Fire1"))
+            {
+                if (bCanMenu)
+                {
+                    trs.position = new Vector2(Screen.width / 2, Screen.height / 2);
+                    GameManager.instance.SetUICursol(true);
+                    bCanMenu = false;
+                }
+                else
+                {
+                    trs.position += new Vector3(-9999, 0, 0);
+                    GameManager.instance.SetUICursol(false);
+                    bCanMenu = true;
+                }
+            }
+        }
+        else if(Input.GetButtonDown("Fire2"))
+        {
+            trs.position += new Vector3(-9999, 0, 0);
+            bCanMenu = true;
+        }
     }
 
     public void OnClick()

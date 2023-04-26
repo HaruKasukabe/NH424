@@ -21,7 +21,8 @@ public class Hex : MonoBehaviour
     bool bSetDiscover = false;
     bool bEnd = false;
     bool bSetNextHex = false;
-    public bool bMaterial = false;
+    public bool bMaterialHex = false;
+    public bool bGetMaterial = false;
     public GameObject normalHex;
 
     public GameObject effectObject;
@@ -76,7 +77,7 @@ public class Hex : MonoBehaviour
     {
         //if (turn != GameManager.instance.nowTurn)
         //{
-        if (bUnit && bMaterial)
+        if (bUnit && bGetMaterial)
         {
             if (Unit.bFriend)
             {
@@ -100,7 +101,7 @@ public class Hex : MonoBehaviour
                         break;
                 }
 
-                bMaterial = false;
+                bGetMaterial = false;
                 pickTime--;
                 if (pickTime < 1)
                     ChangeNormalHex();
@@ -151,12 +152,15 @@ public class Hex : MonoBehaviour
         GameObject newObj = Instantiate(normalHex, transform.position, Quaternion.identity);
         Hex newHex = newObj.GetComponent<Hex>();
 
-        if (Unit)
-            newHex.SetUnit(Unit);
-
         newHex.rend.material.color = new Color32(255, 255, 255, 1);
         newHex.SetHexNum(hexNum);
         newHex.bReverse = true;
+
+        if (Unit)
+        {
+            newHex.SetUnit(Unit);
+            Unit.SetHex(newHex);
+        }
 
         Map.instance.map[hexNum.x, hexNum.z] = newObj;
         Destroy(this.gameObject);
@@ -176,9 +180,18 @@ public class Hex : MonoBehaviour
     }
     public void SetUnit(Unit unit)
     {
-        if (bDiscover || bReverse)
+        if (bReverse)
         {
             Unit = unit;
+            bUnit = true;
+
+            GameObject instantiateEffect = Instantiate(effectObject, transform.position + new Vector3(0f, offsetY, 0f), Quaternion.identity);
+            Destroy(instantiateEffect, deleteTime);
+        }
+        else if (bDiscover)
+        {
+            Unit = unit;
+            Unit.ReverseHexNum++;
             rend.material.color = new Color32(255, 255, 255, 1);
             bUnit = true;
             bReverse = true;

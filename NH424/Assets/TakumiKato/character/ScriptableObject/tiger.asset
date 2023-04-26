@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8fc475d01f4eb8458a1cda6d895bed8, type: 3}
+  m_Name: tiger
+  m_EditorClassIdentifier: 
+  initObj: {fileID: 1471150737392036063, guid: 661a94855bcaffb48b9d8a456b0eae3a, type: 3}
+  initNumber: 17
+  initMotifName: "\u3068\u3089"
+  initCharName: "\u3061\u3053\u304F\u3093"
+  initUnitTag: 0d00000012000000
+  initSprite: {fileID: 8160446217370900617, guid: 42b19618613bf4c4fa47b5598724b8f5, type: 3}
+  initFood: 40
+  initWood: 20
+  initStone: 40
+  initIron: 20
+  initAbilityKind: 0
+  initCost: 80
+  initMoveLong: 4
+  initMoveNum: 1
+  initSerchRange: 0.1

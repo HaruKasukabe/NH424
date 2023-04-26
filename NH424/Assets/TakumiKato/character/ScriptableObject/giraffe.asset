@@ -14,15 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initObj: {fileID: 5076067991322438185, guid: f178a16168236f743a62c85b109b9edc, type: 3}
   initNumber: 2
-  initCharName: "\u304D\u308A\u3093"
-  initUnitTag: 09000000
+  initMotifName: "\u304D\u308A\u3093"
+  initCharName: "\u3089\u3075\u3055\u3093"
+  initUnitTag: 0900000012000000
   initSprite: {fileID: 8160446217370900617, guid: 3819564fd0dcbaa4bbab0b8974806c22, type: 3}
-  initFood: 40
-  initWood: 20
+  initFood: 20
+  initWood: 40
   initStone: 20
-  initIron: 40
+  initIron: 20
   initAbilityKind: 0
-  initCost: 50
-  initMoveLong: 5
+  initCost: 100
+  initMoveLong: 4
   initMoveNum: 1
   initSerchRange: 0
