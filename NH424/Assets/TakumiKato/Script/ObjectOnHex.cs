@@ -40,7 +40,16 @@ public class ObjectOnHex : MonoBehaviour
         //入力されたオブジェクトのRendererを全て取得し、さらにそのRendererに設定されている全Materialの色を変える
         foreach (Renderer targetRenderer in targetObject.GetComponents<Renderer>())
         {
-            targetRenderer.material = alphaMaterial;
+            //for (int i = 0; i < targetRenderer.materials.Length; i++)
+            //    targetRenderer.materials[i] = alphaMaterial;
+
+            Material[] mat = targetRenderer.materials;
+
+            //targetRenderer.material = materialList[listNum];
+            for (int i = 0; i < mat.Length; i++)
+                mat[i] = alphaMaterial;
+
+            targetRenderer.materials = mat;
         }
 
         //入力されたオブジェクトの子にも同様の処理を行う
@@ -56,8 +65,16 @@ public class ObjectOnHex : MonoBehaviour
         //入力されたオブジェクトのRendererを全て取得し、さらにそのRendererに設定されている全Materialの色を変える
         foreach (Renderer targetRenderer in targetObject.GetComponents<Renderer>())
         {
-            targetRenderer.material = materialList[listNum];
-            listNum++;
+            Material[] mat = targetRenderer.materials;
+
+            //targetRenderer.material = materialList[listNum];
+            for (int i = 0; i < mat.Length; i++)
+            {
+                mat[i] = materialList[listNum];
+                listNum++;
+            }
+
+            targetRenderer.materials = mat;
         }
 
         //入力されたオブジェクトの子にも同様の処理を行う
@@ -73,7 +90,12 @@ public class ObjectOnHex : MonoBehaviour
         //入力されたオブジェクトのRendererを全て取得
         foreach (Renderer targetRenderer in targetObject.GetComponents<Renderer>())
         {
-            materialList.Add(targetRenderer.material);
+            for (int i = 0; i < targetRenderer.materials.Length; i++)
+            {
+                //targetRenderer.materials[i] = materialList[listNum];
+                //listNum++;
+                materialList.Add(targetRenderer.materials[i]);
+            }
         }
 
         //入力されたオブジェクトの子にも同様の処理を行う

@@ -134,4 +134,26 @@ public class KemokoListOut : MonoBehaviour
 
         return null;
     }
+    public void DestroyAll()
+    {
+        for (int i = 0; i < outUnitList.Count; i++)
+        {
+            Destroy(outUnitList[i].gameObject);
+        }
+        outUnitList.Clear();
+    }
+    public void SetDontDestroy()
+    {
+        for (int i = 0; i < outUnitList.Count; i++)
+        {
+            DontDestroyOnLoad(outUnitList[i].gameObject);
+        }
+    }
+    public void SetVillageHex()
+    {
+        for (int i = 0; i < outUnitList.Count; i++)
+        {
+            outUnitList[i].SetHex(Map.instance.GetVillageHex());
+        }
+    }
 }

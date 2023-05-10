@@ -15,6 +15,7 @@ public class UnitImage : MonoBehaviour
     void Start()
     {
         transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + Map.instance.GetUnit(number).GetComponent<Unit>().sta.cost;
+        transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "" + Map.instance.GetUnit(number).GetComponent<Unit>().sta.motifName;
     }
 
     // Update is called once per frame

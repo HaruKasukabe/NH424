@@ -60,7 +60,7 @@ public class SelectButtons : MonoBehaviour
         // 仲間にする選択をした時
         if (Selected == 0)
             if (unit.BeMyFriend())
-                myUnit.friendNum++;
+                myUnit.score.friendNum++;
 
         //ゲームオブジェクトを非表示
         gameObject.SetActive(false);

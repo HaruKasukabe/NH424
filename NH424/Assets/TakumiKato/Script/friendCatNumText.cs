@@ -16,6 +16,6 @@ public class friendCatNumText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.text = "" + GameManager.instance.friendCatList.Count;
+        text.text = "" + GameManager.instance.friendCatList.Count + "/20";
     }
 }

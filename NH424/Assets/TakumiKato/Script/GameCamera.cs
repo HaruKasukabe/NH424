@@ -21,27 +21,30 @@ public class GameCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButton(1))
+        if (GameManager.instance.bMenuDisplay())    // ‰½‚©ƒƒjƒ…[‚ð•\Ž¦‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©
         {
-            float moveX = Input.GetAxis("Mouse X") * sensitiveMoveMouse;
-            float moveY = Input.GetAxis("Mouse Y") * sensitiveMoveMouse;
+            if (Input.GetMouseButton(1))
+            {
+                float moveX = Input.GetAxis("Mouse X") * sensitiveMoveMouse;
+                float moveY = Input.GetAxis("Mouse Y") * sensitiveMoveMouse;
+                //Vector3 cameraForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
+                cam.transform.localPosition -= new Vector3(moveX, 0.0f, moveY);
+            }
+
+            float moveXSti = Input.GetAxis("R_Stick_H") * sensitiveMovePad;
+            float moveYSti = Input.GetAxis("R_Stick_V") * sensitiveMovePad;
             //Vector3 cameraForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
-            cam.transform.localPosition -= new Vector3(moveX, 0.0f, moveY);
+            cam.transform.localPosition += new Vector3(moveXSti, 0.0f, moveYSti);
+
+
+            float moveZ = Input.GetAxis("Mouse ScrollWheel") * sensitiveZoomMouse;
+            cam.transform.position += cam.transform.forward * moveZ;
+
+            float trigger = Input.GetAxis("LRTrigger");
+            if (trigger > 0)
+                cam.transform.position += cam.transform.forward * sensitiveZoomPad / 100;
+            else if (trigger < 0)
+                cam.transform.position -= cam.transform.forward * sensitiveZoomPad / 100;
         }
-
-        float moveXSti = Input.GetAxis("R_Stick_H") * sensitiveMovePad;
-        float moveYSti = Input.GetAxis("R_Stick_V") * sensitiveMovePad;
-        //Vector3 cameraForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
-        cam.transform.localPosition += new Vector3(moveXSti, 0.0f, moveYSti);
-
-
-        float moveZ = Input.GetAxis("Mouse ScrollWheel") * sensitiveZoomMouse;
-        cam.transform.position += cam.transform.forward * moveZ;
-
-        float trigger = Input.GetAxis("LRTrigger");
-        if(trigger > 0)
-            cam.transform.position += cam.transform.forward * sensitiveZoomPad / 100;
-        else if(trigger < 0)
-            cam.transform.position -= cam.transform.forward * sensitiveZoomPad / 100;
     }
 }

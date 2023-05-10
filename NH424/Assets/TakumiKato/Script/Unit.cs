@@ -11,18 +11,26 @@ public enum UNIT_ACT    // 獲得が得意な素材　※今不使用
 
     NULL,
 }
+public struct UNIT_SCORE
+{
+    public int number;              // 管理番号
+    public GameObject sprite;       // ユニットの画像
+    public string motifName;        // キャラクターのモチーフ名
+    public string charName;         // キャラクターの名前
+    public int friendNum;           // このユニットが仲間を増やした数
+    public int reverseHexNum;       // ひっくり返したマスの数
+    public float food;              // 今まで獲得した食材
+    public float stone;             // 今まで獲得した石材
+    public float wood;              // 今まで獲得した木材
+    public float iron;              // 今まで獲得した鉄材
+}
 
 public class Unit : MonoBehaviour
 {
     public UnitData sta;                    // 基本ステータス
     public int id;                          // ユニット種類ごとのID
     public bool bFriend = false;            // 仲間かどうか
-    public int friendNum = 0;               // このユニットが仲間を増やした数
-    public float stone = 0;                 // 今まで獲得した石材
-    public float food = 0;                  // 今まで獲得した食材
-    public float wood = 0;                  // 今まで獲得した木材
-    public float iron = 0;                  // 今まで獲得した鉄材
-    public int ReverseHexNum = 0;           // ひっくり返したマスの数
+    public UNIT_SCORE score;                // スコア
     public int actNum = 0;                  // 移動可能回数
 
     float move1HexLong = 1.0f;              // １マスの距離
@@ -46,6 +54,10 @@ public class Unit : MonoBehaviour
     {
         col = GetComponent<CapsuleCollider>();  // コライダー取得
         actNum = sta.moveNum;   // 移動可能数を設定
+
+        score.sprite = sta.sprite;
+        score.motifName = sta.motifName;
+        score.charName = sta.charName;
     }
 
     // Update is called once per frame
@@ -208,7 +220,7 @@ public class Unit : MonoBehaviour
             if (h.gameObject.CompareTag("Hex"))
             {
                 if (h.GetComponent<Hex>().SetReverse())
-                    ReverseHexNum++;
+                    score.reverseHexNum++;
             }
         }
 
@@ -255,7 +267,7 @@ public class Unit : MonoBehaviour
             if (h.gameObject.CompareTag("Hex"))
             {
                 if (h.GetComponent<Hex>().SetReverse())
-                    ReverseHexNum++;
+                    score.reverseHexNum++;
             }
         }
 

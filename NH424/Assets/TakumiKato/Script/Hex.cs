@@ -75,8 +75,6 @@ public class Hex : MonoBehaviour
 
     protected void GetMaterial(UNIT_ACT act)
     {
-        //if (turn != GameManager.instance.nowTurn)
-        //{
         if (bUnit && bGetMaterial)
         {
             if (Unit.bFriend)
@@ -85,19 +83,19 @@ public class Hex : MonoBehaviour
                 {
                     case UNIT_ACT.GARDEN:
                         GameManager.instance.food += Unit.sta.food;
-                        Unit.food += Unit.sta.food;
+                        Unit.score.food += Unit.sta.food;
                         break;
                     case UNIT_ACT.FOREST:
                         GameManager.instance.wood += Unit.sta.wood;
-                        Unit.wood += Unit.sta.wood;
+                        Unit.score.wood += Unit.sta.wood;
                         break;
                     case UNIT_ACT.QUARRY:
                         GameManager.instance.stone += Unit.sta.stone;
-                        Unit.stone += Unit.sta.stone;
+                        Unit.score.stone += Unit.sta.stone;
                         break;
                     case UNIT_ACT.COAL_MINE:
                         GameManager.instance.iron += Unit.sta.iron;
-                        Unit.iron += Unit.sta.iron;
+                        Unit.score.iron += Unit.sta.iron;
                         break;
                 }
 
@@ -108,7 +106,6 @@ public class Hex : MonoBehaviour
             }
         }
         turn = GameManager.instance.nowTurn;
-        //}
     }
     void SetNextHex()
     {
@@ -191,7 +188,7 @@ public class Hex : MonoBehaviour
         else if (bDiscover)
         {
             Unit = unit;
-            Unit.ReverseHexNum++;
+            Unit.score.reverseHexNum++;
             rend.material.color = new Color32(255, 255, 255, 1);
             bUnit = true;
             bReverse = true;

@@ -9,9 +9,11 @@ public class Map : MonoBehaviour
 
     public GameObject hexVillage;
     public GameObject[] hex;
+    public float[] hexOdds;
     public GameObject firstUnit;
     public GameObject[] unit;
     public GameObject[] house;
+    public List<Unit> wildUnitList = new List<Unit>();
     GameObject houseNow;
     int houseNum = 0;
     public int mapSize = 30;
@@ -25,6 +27,7 @@ public class Map : MonoBehaviour
     float startPosOddX;
     int unitId = 1;
     public int unitProbability = 10;
+    int resetHexNum = 55;
 
     private void Awake()
     {
@@ -95,7 +98,9 @@ public class Map : MonoBehaviour
                 }
                 else
                 {
-                    map[x, z] = Instantiate(hex[Random.Range(0, hex.Length)], new Vector3(pos.x, 0.0f, pos.z), Quaternion.identity);
+                    //int hexNum = Random.Range(0, hex.Length);
+                    int hexNum = Choose(hexOdds);
+                    map[x, z] = Instantiate(hex[hexNum], new Vector3(pos.x, 0.0f, pos.z), Quaternion.identity);
                     map[x, z].GetComponent<Hex>().SetHexNum(new INT2(x, z));
                     map[x, z].SetActive(false);
 
@@ -106,6 +111,7 @@ public class Map : MonoBehaviour
                         Unit objUnit = obj.GetComponent<Unit>();
                         map[x, z].GetComponent<Hex>().SetStrayUnit(objUnit);
                         objUnit.id = unitId;
+                        wildUnitList.Add(objUnit);
                         obj.SetActive(false);
 
                         unitId++;
@@ -179,5 +185,101 @@ public class Map : MonoBehaviour
             houseNow = Instantiate(house[houseNum], new Vector3(pos.x, pos.y + 0.1f, pos.z), Quaternion.identity);
         houseNow.transform.Rotate(new Vector3(0, 90, 0));
         houseNow.GetComponent<ObjectOnHex>().SetHex(hex);
+    }
+    public void ResetMap()
+    {
+        //map = new GameObject[mapSize, mapSize];
+        for(int i = 0; i < wildUnitList.Count; i++)
+        {
+            if (!wildUnitList[i].bFriend)
+                Destroy(wildUnitList[i].gameObject);
+        }
+        wildUnitList.Clear();
+        round = startRound * (6 + (startRound - 1) * 3) - 6;
+        startPosOddX = startPos2 + hexSizeX / 2;
+        resetHexNum = 55;
+
+        FLOAT2 pos = new FLOAT2(startPos2, startPos2);
+        for (int z = 0; z < mapSize; z++)
+        {
+            if (GameManager.instance.IsEven(z))
+                pos.x = startPos2;
+            else
+                pos.x = startPosOddX;
+
+            for (int x = 0; x < mapSize; x++)
+            {
+                if ((x == centerNum) && (z == centerNum))
+                {
+                    map[x, z] = Instantiate(hexVillage, new Vector3(pos.x, 0.0f, pos.z), Quaternion.identity);
+                    Hex hex = map[x, z].GetComponent<Hex>();
+                    hex.SetHexNum(new INT2(x, z));
+                    hex.SetEnd();
+                }
+                else if (BCenter(new INT2(x, z)))
+                {
+                    map[x, z] = Instantiate(hexVillage, new Vector3(pos.x, 0.0f, pos.z), Quaternion.identity);
+                    Hex hex = map[x, z].GetComponent<Hex>();
+                    hex.SetHexNum(new INT2(x, z));
+                    hex.SetEnd();
+                }
+                else
+                {
+                    int hexNum = Choose(hexOdds);
+                    map[x, z] = Instantiate(hex[hexNum], new Vector3(pos.x, 0.0f, pos.z), Quaternion.identity);
+                    map[x, z].GetComponent<Hex>().SetHexNum(new INT2(x, z));
+                    map[x, z].SetActive(false);
+
+                    if (Random.Range(0, unitProbability) == 0)
+                    {
+                        GameObject obj = Instantiate(unit[Random.Range(0, unit.Length)], new Vector3(pos.x, 0.2f, pos.z), Quaternion.identity);
+                        obj.transform.rotation = new Quaternion(0, 180, 0, 0);
+                        Unit objUnit = obj.GetComponent<Unit>();
+                        map[x, z].GetComponent<Hex>().SetStrayUnit(objUnit);
+                        objUnit.id = unitId;
+                        wildUnitList.Add(objUnit);
+                        obj.SetActive(false);
+
+                        unitId++;
+                    }
+                }
+                pos.x += hexSizeX;
+            }
+            pos.z += hexSizeZ;
+        }
+
+        KemokoListOut.instance.SetVillageHex();
+    }
+    int Choose(float[] probs)
+    {
+
+        float total = 0;
+
+        //配列の要素を代入して重みの計算
+        foreach (float elem in probs)
+        {
+            total += elem;
+        }
+
+        //重みの総数に0から1.0の乱数をかけて抽選を行う
+        float randomPoint = Random.value * total;
+
+        //iが配列の最大要素数になるまで繰り返す
+        for (int i = 0; i < probs.Length; i++)
+        {
+            //ランダムポイントが重みより小さいなら
+            if (randomPoint < probs[i])
+            {
+                return i;
+            }
+            else
+            {
+                //ランダムポイントが重みより大きいならその値を引いて次の要素へ
+                randomPoint -= probs[i];
+            }
+        }
+
+        //乱数が１の時、配列数の-１＝要素の最後の値をChoose配列に戻している
+        return probs.Length - 1;
     }
 }

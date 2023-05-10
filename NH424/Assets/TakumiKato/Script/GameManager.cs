@@ -42,6 +42,9 @@ public class GameManager : MonoBehaviour
     public GameObject UICursol;
     public GameObject CharacterUI;
     public Fade fade;
+    public GameObject stage;
+    public Vector3[] stageScale;
+    public Material[] mat;
 
     public SEASON season = SEASON.SPRING;
     public int seasonRoundNum = 0;
@@ -90,10 +93,11 @@ public class GameManager : MonoBehaviour
                 bFirstReset = false;
         }
 
-        if (friendCatList.Count >= 20)// || Input.GetKeyDown(KeyCode.A))
+        if (friendCatList.Count >= 20)
         {
             //fade.FadeIn(2.0f, () => { SceneManager.LoadScene("ClearScene"); });
-            SceneManager.LoadScene("ClearScene");
+            ScoreManager.instance.ScoreAdd(KemokoListOut.instance.outUnitList, KemokoListVillage.instance.villageUnitList);
+            SceneManager.LoadScene("ResultScene");
         }
 
         if(!bFirstReset)
@@ -105,11 +109,13 @@ public class GameManager : MonoBehaviour
             if (!SeasonMission.instance.Check(season))
             {
                 //fade.FadeIn(2.0f, () => { SceneManager.LoadScene("TitleScene"); });
-                SceneManager.LoadScene("TitleScene");
+                ScoreManager.instance.ScoreAdd(KemokoListOut.instance.outUnitList, KemokoListVillage.instance.villageUnitList);
+                SceneManager.LoadScene("ResultScene");
             }
             m_audiosc.SelectBGM();
             nowTurn = 1;
             season++;
+            RenderSettings.skybox = mat[(int)season];
             SeasonIconUI.SetSeasonIcon();
             
             if(season == SEASON.MAX)
@@ -220,7 +226,12 @@ public class GameManager : MonoBehaviour
     public void SetCharacterUI(bool act, Unit unit)
     {
         CharacterUI.gameObject.SetActive(act);
-        if(act)
+        stage.SetActive(act);
+        Vector3 pos = new Vector3(unit.transform.position.x, unit.transform.position.y + 0.2f, unit.transform.position.z);
+        stage.transform.position = pos;
+        stage.transform.localScale = stageScale[unit.sta.moveLong];
+
+        if (act)
             CharacterUI.GetComponentInChildren<SelectCharaUI>().SetUnit(unit);
     }
     public void AddFriendCatNum(Unit unit)

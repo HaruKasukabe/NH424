@@ -9,7 +9,7 @@ public class SeasonMission : MonoBehaviour
 
     TextMeshProUGUI text;
 
-    int[] level;
+    public int[] level;
 
     private void Awake()
     {
@@ -43,7 +43,7 @@ public class SeasonMission : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.text = "ƒŒƒxƒ‹ " + level[(int)GameManager.instance.season] + " ˆÈã";
+        text.text = "ƒŒƒxƒ‹ " + level[(int)GameManager.instance.season + GameManager.instance.seasonRoundNum * 4] + " ˆÈã";
     }
 
     public bool Check(SEASON season)
@@ -85,7 +85,7 @@ public class SeasonMission : MonoBehaviour
 
     bool TentativeMission(SEASON season)
     {
-        if (GameManager.instance.level >= level[(int)season])
+        if (GameManager.instance.level >= level[(int)season + GameManager.instance.seasonRoundNum * 4])
             return true;
 
         return false;
@@ -93,9 +93,8 @@ public class SeasonMission : MonoBehaviour
 
     bool SpringMission()
     {
-        if(GameManager.instance.level > level[0])
+        if (GameManager.instance.level > level[0])
             return true;
-
         return false;
     }
     bool SummerMission()

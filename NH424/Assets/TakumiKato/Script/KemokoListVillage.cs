@@ -100,6 +100,21 @@ public class KemokoListVillage : MonoBehaviour
 
         return null;
     }
+    public void DestroyAll()
+    {
+        for (int i = 0; i < villageUnitList.Count; i++)
+        {
+            Destroy(villageUnitList[i].gameObject);
+        }
+        villageUnitList.Clear();
+    }
+    public void SetDontDestroy()
+    {
+        for (int i = 0; i < villageUnitList.Count; i++)
+        {
+            DontDestroyOnLoad(villageUnitList[i].gameObject);
+        }
+    }
 }
 
 

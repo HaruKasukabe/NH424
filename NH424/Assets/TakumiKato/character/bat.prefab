@@ -315,12 +315,6 @@ MonoBehaviour:
   sta: {fileID: 11400000, guid: cc18642a4e144b94f9f2ee6e8e140522, type: 2}
   id: 0
   bFriend: 0
-  friendNum: 0
-  stone: 0
-  food: 0
-  wood: 0
-  iron: 0
-  ReverseHexNum: 0
   actNum: 0
   height: 0.2
   Hex: {fileID: 0}
