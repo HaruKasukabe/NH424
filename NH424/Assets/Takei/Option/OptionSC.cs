@@ -50,7 +50,7 @@ public class OptionSC : MonoBehaviour
                 OpenMOption = true;
                 ImageMOption.SetActive(OpenMOption);
 
-                GameManager.instance.SetUICursol(true);
+               // GameManager.instance.SetUICursol(true);
             }
             else if(OpenOption)
             {
@@ -63,7 +63,7 @@ public class OptionSC : MonoBehaviour
                 ImageCOption.SetActive(OpenCOption);
                 ImageSOption.SetActive(OpenSOption);
 
-                GameManager.instance.SetUICursol(false);
+               // GameManager.instance.SetUICursol(false);
             }   
         }
         if (Input.GetButtonDown("Fire2"))
