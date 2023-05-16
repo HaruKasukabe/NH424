@@ -15,96 +15,168 @@ using System.IO;
 public class ManagementAudio : MonoBehaviour
 {
     // 列挙体宣言
-    public enum SEASONBGM
+    public enum GAMEBGM
     {
         Spring = 0,
         Summer,
         Fall,
-        Winter
+        Winter,
+        Conversation,
+        PictorialBook,
+        Shop,
+        Village
+    }
+    public enum GAMESE
+    {
+        Back = 0,
+        Click,
+        GameStart,
+        Select,
+        Start,
     }
 
     // 変数宣言
-    public SEASONBGM SeasonBGM; // 現在の季節BGM
+    // アクセス修飾子メモ
+    // public           :他クラスから参照可能、UnityEditor上で編集可能
+    // private          :他クラスから参照不可、UnityEditor上で編集不可
+    // [SerializeField] :他クラスから参照不可、UnityEditor上で編集可能
+    public GAMEBGM GameBGM;    // ゲームBGM列挙体
+    private GAMEBGM nowSeason; // 現在の季節保管用変数
+    public GAMESE gameSE;      // ゲームSE列挙体
     private int fadeBGM; // BGMフェード用
-    public float FadeSecond = 2.0f; // フェードにかかる時間
+    private float FadeSecond = 4.0f; // フェードにかかる時間
     private float NowBGMVolume; // 現在のVolume
-    public AudioSource ASBGM; // BGM1のオーディオソース
-    public AudioSource ASSE; // SEのオーディオソース
-    [SerializeField] AudioClip ACBGMSpring; // BGMのクリップ(ソース)増えるなら別スクリプトで管理予定
-    [SerializeField] AudioClip ACBGMSummer; // BGMのクリップ(ソース)増えるなら別スクリプトで管理予定
-    [SerializeField] AudioClip ACBGMFall; // BGMのクリップ(ソース)増えるなら別スクリプトで管理予定
-    [SerializeField] AudioClip ACBGMWinter; // BGMのクリップ(ソース)増えるなら別スクリプトで管理予定
+    private string NowBGMName;
+    private bool UseUIflg;
+    private bool Closeflg;
+    [SerializeField] AudioSource ASBGM; // BGM1のオーディオソース
+    [SerializeField] AudioSource ASSE; // SEのオーディオソース
+
+    private List<AudioClip> ACGameBGM = new List<AudioClip>(); // ゲームBGM格納List
+    private List<AudioClip> ACGameSE = new List<AudioClip>();  // ゲームSE格納List
 
     // Initialize
     void Start()
     {
-        ASBGM = GetComponent<AudioSource>();
         ASBGM.loop = true;
-        ASSE = GetComponent<AudioSource>();
-        ASSE.loop = false;
 
-        // Resources.Loadで指定する場合拡張子は省略
-        //ACBGMSpring = (AudioClip)Resources.Load("BGM/Spring");
-        //ACBGMSummer = (AudioClip)Resources.Load("BGM/Summer");
-        //ACBGMFall = (AudioClip)Resources.Load("BGM/Fall");
-        //ACBGMWinter = (AudioClip)Resources.Load("BGM/Winter");
+        ASSE.loop = false;
+        UseUIflg = false;
+        Closeflg = false;
+        // BGMクリップをリストにまとめる初期化関数
+        InitBGMClip();
+        InitSEClip();
 
         fadeBGM = 0; // 0:初期値 1:フェードアウト 2:フェードイン
         NowBGMVolume = 0.6f; // 1.0が100%
         ASBGM.volume = NowBGMVolume; // デフォルトの音量を指定
-        SeasonBGM = 0; // 初期値が春
+        GameBGM = 0; // 初期値が春
         FadeSecond = FadeSecond * 60; // フレームレートに直すため秒数*60fps
+        ASSE.volume = 0.8f;
+        StartBGM();
     }
 
     // 更新処理
     void Update()
     {
+
+        // デバッグ処理
+        if (Input.GetKeyDown(KeyCode.A)&&!UseUIflg)
+        {
+            OpenUIBGM("Conversation");
+            Debug.Log("会話再生");
+        }
+        else if(Input.GetKeyDown(KeyCode.S)&&!UseUIflg)
+        {
+            OpenUIBGM("PictorialBook");
+        }
+        else if(Input.GetKeyDown(KeyCode.D)&&!UseUIflg)
+        {
+            OpenUIBGM("Shop");
+        }
+        else if(Input.GetKeyDown(KeyCode.F)&&!UseUIflg)
+        {
+            OpenUIBGM("Village");
+        }
+        if(Input.GetKeyDown(KeyCode.Escape)&&UseUIflg)
+        {
+            CloseUIBGM();
+        }
+        if(Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            NextSeason();
+            Debug.Log("次の曲へ");
+        }
+
+
         // BGM切り替え時フェード関数
         // フェードアウト
         if (fadeBGM == 1)
         {
-            // 指定した秒数かけてフェードアウトする
             ASBGM.volume -= NowBGMVolume / FadeSecond;
-            // フェードアウトが完了したら次の曲へ
             if (ASBGM.volume <= 0.0f)
             {
-                // BGMを再生停止
                 ASBGM.Stop();
-                // 次の曲を再生開始 実装時は列挙体でswitch文
-                switch(SeasonBGM)
+                if (!UseUIflg)
                 {
-                    case SEASONBGM.Spring:// 春
-                        PlayBGM(ACBGMSpring);
-                        break;
-                    case SEASONBGM.Summer: // 夏
-                        PlayBGM(ACBGMSummer);
-                        break;
-                    case SEASONBGM.Fall: // 秋
-                        PlayBGM(ACBGMFall);
-                        break;
-                    case SEASONBGM.Winter: // 冬
-                        PlayBGM(ACBGMWinter);
-                        break;
-                    default:
-                        break;
+                    NextSeasonBGM();
+                    Debug.Log("季節曲再生");
                 }
-                // フェードイン処理開始
+                else if(UseUIflg)
+                {
+                    PlayUIBGM();
+                    Debug.Log("UI曲再生");
+                }
                 fadeBGM = 2;
             }
-
         }
-        // フェードイン
         else if (fadeBGM == 2)
         {
-            // 指定した秒数で音量を上げる
             ASBGM.volume += NowBGMVolume / FadeSecond;
-            if (ASBGM.volume >= NowBGMVolume)
+            if(ASBGM.volume >= 60.0f)
             {
-                // フェード管理Numを初期値に戻す
                 fadeBGM = 0;
             }
         }
-        
+
+    }
+
+    // =============================
+    // BGM・SE初期化関数
+    // =============================
+    private void InitBGMClip()
+    {
+        AudioClip ACtemp;
+        ACtemp = (AudioClip)Resources.Load("BGM/Spring");
+        ACGameBGM.Add(ACtemp);
+        ACtemp = (AudioClip)Resources.Load("BGM/Summer");
+        ACGameBGM.Add(ACtemp);
+        ACtemp = (AudioClip)Resources.Load("BGM/Fall");
+        ACGameBGM.Add(ACtemp);
+        ACtemp = (AudioClip)Resources.Load("BGM/Winter");
+        ACGameBGM.Add(ACtemp);
+        ACtemp = (AudioClip)Resources.Load("BGM/Conversation");
+        ACGameBGM.Add(ACtemp);
+        ACtemp = (AudioClip)Resources.Load("BGM/PictorialBook");
+        ACGameBGM.Add(ACtemp);
+        ACtemp = (AudioClip)Resources.Load("BGM/Shop");
+        ACGameBGM.Add(ACtemp);
+        ACtemp = (AudioClip)Resources.Load("BGM/Village");
+        ACGameBGM.Add(ACtemp);
+    }
+    private void InitSEClip()
+    {
+        AudioClip ACtemp;
+        ACtemp = (AudioClip)Resources.Load("SE/Back");
+        ACGameSE.Add(ACtemp);
+        ACtemp = (AudioClip)Resources.Load("SE/Click");
+        ACGameSE.Add(ACtemp);
+        ACtemp = (AudioClip)Resources.Load("SE/GameStart");
+        ACGameSE.Add(ACtemp);
+        ACtemp = (AudioClip)Resources.Load("SE/Select");
+        ACGameSE.Add(ACtemp);
+        ACtemp = (AudioClip)Resources.Load("SE/Start");
+        ACGameSE.Add(ACtemp);
     }
 
     // =============================
@@ -115,7 +187,6 @@ public class ManagementAudio : MonoBehaviour
     {
         NowBGMVolume = volume;
         ASBGM.volume = NowBGMVolume;
-
     }
     // SEの音量
     public void SetSEVolume(float volume)
@@ -129,12 +200,10 @@ public class ManagementAudio : MonoBehaviour
     // BGMの再生管理
     private void PlayBGM(AudioClip BGMclip)
     {
-
             ASBGM.PlayOneShot(BGMclip);
-
     }
     // SEの再生管理
-    public void PlaySE(AudioClip SEclip)
+    private void PlaySE(AudioClip SEclip)
     {
         ASSE.PlayOneShot(SEclip);
     }
@@ -144,17 +213,87 @@ public class ManagementAudio : MonoBehaviour
     // 初期化関数で呼び出す用
     public void StartBGM()
     {
-        PlayBGM(ACBGMSpring);
+        PlayBGM(ACGameBGM[(int)GAMEBGM.Spring]);
     }
-    // 次の曲を再生するために季節の変わり目で呼び出し
-    public void SelectBGM()
+
+    public void NextSeason()
+    {
+        fadeBGM = 1;
+    }
+    // 次の季節BGM
+    private void NextSeasonBGM()
+    {
+        if (!Closeflg)
+        {
+            GameBGM++;
+        }
+        // 冬なら春に戻す
+        if (GameBGM > GAMEBGM.Winter)
+            GameBGM = GAMEBGM.Spring;
+        switch (GameBGM)
+        {
+            case GAMEBGM.Spring:// 春
+                PlayBGM(ACGameBGM[(int)GAMEBGM.Spring]);
+                break;
+            case GAMEBGM.Summer: // 夏
+                PlayBGM(ACGameBGM[(int)GAMEBGM.Summer]);
+                break;
+            case GAMEBGM.Fall: // 秋
+                PlayBGM(ACGameBGM[(int)GAMEBGM.Fall]);
+                break;
+            case GAMEBGM.Winter: // 冬
+                PlayBGM(ACGameBGM[(int)GAMEBGM.Winter]);
+                break;
+            default:
+                break;
+        }
+        Closeflg = false;
+    }
+    
+    // 外部から村などのBGM呼び出し
+    public void OpenUIBGM(string PlaceBGM)
     {
         // フェードアウト開始
         fadeBGM = 1;
-        // 次の曲へ
-        SeasonBGM++;
-        // 冬なら春に戻す
-        if (SeasonBGM >= SEASONBGM.Winter)
-            SeasonBGM = SEASONBGM.Spring;
+        // 次のBGMを指定
+        nowSeason = GameBGM;
+        NowBGMName = PlaceBGM;
+        UseUIflg = true;
+    }
+    public void PlayUIBGM()
+    {
+        if(NowBGMName == "Conversation")
+        {
+            PlayBGM(ACGameBGM[(int)GAMEBGM.Conversation]);
+        }
+        else if (NowBGMName == "PictorialBook")
+        {
+            PlayBGM(ACGameBGM[(int)GAMEBGM.PictorialBook]);
+        }
+        else if (NowBGMName == "Shop")
+        {
+            PlayBGM(ACGameBGM[(int)GAMEBGM.Shop]);
+        }
+        else if (NowBGMName == "Village")
+        {
+            PlayBGM(ACGameBGM[(int)GAMEBGM.Village]);
+        }
+        else
+        {
+            Debug.Log("再生できません");
+        }
+
+    }
+    public void CloseUIBGM()
+    {
+        fadeBGM = 1;
+        UseUIflg = false;
+        Closeflg = true;
+    }
+
+    // 指定のSEを再生するために呼び出す
+    public void PublicPlaySE(GAMESE se)
+    {
+        PlaySE(ACGameSE[(int)se]);
     }
 }
