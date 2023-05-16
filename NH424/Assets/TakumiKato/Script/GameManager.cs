@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
     public float iron = 0.0f;
     public float levelUpNeed = 100.0f;
 
-    bool bFirstReset = true;
+    public bool bFirstReset = true;
 
     private void Awake()
     {
@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviour
 
         if (nowTurn == seasonTurnNum)
         {
-            if (!SeasonMission.instance.Check(season))
+            if (!SeasonMission.instance.Check(season, seasonRoundNum))
             {
                 //fade.FadeIn(2.0f, () => { SceneManager.LoadScene("TitleScene"); });
                 ScoreManager.instance.ScoreAdd(KemokoListOut.instance.outUnitList, KemokoListVillage.instance.villageUnitList);
@@ -115,14 +115,17 @@ public class GameManager : MonoBehaviour
             m_audiosc.SelectBGM();
             nowTurn = 1;
             season++;
-            RenderSettings.skybox = mat[(int)season];
-            SeasonIconUI.SetSeasonIcon();
-            
-            if(season == SEASON.MAX)
+
+            if (season == SEASON.MAX)
             {
                 season = SEASON.SPRING;
                 seasonRoundNum++;
             }
+
+            RenderSettings.skybox = mat[(int)season];
+            SeasonIconUI.SetSeasonIcon();
+            SeasonEvent.instance.ChangeEvent();      
+            SeasonEvent.instance.SetEvent(season);
         }
     }
 
@@ -246,5 +249,15 @@ public class GameManager : MonoBehaviour
         {
             friendCatList.Add(unit.sta.number);
         }
+    }
+    public bool bFriendCat(int number)
+    {
+        bool bFriend = false;
+        for (int i = 0; i < friendCatList.Count; i++)
+        {
+            if (friendCatList[i] == number)
+                bFriend = true;
+        }
+        return bFriend;
     }
 }

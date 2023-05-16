@@ -102,7 +102,11 @@ MonoBehaviour:
   bUnit: 0
   bReverse: 0
   bDiscover: 0
+  bMaterialHex: 0
+  bGetMaterial: 0
+  normalHex: {fileID: 0}
   effectObject: {fileID: 7986504087968017091, guid: 3a2073ab9eedb61468feba6f98e70ea1, type: 3}
+  iventObject: {fileID: 3732551427800355369, guid: 3e2226b0718f88b40ad98d970390f416, type: 3}
 --- !u!114 &5655283155843203850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,6 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0efa6a4c52914a45924f43e86f0372e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  villageNum: 0
 --- !u!65 &7910944816173675485
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -71,7 +71,7 @@ public class ConverSation : MonoBehaviour
     //  **************************
     // 外部から呼び出す会話進行用
     //  **************************
-    public bool ActiveGameIvent()
+    public bool ActiveGameEvent()
     {
         // Enterキーを押したら次のテキストへ
         if (Input.GetKeyDown(KeyCode.Return) && !EventFlg)

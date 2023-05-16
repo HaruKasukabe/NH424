@@ -29,11 +29,14 @@ public class ScoreList : MonoBehaviour
             GameObject obj = Instantiate(origin);
             obj.transform.parent = transform;
             obj.GetComponent<Result>().SetText(unitScoreList[i]);
+            obj.transform.position = firstPos;
 
             score.obj = obj;
             score.unitScore = unitScoreList[i];
 
             scoreList.Add(score);
+
+            firstPos += addNum;
         }
     }
 

@@ -26,7 +26,7 @@ public class DebugConversation : MonoBehaviour
             flg = conversation.ConverSationInit(FileName);
         }
         if(flg)
-            flg = conversation.ActiveGameIvent();
+            flg = conversation.ActiveGameEvent();
         Debug.Log(flg);
     }
 

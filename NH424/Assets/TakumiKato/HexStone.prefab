@@ -154,6 +154,7 @@ MonoBehaviour:
   bGetMaterial: 0
   normalHex: {fileID: 639822126554316054, guid: 6739c962151eda54ab7230fc9867a33d, type: 3}
   effectObject: {fileID: 7986504087968017091, guid: 3a2073ab9eedb61468feba6f98e70ea1, type: 3}
+  iventObject: {fileID: 3732551427800355369, guid: 3e2226b0718f88b40ad98d970390f416, type: 3}
 --- !u!1001 &422028479803540862
 PrefabInstance:
   m_ObjectHideFlags: 0

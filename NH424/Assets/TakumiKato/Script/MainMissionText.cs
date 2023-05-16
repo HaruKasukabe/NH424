@@ -16,6 +16,7 @@ public class MainMissionText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.text = "レベル " + SeasonMission.instance.level[(int)GameManager.instance.season + GameManager.instance.seasonRoundNum * 4] + " 以上";
+        float seasonMaterial = SeasonMission.instance.seasonMaterial;
+        text.text = "木材：" + seasonMaterial + " 以上" + " 石材：" + seasonMaterial + " 以上" + " 鉄材：" + seasonMaterial + " 以上";
     }
 }

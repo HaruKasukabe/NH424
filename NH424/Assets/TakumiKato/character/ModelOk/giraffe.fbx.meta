@@ -3,17 +3,7 @@ guid: 5d89cb417101ed64e94ed08707bd9ec4
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: girrafeBody_fin
-    second: {fileID: 2800000, guid: b62f15e1641b30148be762642ce05909, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: girrafeDeco_fin
-    second: {fileID: 2800000, guid: 9f2d6e21d579f824db7ae19987140c22, type: 3}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0

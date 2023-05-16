@@ -101,7 +101,11 @@ MonoBehaviour:
   bUnit: 0
   bReverse: 0
   bDiscover: 0
+  bMaterialHex: 0
+  bGetMaterial: 0
+  normalHex: {fileID: 0}
   effectObject: {fileID: 7986504087968017091, guid: 3a2073ab9eedb61468feba6f98e70ea1, type: 3}
+  iventObject: {fileID: 3732551427800355369, guid: 3e2226b0718f88b40ad98d970390f416, type: 3}
 --- !u!65 &-3738130307863125309
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ public class Hex : MonoBehaviour
 
     int level;
     protected int turn = 0;
-    int pickTime = 3;
+    protected int pickTime = 3;
     public bool bUnit = false;
     bool bCursol = false;
     public bool bReverse = false;
@@ -28,6 +28,11 @@ public class Hex : MonoBehaviour
     public GameObject effectObject;
     private float deleteTime = 1;
     private float offsetY = 0.15f;
+
+    public GameObject iventObject;
+    GameObject iventObjectNow;
+    private float iventOffsetY = -1.25f;
+    float iventMaterial = 30.0f;
 
     // Start is called before the first frame update
     protected void Awake()
@@ -82,8 +87,13 @@ public class Hex : MonoBehaviour
                 switch (act)
                 {
                     case UNIT_ACT.GARDEN:
-                        GameManager.instance.food += Unit.sta.food;
-                        Unit.score.food += Unit.sta.food;
+                        float food;
+                        if (GameManager.instance.season == SEASON.FALL)
+                            food = Unit.sta.food * 1.5f;
+                        else
+                            food = Unit.sta.food;
+                        GameManager.instance.food += food;
+                        Unit.score.food += food;
                         break;
                     case UNIT_ACT.FOREST:
                         GameManager.instance.wood += Unit.sta.wood;
@@ -96,6 +106,16 @@ public class Hex : MonoBehaviour
                     case UNIT_ACT.COAL_MINE:
                         GameManager.instance.iron += Unit.sta.iron;
                         Unit.score.iron += Unit.sta.iron;
+                        break;
+                    case UNIT_ACT.NULL:
+                        GameManager.instance.food += iventMaterial;
+                        Unit.score.food += iventMaterial;
+                        GameManager.instance.wood += iventMaterial;
+                        Unit.score.wood += iventMaterial;
+                        GameManager.instance.stone += iventMaterial;
+                        Unit.score.stone += iventMaterial;
+                        GameManager.instance.iron += iventMaterial;
+                        Unit.score.iron += iventMaterial;
                         break;
                 }
 
@@ -147,6 +167,24 @@ public class Hex : MonoBehaviour
     void ChangeNormalHex()
     {
         GameObject newObj = Instantiate(normalHex, transform.position, Quaternion.identity);
+        Hex newHex = newObj.GetComponent<Hex>();
+
+        newHex.rend.material.color = new Color32(255, 255, 255, 1);
+        newHex.SetHexNum(hexNum);
+        newHex.bReverse = true;
+
+        if (Unit)
+        {
+            newHex.SetUnit(Unit);
+            Unit.SetHex(newHex);
+        }
+
+        Map.instance.map[hexNum.x, hexNum.z] = newObj;
+        Destroy(this.gameObject);
+    }
+    public void ChangeEventHex(int num)
+    {
+        GameObject newObj = Instantiate(Map.instance.iventHex[num], transform.position, Quaternion.identity);
         Hex newHex = newObj.GetComponent<Hex>();
 
         newHex.rend.material.color = new Color32(255, 255, 255, 1);
@@ -244,5 +282,12 @@ public class Hex : MonoBehaviour
             nextNum[4] = new INT2(hexNum.x, hexNum.z - 1);
             nextNum[5] = new INT2(hexNum.x + 1, hexNum.z - 1);
         }
+    }
+    public void SetEventHex(bool b)
+    {
+        if (b)
+            iventObjectNow = Instantiate(iventObject, transform.position + new Vector3(0f, iventOffsetY, 0f), Quaternion.identity);
+        else
+            Destroy(iventObjectNow);
     }
 }

@@ -6,10 +6,12 @@ public class Map : MonoBehaviour
 {
     public static Map instance = null;
     public GameObject[,] map;
+    public List<GameObject> hexVillageList = new List<GameObject>();
 
     public GameObject hexVillage;
     public GameObject[] hex;
     public float[] hexOdds;
+    public GameObject[] iventHex;
     public GameObject firstUnit;
     public GameObject[] unit;
     public GameObject[] house;
@@ -27,7 +29,6 @@ public class Map : MonoBehaviour
     float startPosOddX;
     int unitId = 1;
     public int unitProbability = 10;
-    int resetHexNum = 55;
 
     private void Awake()
     {
@@ -84,6 +85,7 @@ public class Map : MonoBehaviour
                     Hex hex = map[x, z].GetComponent<Hex>();
                     hex.SetHexNum(new INT2(x, z));
                     hex.SetEnd();
+                    hexVillageList.Add(map[x, z]);
 
                     houseNow = Instantiate(house[0], new Vector3(pos.x + 3.0f, 0.2f, pos.z), Quaternion.identity);
                     houseNow.transform.Rotate(new Vector3(0, 90, 0));
@@ -95,6 +97,7 @@ public class Map : MonoBehaviour
                     Hex hex = map[x, z].GetComponent<Hex>();
                     hex.SetHexNum(new INT2(x, z));
                     hex.SetEnd();
+                    hexVillageList.Add(map[x, z]);
                 }
                 else
                 {
@@ -188,16 +191,15 @@ public class Map : MonoBehaviour
     }
     public void ResetMap()
     {
-        //map = new GameObject[mapSize, mapSize];
         for(int i = 0; i < wildUnitList.Count; i++)
         {
             if (!wildUnitList[i].bFriend)
                 Destroy(wildUnitList[i].gameObject);
         }
         wildUnitList.Clear();
-        round = startRound * (6 + (startRound - 1) * 3) - 6;
+        hexVillageList.Clear();
+        round = (startRound + GameManager.instance.level * 2) * (6 + (startRound + GameManager.instance.level * 2 - 1) * 3) - 6;
         startPosOddX = startPos2 + hexSizeX / 2;
-        resetHexNum = 55;
 
         FLOAT2 pos = new FLOAT2(startPos2, startPos2);
         for (int z = 0; z < mapSize; z++)
@@ -215,6 +217,8 @@ public class Map : MonoBehaviour
                     Hex hex = map[x, z].GetComponent<Hex>();
                     hex.SetHexNum(new INT2(x, z));
                     hex.SetEnd();
+
+                    houseNow.GetComponent<ObjectOnHex>().SetHex(hex);
                 }
                 else if (BCenter(new INT2(x, z)))
                 {
@@ -222,6 +226,7 @@ public class Map : MonoBehaviour
                     Hex hex = map[x, z].GetComponent<Hex>();
                     hex.SetHexNum(new INT2(x, z));
                     hex.SetEnd();
+                    hexVillageList.Add(map[x, z]);
                 }
                 else
                 {
@@ -249,6 +254,30 @@ public class Map : MonoBehaviour
         }
 
         KemokoListOut.instance.SetVillageHex();
+
+
+        Invoke(Set)
+    }
+    public List<Hex> GetRandomHex(int num)
+    {
+        List<Hex> list = new List<Hex>();
+        int x, z;
+
+        while(list.Count < num)
+        {
+            x = Random.Range(0, mapSize);
+            z = Random.Range(0, mapSize);
+            if(list.Count > 0)
+            {
+                while (list[0].hexNum.x == x)
+                    x = Random.Range(0, mapSize);
+            }
+            if (map[x, z].gameObject.activeSelf)
+                if (!map[x, z].gameObject.CompareTag("Village"))
+                    list.Add(map[x, z].GetComponent<Hex>());
+        }
+
+        return list;
     }
     int Choose(float[] probs)
     {
@@ -281,5 +310,23 @@ public class Map : MonoBehaviour
 
         //—”‚ª‚P‚ÌŽžA”z—ñ”‚Ì-‚P—v‘f‚ÌÅŒã‚Ì’l‚ðChoose”z—ñ‚É–ß‚µ‚Ä‚¢‚é
         return probs.Length - 1;
+    }
+    void SetVillage()
+    {
+        int villageNum = GameManager.instance.level;
+        if (GameManager.instance.level >= GameManager.instance.maxVillageLevel)
+            villageNum = GameManager.instance.maxVillageLevel;
+
+        while (villageNum > 0)
+        {
+            for (int i = 0; i < hexVillageList.Count; i++)
+            {
+                VillageCollision village = hexVillageList[i].GetComponent<VillageCollision>();
+                if (village.villageNum != villageNum)
+                    village.SetVillage(villageNum);
+            }
+
+            villageNum--;
+        }
     }
 }

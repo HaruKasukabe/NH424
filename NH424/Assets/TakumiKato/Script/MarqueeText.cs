@@ -73,7 +73,8 @@ namespace UnityEngine.UI
         {
             if (text == string.Empty)
                 return;
-            text = "レベル" + SeasonMission.instance.level[(int)GameManager.instance.season + GameManager.instance.seasonRoundNum * 4] + "以上";
+            float seasonMaterial = SeasonMission.instance.seasonMaterial;
+            text = "木材：" + seasonMaterial + " 石材：" + seasonMaterial + " 鉄材：" + seasonMaterial + "あ";
             switch (m_MarqueeDirection)
             {
                 case MarqueeDirection.Up:

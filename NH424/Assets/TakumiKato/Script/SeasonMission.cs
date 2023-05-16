@@ -9,14 +9,14 @@ public class SeasonMission : MonoBehaviour
 
     TextMeshProUGUI text;
 
-    public int[] level;
+    float baseSeasonMaterial = 30.0f;
+    public float seasonMaterial;
 
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
-            //DontDestroyOnLoad(this.gameObject);
         }
         else
         {
@@ -27,54 +27,33 @@ public class SeasonMission : MonoBehaviour
     void Start()
     {
         text = GetComponent<TextMeshProUGUI>();
-        level = new int[8];
-        for (int i = 0; i < 8; i++)
-        {
-            //if (i > 6)
-            //    level[i] = 3;
-            //else if (i > 2)
-            //    level[i] = 2;
-            //else
-            //    level[i] = 1;
-            level[i] += i + 1;
-        }
+        seasonMaterial = baseSeasonMaterial;
     }
 
     // Update is called once per frame
     void Update()
     {
-        text.text = "レベル " + level[(int)GameManager.instance.season + GameManager.instance.seasonRoundNum * 4] + " 以上";
+        text.text = "木材：" + seasonMaterial + " 以上" + " 石材：" + seasonMaterial + " 以上" + " 鉄材：" + seasonMaterial + " 以上";
     }
 
-    public bool Check(SEASON season)
+    public bool Check(SEASON season, int roundNum)
     {
-        if (TentativeMission(season))
+        if (SpringMission())
             return true;
-        //switch(season)
+
+        //switch (season)
         //{
         //    case SEASON.SPRING:
         //        SpringMission();
         //        break;
         //    case SEASON.SUMMER:
-        //        SummerMission();
+        //        SummerMission(roundNum);
         //        break;
         //    case SEASON.FALL:
-        //        FallMission();
+        //        FallMission(roundNum);
         //        break;
         //    case SEASON.WINTER:
-        //        WinterMission();
-        //        break;
-        //    case SEASON.SPRING_2:
-        //        Spring_2Mission();
-        //        break;
-        //    case SEASON.SUMMER_2:
-        //        Summer_2Mission();
-        //        break;
-        //    case SEASON.FALL_2:
-        //        Fall_2Mission();
-        //        break;
-        //    case SEASON.WINTER_2:
-        //        Winter_2Mission();
+        //        WinterMission(roundNum);
         //        break;
         //    default:
         //        return false;
@@ -83,45 +62,26 @@ public class SeasonMission : MonoBehaviour
         return false;
     }
 
-    bool TentativeMission(SEASON season)
-    {
-        if (GameManager.instance.level >= level[(int)season + GameManager.instance.seasonRoundNum * 4])
-            return true;
-
-        return false;
-    }
-
     bool SpringMission()
     {
-        if (GameManager.instance.level > level[0])
-            return true;
+        if (GameManager.instance.wood >= seasonMaterial)
+            if (GameManager.instance.stone >= seasonMaterial)
+                if (GameManager.instance.iron >= seasonMaterial)
+                {
+                    seasonMaterial += baseSeasonMaterial;
+                    return true;
+                }
         return false;
     }
-    bool SummerMission()
+    bool SummerMission(int roundNum)
     {
         return true;
     }
-    bool FallMission()
+    bool FallMission(int roundNum)
     {
         return true;
     }
-    bool WinterMission()
-    {
-        return true;
-    }
-    bool Spring_2Mission()
-    {
-        return true;
-    }
-    bool Summer_2Mission()
-    {
-        return true;
-    }
-    bool Fall_2Mission()
-    {
-        return true;
-    }
-    bool Winter_2Mission()
+    bool WinterMission(int roundNum)
     {
         return true;
     }

@@ -23,10 +23,12 @@ public class UnitImage : MonoBehaviour
     {
         if(bShop && !bShopActive)
         {
-            for(int i = 0; i < transform.childCount; i++)
+            for(int i = 0; i < transform.childCount - 1; i++)
             {
                 transform.GetChild(i).gameObject.SetActive(true);
             }
+            if(!GameManager.instance.bFriendCat(number))
+                transform.GetChild(3).gameObject.SetActive(true);
             bShopActive = true;
         }
     }
