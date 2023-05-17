@@ -123,4 +123,13 @@ public class SeasonEvent : MonoBehaviour
             bSetEvent = true;
         }
     }
+    public void ResetEvent()
+    {
+        ChangeEvent();
+        SetEvent(GameManager.instance.season);
+    }
+    public void ResetMap()
+    {
+        Invoke("ResetEvent", 3);
+    }
 }

@@ -68,11 +68,11 @@ public class ManagementAudio : MonoBehaviour
         InitSEClip();
 
         fadeBGM = 0; // 0:初期値 1:フェードアウト 2:フェードイン
-        NowBGMVolume = 0.6f; // 1.0が100%
+        NowBGMVolume = 0.2f; // 1.0が100%
         ASBGM.volume = NowBGMVolume; // デフォルトの音量を指定
         GameBGM = 0; // 初期値が春
         FadeSecond = FadeSecond * 60; // フレームレートに直すため秒数*60fps
-        ASSE.volume = 0.8f;
+        ASSE.volume = 0.2f;
         StartBGM();
     }
 

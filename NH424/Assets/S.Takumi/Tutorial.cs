@@ -8,7 +8,9 @@ using TMPro;
 
 public class Tutorial : MonoBehaviour
 {
-    [SerializeField] GameObject Main;
+    public static Tutorial instance = null;
+
+    public GameObject Main;
     [SerializeField] TextMeshProUGUI MainText;
     [SerializeField] TextMeshProUGUI SubText;
     [SerializeField] Image iTorumae;
@@ -25,20 +27,34 @@ public class Tutorial : MonoBehaviour
     }
     List<CanvasStruct> ListCanvas = new List<CanvasStruct>();
     List<bool> ListFlg = new List<bool>();
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         Main.SetActive(false);
         Initirize();
+        Wood();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Q))
-        {
-            Stone();
-        }
+        //if(Input.GetKeyDown(KeyCode.Q))
+        //{
+        //    Stone();
+        //}
     }
 
     private void Initirize()
@@ -201,6 +217,7 @@ public class Tutorial : MonoBehaviour
         if (ListFlg[1] == false)
         {
             Main.SetActive(true);
+            GameManager.instance.SetUICursol(true);
             MainText.text = ListCanvas[1].MainText;
             SubText.text = ListCanvas[1].SubText;
             iTorumae.sprite = ListCanvas[1].Torumae;
@@ -410,5 +427,6 @@ public class Tutorial : MonoBehaviour
     public void BacktoGameButton()
     {
         Main.SetActive(false);
+        GameManager.instance.SetUICursol(false);
     }
 }

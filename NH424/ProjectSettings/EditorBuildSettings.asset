@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/TakumiKato/Scene/TitleScene.unity
-    guid: a4ddd3446da8ddf468659cfe7927b4dd
+    path: Assets/Scenes/StartScene.unity
+    guid: bb47793b2d3f79e49ae2e614274d2e7f
   - enabled: 1
     path: Assets/TakumiKato/Scene/NewScene.unity
     guid: 0fea1c31ff3a2a44291f374a0fd3d3eb

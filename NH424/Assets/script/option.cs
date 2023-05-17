@@ -19,6 +19,6 @@ public class option : MonoBehaviour
 
     public void Option()
     {
-        SceneManager.LoadScene(""); //オプションを開く
+        //SceneManager.LoadScene(""); //オプションを開く
     }
 }

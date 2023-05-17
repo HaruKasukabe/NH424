@@ -14,7 +14,7 @@ using UnityEngine;
 public class OptionSC : MonoBehaviour
 {
     // スクリプト参照
-    ManagementAudio m_audiosc; // オーディオ管理スクリプト
+    public ManagementAudio m_audiosc; // オーディオ管理スクリプト
 
     // 変数宣言
     private float Camerasensitivity; // カメラ感度保存関数
@@ -25,6 +25,8 @@ public class OptionSC : MonoBehaviour
     public GameObject ImageMOption; // メインのOptionのUI画像
     public GameObject ImageCOption; // カメラのOptionのUI画像
     public GameObject ImageSOption; // サウンドのOptionのUI画像
+
+    public GameCamera cam;
 
     // Initialize
     void Start()
@@ -50,7 +52,7 @@ public class OptionSC : MonoBehaviour
                 OpenMOption = true;
                 ImageMOption.SetActive(OpenMOption);
 
-               // GameManager.instance.SetUICursol(true);
+                GameManager.instance.SetUICursol(true);
             }
             else if(OpenOption)
             {
@@ -63,7 +65,7 @@ public class OptionSC : MonoBehaviour
                 ImageCOption.SetActive(OpenCOption);
                 ImageSOption.SetActive(OpenSOption);
 
-               // GameManager.instance.SetUICursol(false);
+                GameManager.instance.SetUICursol(false);
             }   
         }
         if (Input.GetButtonDown("Fire2"))
@@ -76,6 +78,7 @@ public class OptionSC : MonoBehaviour
             ImageMOption.SetActive(OpenMOption);
             ImageCOption.SetActive(OpenCOption);
             ImageSOption.SetActive(OpenSOption);
+            GameManager.instance.SetUICursol(false);
         }
     }
 
@@ -137,7 +140,7 @@ public class OptionSC : MonoBehaviour
     public void SetCameraSensitivity(float sensitivity)
     {
         // カメラ感度を保存する
-         Camerasensitivity =  sensitivity;
+        cam.sensitiveMovePad =  sensitivity;
     }
     // カメラ操作関数で呼び出す用
     public float ReturnCameraSensitivity()
@@ -155,5 +158,10 @@ public class OptionSC : MonoBehaviour
     public void SetSEVolume(float volume)
     {
         m_audiosc.SetSEVolume(volume);
+    }
+
+    public bool bOpenOption()
+    {
+        return OpenOption;
     }
 }

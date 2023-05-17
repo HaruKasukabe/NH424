@@ -256,7 +256,8 @@ public class Map : MonoBehaviour
         KemokoListOut.instance.SetVillageHex();
 
 
-        Invoke(Set)
+        Invoke("SetVillage", 2);
+        SeasonEvent.instance.ResetMap();
     }
     public List<Hex> GetRandomHex(int num)
     {

@@ -65,6 +65,8 @@ public class GameManager : MonoBehaviour
 
     public bool bFirstReset = true;
 
+    public OptionSC option;
+
     private void Awake()
     {
         if (instance == null)
@@ -112,7 +114,7 @@ public class GameManager : MonoBehaviour
                 ScoreManager.instance.ScoreAdd(KemokoListOut.instance.outUnitList, KemokoListVillage.instance.villageUnitList);
                 SceneManager.LoadScene("ResultScene");
             }
-            m_audiosc.SelectBGM();
+            m_audiosc.NextSeason();
             nowTurn = 1;
             season++;
 
@@ -124,8 +126,7 @@ public class GameManager : MonoBehaviour
 
             RenderSettings.skybox = mat[(int)season];
             SeasonIconUI.SetSeasonIcon();
-            SeasonEvent.instance.ChangeEvent();      
-            SeasonEvent.instance.SetEvent(season);
+            SeasonEvent.instance.ResetEvent();      
         }
     }
 
@@ -158,19 +159,22 @@ public class GameManager : MonoBehaviour
 
     public void EndTurn()
     {
-        nowTurn++;
-        List<Unit> unitList = KemokoListOut.instance.outUnitList;
+        if (bMenuDisplay())
+        {
+            nowTurn++;
+            List<Unit> unitList = KemokoListOut.instance.outUnitList;
 
-        ShopList.instance.ChengeList();
+            ShopList.instance.ChengeList();
 
-        moveNumTotal = KemokoListOut.instance.GetMoveNumTotal();
-        if (moveNumTotal < KemokoListOut.instance.maxOutNum)
-            canActUnitNum = moveNumTotal;
-        else
-            canActUnitNum = KemokoListOut.instance.maxOutNum;
+            moveNumTotal = KemokoListOut.instance.GetMoveNumTotal();
+            if (moveNumTotal < KemokoListOut.instance.maxOutNum)
+                canActUnitNum = moveNumTotal;
+            else
+                canActUnitNum = KemokoListOut.instance.maxOutNum;
 
-        for (int i = 0; i < unitList.Count; i++)
-            unitList[i].SetAct();
+            for (int i = 0; i < unitList.Count; i++)
+                unitList[i].SetAct();
+        }
     }
     void FirstReset()
     {
@@ -212,15 +216,28 @@ public class GameManager : MonoBehaviour
     }
     public bool bMenuDisplay()
     {
-        if (MissionButton.instance.GetbMenu())
+        if (SelectButtons.instance.GetbFriendSelect())
         {
-            if (ShopButton.instance.GetbMenu() && VillageButton.instance.GetbMenu())
-                return true;
+            if (!Tutorial.instance.Main.activeSelf)
+            {
+                if (MissionButton.instance.GetbMenu() && !option.bOpenOption())
+                {
+                    if (ShopButton.instance.GetbMenu() && VillageButton.instance.GetbMenu())
+                        return true;
+                    else
+                        return false;
+                }
+                else
+                    return false;
+            }
             else
                 return false;
         }
         else
+        {
+            SetUICursol(true);
             return false;
+        }
     }
     public void SetUICursol(bool act)
     {

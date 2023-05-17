@@ -12,6 +12,7 @@ public class SelectButtons : MonoBehaviour
     [SerializeField] List<Button> buttons;
     [SerializeField] List<bool> keys;
     public TextMeshProUGUI title;
+    bool bSelectMenu = true;
 
     private void Awake()
     {
@@ -51,6 +52,7 @@ public class SelectButtons : MonoBehaviour
         //ゲームオブジェクトを表示
         gameObject.SetActive(true);
         GameManager.instance.SetUICursol(true);
+        bSelectMenu = false;
 
         title.text = "仲間にしますか？\n必要食材：" + unit.sta.cost + "\n所持食材：" + GameManager.instance.food.ToString("f0");
 
@@ -65,6 +67,7 @@ public class SelectButtons : MonoBehaviour
         //ゲームオブジェクトを非表示
         gameObject.SetActive(false);
         GameManager.instance.SetUICursol(false);
+        bSelectMenu = true;
     }
 
     // 各ボタンに処理を割り当て
@@ -86,5 +89,9 @@ public class SelectButtons : MonoBehaviour
 
         //オブジェクトを非表示にする
         gameObject.SetActive(false);
+    }
+    public bool GetbFriendSelect()
+    {
+        return bSelectMenu;
     }
 }

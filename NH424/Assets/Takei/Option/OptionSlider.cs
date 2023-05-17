@@ -10,24 +10,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class OptionSlider : MonoBehaviour
 {
     // 変数宣言
     public OptionSC option; // オプションのスクリプト参照用
+    Slider slider;
+
+    private void Start()
+    {
+        slider = GetComponent<Slider>();
+    }
 
     // スライダーの値をそのままBGM・SEの音量に代入
-    public void MoveSliderBGM(float newSliderValue)
+    public void MoveSliderBGM()
     {
-        option.SetBGMVolume(newSliderValue);
+        option.SetBGMVolume(slider.value);
     }
-    public void MoveSliderSE(float newSliderValue)
+    public void MoveSliderSE()
     {
-        option.SetSEVolume(newSliderValue);
+        option.SetSEVolume(slider.value);
     }
     // スライダーの値をオプションクラスに渡す
-    public void MoveSliderCamera(float newSliderCamera)
+    public void MoveSliderCamera()
     {
-        option.SetCameraSensitivity(newSliderCamera);
+        option.SetCameraSensitivity(slider.value);
     }
 }

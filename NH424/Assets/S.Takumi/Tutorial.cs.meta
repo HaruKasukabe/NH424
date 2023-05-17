@@ -3,7 +3,13 @@ guid: f01dfb8b8698cb849a7a0bc0f7b96c07
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - Main: {fileID: 5993466660380453746, guid: d13a88528b619514aa560341c9746dd0, type: 3}
+  - MainText: {instanceID: 0}
+  - SubText: {instanceID: 0}
+  - iTorumae: {instanceID: 0}
+  - iTottaato: {instanceID: 0}
+  - iKazuhyouzi: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

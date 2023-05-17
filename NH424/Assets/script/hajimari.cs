@@ -18,6 +18,6 @@ public class hajimari : MonoBehaviour
     }
     public void StartGame()
     {
-        SceneManager.LoadScene(""); //ゲームシーンを開く
+        SceneManager.LoadScene("NewScene"); //ゲームシーンを開く
     }
 }
