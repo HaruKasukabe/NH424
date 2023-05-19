@@ -52,6 +52,7 @@ public class Tutorial : MonoBehaviour
         temp.Kazuhyouzi = Resources.Load<Sprite>("Image/Food_count");
         ListCanvas.Add(temp);
         ListFlg.Add(false);
+
         // 木材マス
         temp.MainText = "木材マス";
         temp.SubText = "このマスは木材マスです。\n村をレベルアップする際に使用する材料です。";
@@ -80,86 +81,51 @@ public class Tutorial : MonoBehaviour
         ListFlg.Add(false);
 
         // 灰色マス
-        temp.MainText = "石材マス";
-        temp.SubText = "このマスは石材マスです。\n村をレベルアップする際に使用する材料です。";
-        temp.Torumae = Resources.Load<Sprite>("Image/Stone_Before");
-        temp.Tottaato = Resources.Load<Sprite>("Image/Ston_catch");
-        temp.Kazuhyouzi = Resources.Load<Sprite>("Image/Ston_count");
+        temp.MainText = "灰色マス";
+        temp.SubText = "灰色マスはキャラクターが移動できる未発見マスです。\nマスに触れることによって、材料マスやケモコマスを見つけることができる。";
+        temp.Torumae = Resources.Load<Sprite>("Image/GrayMasu");
+        //temp.Tottaato = Resources.Load<Sprite>("Image/Ston_catch");
+        //temp.Kazuhyouzi = Resources.Load<Sprite>("Image/Ston_count");
         ListCanvas.Add(temp);
         ListFlg.Add(false);
 
         // 黒マス
-        temp.MainText = "石材マス";
-        temp.SubText = "このマスは石材マスです。\n村をレベルアップする際に使用する材料です。";
-        temp.Torumae = Resources.Load<Sprite>("Image/Stone_Before");
-        temp.Tottaato = Resources.Load<Sprite>("Image/Ston_catch");
-        temp.Kazuhyouzi = Resources.Load<Sprite>("Image/Ston_count");
+        temp.MainText = "黒マス";
+        temp.SubText = "黒色マスは、キャラクターが移動できないマスです。\n灰色マスを開拓することによって移動できるようになります。";
+        temp.Torumae = Resources.Load<Sprite>("Image/BlackMasu");
+        //temp.Tottaato = Resources.Load<Sprite>("Image/Ston_catch");
+        //temp.Kazuhyouzi = Resources.Load<Sprite>("Image/Ston_count");
         ListCanvas.Add(temp);
-        ListFlg.Add(false);
-
-        // 素材マス
-        temp.MainText = "石材マス";
-        temp.SubText = "このマスは石材マスです。\n村をレベルアップする際に使用する材料です。";
-        temp.Torumae = Resources.Load<Sprite>("Image/Stone_Before");
-        temp.Tottaato = Resources.Load<Sprite>("Image/Ston_catch");
-        temp.Kazuhyouzi = Resources.Load<Sprite>("Image/Ston_count");
-        ListCanvas.Add(temp);
-        ListFlg.Add(false);
-
-        // 村画面説明
-        temp.MainText = "石材マス";
-        temp.SubText = "このマスは石材マスです。\n村をレベルアップする際に使用する材料です。";
-        temp.Torumae = Resources.Load<Sprite>("Image/Stone_Before");
-        temp.Tottaato = Resources.Load<Sprite>("Image/Ston_catch");
-        temp.Kazuhyouzi = Resources.Load<Sprite>("Image/Ston_count");
-        ListCanvas.Add(temp);
-        ListFlg.Add(false);
+        ListFlg.Add(false);     
 
         // 村レベルUP
-        temp.MainText = "石材マス";
-        temp.SubText = "このマスは石材マスです。\n村をレベルアップする際に使用する材料です。";
-        temp.Torumae = Resources.Load<Sprite>("Image/Stone_Before");
-        temp.Tottaato = Resources.Load<Sprite>("Image/Ston_catch");
-        temp.Kazuhyouzi = Resources.Load<Sprite>("Image/Ston_count");
-        ListCanvas.Add(temp);
-        ListFlg.Add(false);
-
-        // ケモコ交代
-        temp.MainText = "石材マス";
-        temp.SubText = "このマスは石材マスです。\n村をレベルアップする際に使用する材料です。";
-        temp.Torumae = Resources.Load<Sprite>("Image/Stone_Before");
-        temp.Tottaato = Resources.Load<Sprite>("Image/Ston_catch");
-        temp.Kazuhyouzi = Resources.Load<Sprite>("Image/Ston_count");
-        ListCanvas.Add(temp);
-        ListFlg.Add(false);
-
-        // 操作
-        temp.MainText = "石材マス";
-        temp.SubText = "このマスは石材マスです。\n村をレベルアップする際に使用する材料です。";
-        temp.Torumae = Resources.Load<Sprite>("Image/Stone_Before");
-        temp.Tottaato = Resources.Load<Sprite>("Image/Ston_catch");
-        temp.Kazuhyouzi = Resources.Load<Sprite>("Image/Ston_count");
-        ListCanvas.Add(temp);
-        ListFlg.Add(false);
-
-         // 画面説明
-        temp.MainText = "石材マス";
-        temp.SubText = "このマスは石材マスです。\n村をレベルアップする際に使用する材料です。";
-        temp.Torumae = Resources.Load<Sprite>("Image/Stone_Before");
-        temp.Tottaato = Resources.Load<Sprite>("Image/Ston_catch");
-        temp.Kazuhyouzi = Resources.Load<Sprite>("Image/Ston_count");
+        temp.MainText = "村レベルUPについて";
+        temp.SubText = "村アイコンをタップすることで村情報を確認することができる。\n材料を消費して村レベルを上げることでより探索範囲を広くすることができる。";
+        temp.Torumae = Resources.Load<Sprite>("Image/VillageUp");
+        //temp.Tottaato = Resources.Load<Sprite>("Image/Ston_catch");
+        //temp.Kazuhyouzi = Resources.Load<Sprite>("Image/Ston_count");
         ListCanvas.Add(temp);
         ListFlg.Add(false);
 
         // 盤面上未仲間ケモコ
-        temp.MainText = "石材マス";
-        temp.SubText = "このマスは石材マスです。\n村をレベルアップする際に使用する材料です。";
-        temp.Torumae = Resources.Load<Sprite>("Image/Stone_Before");
-        temp.Tottaato = Resources.Load<Sprite>("Image/Ston_catch");
-        temp.Kazuhyouzi = Resources.Load<Sprite>("Image/Ston_count");
+        temp.MainText = "盤面上未仲間ケモコについて";
+        temp.SubText = "盤上のケモコの上に立つことにより、\n食料を消費してケモコを仲間にすることができる。";
+        temp.Torumae = Resources.Load<Sprite>("Image/Alternation");
+        //temp.Tottaato = Resources.Load<Sprite>("Image/Ston_catch");
+        //temp.Kazuhyouzi = Resources.Load<Sprite>("Image/Ston_count");
         ListCanvas.Add(temp);
         ListFlg.Add(false);
 
+        // ケモコ交代
+        temp.MainText = "ケモコ交代について";
+        temp.SubText = "ケモコの所持数が5体以上になると、村に行ってケモコを交代することが可能になる。\n外にいるケモコと村にいるケモコのアイコンをタップすることで交代することができる。";
+        temp.Torumae = Resources.Load<Sprite>("Image/NakamaMae");
+        temp.Tottaato = Resources.Load<Sprite>("Image/NakamaTotyuu");
+        //temp.Kazuhyouzi = Resources.Load<Sprite>("Image/Ston_count");
+        ListCanvas.Add(temp);
+        ListFlg.Add(false);
+
+        /*
         // ゲームクリア説明
         temp.MainText = "石材マス";
         temp.SubText = "このマスは石材マスです。\n村をレベルアップする際に使用する材料です。";
@@ -177,10 +143,11 @@ public class Tutorial : MonoBehaviour
         temp.Kazuhyouzi = Resources.Load<Sprite>("Image/Ston_count");
         ListCanvas.Add(temp);
         ListFlg.Add(false);
+        */
 
     }
 
-    // 食料
+    // 食料マス
     public void Food()
     {
         if (ListFlg[0] == false)
@@ -190,12 +157,12 @@ public class Tutorial : MonoBehaviour
             SubText.text = ListCanvas[0].SubText;
             iTorumae.sprite = ListCanvas[0].Torumae;
             iTottaato.sprite = ListCanvas[0].Tottaato;
-            iTorumae.sprite = ListCanvas[0].Torumae;
+            iTorumae.sprite = ListCanvas[0].Kazuhyouzi;
             ListFlg[0] = true;
         }
     }
 
-    // 木材
+    // 木材マス
     public void Wood()
     {
         if (ListFlg[1] == false)
@@ -205,12 +172,12 @@ public class Tutorial : MonoBehaviour
             SubText.text = ListCanvas[1].SubText;
             iTorumae.sprite = ListCanvas[1].Torumae;
             iTottaato.sprite = ListCanvas[1].Tottaato;
-            iTorumae.sprite = ListCanvas[1].Torumae;
+            iTorumae.sprite = ListCanvas[1].Kazuhyouzi;
             ListFlg[1] = true;
         }
     }
 
-    // 鉄材
+    // 鉄材マス
     public void Iron()
     {
         if (ListFlg[2] == false)
@@ -220,12 +187,12 @@ public class Tutorial : MonoBehaviour
             SubText.text = ListCanvas[2].SubText;
             iTorumae.sprite = ListCanvas[2].Torumae;
             iTottaato.sprite = ListCanvas[2].Tottaato;
-            iTorumae.sprite = ListCanvas[2].Torumae;
+            iTorumae.sprite = ListCanvas[2].Kazuhyouzi;
             ListFlg[0] = true;
         }
     }
 
-    // 石材
+    // 石材マス
     public void Stone()
     {
         if (ListFlg[3] == false)
@@ -235,7 +202,7 @@ public class Tutorial : MonoBehaviour
             SubText.text = ListCanvas[3].SubText;
             iTorumae.sprite = ListCanvas[3].Torumae;
             iTottaato.sprite = ListCanvas[3].Tottaato;
-            iTorumae.sprite = ListCanvas[3].Torumae;
+            iTorumae.sprite = ListCanvas[3].Kazuhyouzi;
             ListFlg[3] = true;
         }
     }
@@ -250,7 +217,7 @@ public class Tutorial : MonoBehaviour
             SubText.text = ListCanvas[4].SubText;
             iTorumae.sprite = ListCanvas[4].Torumae;
             iTottaato.sprite = ListCanvas[4].Tottaato;
-            iTorumae.sprite = ListCanvas[4].Torumae;
+            iTorumae.sprite = ListCanvas[4].Kazuhyouzi;
             ListFlg[4] = true;
         }
     }
@@ -265,38 +232,8 @@ public class Tutorial : MonoBehaviour
             SubText.text = ListCanvas[5].SubText;
             iTorumae.sprite = ListCanvas[5].Torumae;
             iTottaato.sprite = ListCanvas[5].Tottaato;
-            iTorumae.sprite = ListCanvas[5].Torumae;
+            iTorumae.sprite = ListCanvas[5].Kazuhyouzi;
             ListFlg[5] = true;
-        }
-    }
-
-    // 素材マス
-    public void SozaiMasu()
-    {
-        if (ListFlg[6] == false)
-        {
-            Main.SetActive(true);
-            MainText.text = ListCanvas[6].MainText;
-            SubText.text = ListCanvas[6].SubText;
-            iTorumae.sprite = ListCanvas[6].Torumae;
-            iTottaato.sprite = ListCanvas[6].Tottaato;
-            iTorumae.sprite = ListCanvas[6].Torumae;
-            ListFlg[6] = true;
-        }
-    }
-
-    // 村画面説明
-    public void MuraGamenn()
-    {
-        if (ListFlg[7] == false)
-        {
-            Main.SetActive(true);
-            MainText.text = ListCanvas[7].MainText;
-            SubText.text = ListCanvas[7].SubText;
-            iTorumae.sprite = ListCanvas[7].Torumae;
-            iTottaato.sprite = ListCanvas[7].Tottaato;
-            iTorumae.sprite = ListCanvas[7].Torumae;
-            ListFlg[7] = true;
         }
     }
 
@@ -306,17 +243,49 @@ public class Tutorial : MonoBehaviour
         if (ListFlg[8] == false)
         {
             Main.SetActive(true);
-            MainText.text = ListCanvas[8].MainText;
-            SubText.text = ListCanvas[8].SubText;
-            iTorumae.sprite = ListCanvas[8].Torumae;
-            iTottaato.sprite = ListCanvas[8].Tottaato;
-            iTorumae.sprite = ListCanvas[8].Torumae;
+            MainText.text = ListCanvas[6].MainText;
+            SubText.text = ListCanvas[6].SubText;
+            iTorumae.sprite = ListCanvas[6].Torumae;
+            iTottaato.sprite = ListCanvas[6].Tottaato;
+            iTorumae.sprite = ListCanvas[6].Kazuhyouzi;
             ListFlg[8] = true;
+        }
+    }
+
+    // 盤上未仲間ケモコ
+    public void No_Kemoko()
+    {
+
+        if (ListFlg[12] == false)
+        {
+            Main.SetActive(true);
+            MainText.text = ListCanvas[7].MainText;
+            SubText.text = ListCanvas[7].SubText;
+            iTorumae.sprite = ListCanvas[7].Torumae;
+            iTottaato.sprite = ListCanvas[7].Tottaato;
+            iTorumae.sprite = ListCanvas[7].Kazuhyouzi;
+            ListFlg[7] = true;
         }
     }
 
     // ケモコ交代
     public void Kemokokoutai()
+    {
+        if (ListFlg[8] == false)
+        {
+            Main.SetActive(true);
+            MainText.text = ListCanvas[8].MainText;
+            SubText.text = ListCanvas[8].SubText;
+            iTorumae.sprite = ListCanvas[8].Torumae;
+            iTottaato.sprite = ListCanvas[8].Tottaato;
+            iTorumae.sprite = ListCanvas[8].Kazuhyouzi;
+            ListFlg[8] = true;
+        }
+    }
+
+    /*
+    // ゲームクリア説明
+    public void Game_Clear()
     {
         if (ListFlg[9] == false)
         {
@@ -330,8 +299,8 @@ public class Tutorial : MonoBehaviour
         }
     }
 
-    // 操作説明
-    public void SousaSetumei()
+    // ゲームオーバー説明
+    public void Game_Over()
     {
         if (ListFlg[10] == false)
         {
@@ -344,67 +313,7 @@ public class Tutorial : MonoBehaviour
             ListFlg[10] = true;
         }
     }
-
-    // 画面説明
-    public void GamennSetumenn()
-    {
-        if (ListFlg[11] == false)
-        {
-            Main.SetActive(true);
-            MainText.text = ListCanvas[11].MainText;
-            SubText.text = ListCanvas[11].SubText;
-            iTorumae.sprite = ListCanvas[11].Torumae;
-            iTottaato.sprite = ListCanvas[11].Tottaato;
-            iTorumae.sprite = ListCanvas[11].Torumae;
-            ListFlg[11] = true;
-        }
-    }
-
-    // 盤上未仲間ケモコ
-    public void No_Kemoko()
-    {
-
-        if (ListFlg[12] == false)
-        {
-            Main.SetActive(true);
-            MainText.text = ListCanvas[12].MainText;
-            SubText.text = ListCanvas[12].SubText;
-            iTorumae.sprite = ListCanvas[12].Torumae;
-            iTottaato.sprite = ListCanvas[12].Tottaato;
-            iTorumae.sprite = ListCanvas[12].Torumae;
-            ListFlg[12] = true;
-        }
-    }
-
-    // ゲームクリア説明
-    public void Game_Clear()
-    {
-        if (ListFlg[13] == false)
-        {
-            Main.SetActive(true);
-            MainText.text = ListCanvas[13].MainText;
-            SubText.text = ListCanvas[13].SubText;
-            iTorumae.sprite = ListCanvas[13].Torumae;
-            iTottaato.sprite = ListCanvas[13].Tottaato;
-            iTorumae.sprite = ListCanvas[13].Torumae;
-            ListFlg[13] = true;
-        }
-    }
-
-    // ゲームオーバー説明
-    public void Game_Over()
-    {
-        if (ListFlg[14] == false)
-        {
-            Main.SetActive(true);
-            MainText.text = ListCanvas[14].MainText;
-            SubText.text = ListCanvas[14].SubText;
-            iTorumae.sprite = ListCanvas[14].Torumae;
-            iTottaato.sprite = ListCanvas[14].Tottaato;
-            iTorumae.sprite = ListCanvas[14].Torumae;
-            ListFlg[14] = true;
-        }
-    }
+    */
 
     // ボタン処理
     public void BacktoGameButton()
