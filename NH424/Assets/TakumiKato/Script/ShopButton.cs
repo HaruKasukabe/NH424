@@ -48,6 +48,7 @@ public class ShopButton : MonoBehaviour
                 }
                 else if (!bCanMenu)
                 {
+                    ManagementAudio.instance.PublicPlaySE(ManagementAudio.GAMESE.Back);
                     trs.position += new Vector3(-9999, 0, 0);
                     listTrs.position += new Vector3(-9999, 0, 0);
                     GameManager.instance.SetUICursol(false);
@@ -56,8 +57,9 @@ public class ShopButton : MonoBehaviour
                 }
             }
         }
-        else if (Input.GetButtonDown("Fire2"))
+        else if (Input.GetButtonDown("Fire2") && !bCanMenu)
         {
+            ManagementAudio.instance.PublicPlaySE(ManagementAudio.GAMESE.Back);
             trs.position += new Vector3(-9999, 0, 0);
             listTrs.position += new Vector3(-9999, 0, 0);
             GameManager.instance.SetUICursol(false);

@@ -6,6 +6,27 @@ using System;
 using System.IO;
 using TMPro;
 
+public enum TUTORIAL
+{
+    FOOD,
+    WOOD,
+    IRON,
+    STONE,
+    HAIIRO,
+    KURO,
+    SOZAI,
+    MURAGAMEN,
+    MURALEVEL,
+    KOUTAI,
+    SOUSA,
+    GAMEN,
+    NO_KEMOKO,
+    GAME_CLEAR,
+    GAME_OVER,
+
+    MAX
+}
+
 public class Tutorial : MonoBehaviour
 {
     public static Tutorial instance = null;
@@ -26,7 +47,7 @@ public class Tutorial : MonoBehaviour
         public Sprite Kazuhyouzi;
     }
     List<CanvasStruct> ListCanvas = new List<CanvasStruct>();
-    List<bool> ListFlg = new List<bool>();
+    public List<bool> ListFlg = new List<bool>();
 
     private void Awake()
     {
@@ -51,10 +72,11 @@ public class Tutorial : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if(Input.GetKeyDown(KeyCode.Q))
-        //{
-        //    Stone();
-        //}
+        if (Input.GetButtonDown("Fire2") && Main.activeSelf)
+        {
+            ManagementAudio.instance.PublicPlaySE(ManagementAudio.GAMESE.Back);
+            Main.SetActive(false);
+        }
     }
 
     private void Initirize()
@@ -217,7 +239,6 @@ public class Tutorial : MonoBehaviour
         if (ListFlg[1] == false)
         {
             Main.SetActive(true);
-            GameManager.instance.SetUICursol(true);
             MainText.text = ListCanvas[1].MainText;
             SubText.text = ListCanvas[1].SubText;
             iTorumae.sprite = ListCanvas[1].Torumae;
@@ -426,7 +447,7 @@ public class Tutorial : MonoBehaviour
     // É{É^Éìèàóù
     public void BacktoGameButton()
     {
+        ManagementAudio.instance.PublicPlaySE(ManagementAudio.GAMESE.Back);
         Main.SetActive(false);
-        GameManager.instance.SetUICursol(false);
     }
 }

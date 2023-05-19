@@ -20,7 +20,10 @@ public class HexForest : Hex
         base.Update();
 
         GetMaterial(UNIT_ACT.FOREST);
-        if (bReverse)
+        if (bReverse && child.activeSelf)
+        {
+            Tutorial.instance.Wood();
             child.SetActive(true);
+        }
     }
 }

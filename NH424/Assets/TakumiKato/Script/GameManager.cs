@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -72,7 +73,6 @@ public class GameManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            //DontDestroyOnLoad(this.gameObject);
         }
         else
         {
@@ -84,6 +84,7 @@ public class GameManager : MonoBehaviour
     {
         fade.FadeOut(2.0f);
         m_audiosc.StartBGM();
+        WindowEffect.instance.PlaySeasonEffect();
     }
 
     void Update()
@@ -97,9 +98,13 @@ public class GameManager : MonoBehaviour
 
         if (friendCatList.Count >= 20)
         {
-            //fade.FadeIn(2.0f, () => { SceneManager.LoadScene("ClearScene"); });
-            ScoreManager.instance.ScoreAdd(KemokoListOut.instance.outUnitList, KemokoListVillage.instance.villageUnitList);
-            SceneManager.LoadScene("ResultScene");
+            WindowEffect.instance.PlayClearEffect();
+            StartCoroutine(DelayCoroutine(3, () =>
+            {
+                //fade.FadeIn(2.0f, () => { SceneManager.LoadScene("TitleScene"); });
+                ScoreManager.instance.ScoreAdd(KemokoListOut.instance.outUnitList, KemokoListVillage.instance.villageUnitList);
+                SceneManager.LoadScene("ResultScene");
+            }));
         }
 
         if(!bFirstReset)
@@ -110,9 +115,13 @@ public class GameManager : MonoBehaviour
         {
             if (!SeasonMission.instance.Check(season, seasonRoundNum))
             {
-                //fade.FadeIn(2.0f, () => { SceneManager.LoadScene("TitleScene"); });
-                ScoreManager.instance.ScoreAdd(KemokoListOut.instance.outUnitList, KemokoListVillage.instance.villageUnitList);
-                SceneManager.LoadScene("ResultScene");
+                WindowEffect.instance.PlayOverEffect();
+                StartCoroutine(DelayCoroutine(3, () =>
+                {
+                    //fade.FadeIn(2.0f, () => { SceneManager.LoadScene("TitleScene"); });
+                    ScoreManager.instance.ScoreAdd(KemokoListOut.instance.outUnitList, KemokoListVillage.instance.villageUnitList);
+                    SceneManager.LoadScene("ResultScene");
+                }));
             }
             m_audiosc.NextSeason();
             nowTurn = 1;
@@ -124,6 +133,7 @@ public class GameManager : MonoBehaviour
                 seasonRoundNum++;
             }
 
+            WindowEffect.instance.PlaySeasonEffect();
             RenderSettings.skybox = mat[(int)season];
             SeasonIconUI.SetSeasonIcon();
             SeasonEvent.instance.ResetEvent();      
@@ -276,5 +286,11 @@ public class GameManager : MonoBehaviour
                 bFriend = true;
         }
         return bFriend;
+    }
+    // 一定時間後に処理を呼び出すコルーチン
+    private IEnumerator DelayCoroutine(float seconds, Action action)
+    {
+        yield return new WaitForSeconds(seconds);
+        action?.Invoke();
     }
 }

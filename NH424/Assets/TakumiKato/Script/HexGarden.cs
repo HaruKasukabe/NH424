@@ -20,7 +20,10 @@ public class HexGarden : Hex
         base.Update();
 
         GetMaterial(UNIT_ACT.GARDEN);
-        if (bReverse)
+        if (bReverse && child.activeSelf)
+        {
+            Tutorial.instance.Food();
             child.SetActive(true);
+        }
     }
 }

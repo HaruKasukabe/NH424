@@ -40,6 +40,7 @@ public class ManagementAudio : MonoBehaviour
     // public           :他クラスから参照可能、UnityEditor上で編集可能
     // private          :他クラスから参照不可、UnityEditor上で編集不可
     // [SerializeField] :他クラスから参照不可、UnityEditor上で編集可能
+    public static ManagementAudio instance = null;
     public GAMEBGM GameBGM;    // ゲームBGM列挙体
     private GAMEBGM nowSeason; // 現在の季節保管用変数
     public GAMESE gameSE;      // ゲームSE列挙体
@@ -54,6 +55,18 @@ public class ManagementAudio : MonoBehaviour
 
     private List<AudioClip> ACGameBGM = new List<AudioClip>(); // ゲームBGM格納List
     private List<AudioClip> ACGameSE = new List<AudioClip>();  // ゲームSE格納List
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
 
     // Initialize
     void Start()

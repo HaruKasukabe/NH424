@@ -130,6 +130,6 @@ public class SeasonEvent : MonoBehaviour
     }
     public void ResetMap()
     {
-        Invoke("ResetEvent", 3);
+        Invoke("ResetEvent", 2);
     }
 }

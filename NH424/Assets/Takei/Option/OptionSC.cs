@@ -68,8 +68,9 @@ public class OptionSC : MonoBehaviour
                 GameManager.instance.SetUICursol(false);
             }   
         }
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Fire2") && OpenOption)
         {
+            ManagementAudio.instance.PublicPlaySE(ManagementAudio.GAMESE.Back);
             // 全てのオプション画面をオフにする
             OpenOption = false;
             OpenMOption = false;

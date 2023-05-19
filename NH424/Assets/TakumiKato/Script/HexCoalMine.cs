@@ -20,7 +20,10 @@ public class HexCoalMine : Hex
         base.Update();
 
         GetMaterial(UNIT_ACT.COAL_MINE);
-        if (bReverse)
+        if (bReverse && child.activeSelf)
+        {
+            Tutorial.instance.Stone();
             child.SetActive(true);
+        }
     }
 }

@@ -20,7 +20,10 @@ public class HexQuarry : Hex
         base.Update();
 
         GetMaterial(UNIT_ACT.QUARRY);
-        if (bReverse)
+        if (bReverse && child.activeSelf)
+        {
+            Tutorial.instance.Iron();
             child.SetActive(true);
+        }
     }
 }

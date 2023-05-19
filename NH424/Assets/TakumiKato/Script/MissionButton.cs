@@ -43,15 +43,18 @@ public class MissionButton : MonoBehaviour
                 }
                 else
                 {
+                    ManagementAudio.instance.PublicPlaySE(ManagementAudio.GAMESE.Back);
                     trs.position += new Vector3(-9999, 0, 0);
                     GameManager.instance.SetUICursol(false);
                     bCanMenu = true;
                 }
             }
         }
-        else if(Input.GetButtonDown("Fire2"))
+        else if(Input.GetButtonDown("Fire2") && !bCanMenu)
         {
+            ManagementAudio.instance.PublicPlaySE(ManagementAudio.GAMESE.Back);
             trs.position += new Vector3(-9999, 0, 0);
+            GameManager.instance.SetUICursol(false);
             bCanMenu = true;
         }
     }
