@@ -21,10 +21,12 @@ public class OptionSC : MonoBehaviour
     private bool OpenMOption; // メインのオプションの画面が開かれているか
     private bool OpenCOption; // カメラのオプション画面が開かれているか
     private bool OpenSOption; // サウンドのオプション画面が開かれているか
+    private bool OpenPictorialBook;
     private bool OpenOption; // オプション画面が開かれているか
     public GameObject ImageMOption; // メインのOptionのUI画像
     public GameObject ImageCOption; // カメラのOptionのUI画像
     public GameObject ImageSOption; // サウンドのOptionのUI画像
+    public PictorialBook PictorialBook;
 
     public GameCamera cam;
 
@@ -34,6 +36,7 @@ public class OptionSC : MonoBehaviour
         OpenMOption = false;
         OpenCOption = false;
         OpenSOption = false;
+        OpenPictorialBook = false;
         OpenOption = false;
         ImageMOption.SetActive(OpenMOption); // 最初は非表示のためfals
     }
@@ -61,9 +64,11 @@ public class OptionSC : MonoBehaviour
                 OpenMOption = false;
                 OpenCOption = false;
                 OpenSOption = false;
+                OpenPictorialBook = false;
                 ImageMOption.SetActive(OpenMOption);
                 ImageCOption.SetActive(OpenCOption);
                 ImageSOption.SetActive(OpenSOption);
+                PictorialBook.gameObject.SetActive(OpenPictorialBook);
 
                 GameManager.instance.SetUICursol(false);
             }   
@@ -76,9 +81,11 @@ public class OptionSC : MonoBehaviour
             OpenMOption = false;
             OpenCOption = false;
             OpenSOption = false;
+            OpenPictorialBook = false;
             ImageMOption.SetActive(OpenMOption);
             ImageCOption.SetActive(OpenCOption);
             ImageSOption.SetActive(OpenSOption);
+            PictorialBook.gameObject.SetActive(OpenPictorialBook);
             GameManager.instance.SetUICursol(false);
         }
     }
@@ -104,9 +111,11 @@ public class OptionSC : MonoBehaviour
             OpenMOption = false;
             OpenCOption = false;
             OpenSOption = false;
+            OpenPictorialBook = false;
             ImageMOption.SetActive(OpenMOption);
             ImageCOption.SetActive(OpenCOption);
             ImageSOption.SetActive(OpenSOption);
+            PictorialBook.gameObject.SetActive(OpenPictorialBook);
         }
     }
     public void SetActiveFlg()
@@ -132,6 +141,18 @@ public class OptionSC : MonoBehaviour
         // サウンド設定の画面を反転
         OpenSOption = !OpenSOption;
         ImageSOption.SetActive(OpenSOption);
+    }
+    
+    public void SetPictorialBook()
+    {
+        // まずはメインのオプション画面を反転
+        OpenMOption = !OpenMOption;
+        ImageMOption.SetActive(OpenMOption);
+        OpenPictorialBook = !OpenPictorialBook;
+        if (OpenPictorialBook)
+            PictorialBook.SetDisplay();
+        else
+            PictorialBook.BacktoMapButton();
     }
 
     // =============================

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Result : MonoBehaviour
 {
     TextMeshProUGUI text;
-    SpriteRenderer rend;
+    Image rend;
 
     string empty = "  ";
 
@@ -15,19 +15,20 @@ public class Result : MonoBehaviour
     void Awake()
     {
         text = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        rend = transform.GetChild(1).GetComponent<SpriteRenderer>();
+        rend = transform.GetChild(1).GetComponent<Image>();
     }
 
     // Update is called once per frame
     void Update()
     {
+
     }
 
     public void SetText(UNIT_SCORE score)
     {
         rend.sprite = score.sprite.GetComponent<Image>().sprite;
         text.text = "" + score.motifName + empty + score.charName +
-                        empty + "仲間にした数：" + score.friendNum + empty + "開けたマスの数：" + score.reverseHexNum +
-                        empty + "食材：" + score.food + " 木材：" + score.wood + " 石材：" + score.stone + " 鉄材：" + score.iron;
+                        empty + "\n仲間にした数：" + score.friendNum + empty + "開けたマスの数：" + score.reverseHexNum +
+                        empty + "\n食材：" + score.food + " 木材：" + score.wood + " 石材：" + score.stone + " 鉄材：" + score.iron;
     }
 }

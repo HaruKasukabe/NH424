@@ -32,8 +32,9 @@ public class PictorialBook : MonoBehaviour
         public string Tag2;    // タグ2
         public string Tag3;    // タグ3
     };
-    
+
     // 変数宣言
+    public OptionSC option;
     public GameObject PictorialBookobj; // キャラクター図鑑グループオブジェクト
     private bool OpenFlg; // キャラクター図鑑を開いているか
     private List<CharacterInfo> CharaInfo = new List<CharacterInfo>(); // キャラクター情報管理構造体
@@ -415,7 +416,14 @@ public class PictorialBook : MonoBehaviour
     // 図鑑を閉じるボタンを押したとき
     public void BacktoMapButton()
     {
-        OpenFlg = false;
-        PictorialBookobj.SetActive(OpenFlg);
+        PictorialBookobj.SetActive(false);
+    }
+    public void SetDisplay()
+    {
+        PictorialBookobj.SetActive(true); // 図鑑オブジェクト表示
+        pbNum = 0;
+        CheckDiscoverChara();
+        CheckLeftPB();
+        DisplayTextBox();
     }
 }

@@ -13,6 +13,8 @@ public class GameCamera : MonoBehaviour
     public float sensitiveMovePad = 0.1f;
     public float sensitiveZoomPad = 2;
 
+    public GameObject LRUI;
+
     void Start()
     {
         cam = GetComponent<Camera>();
@@ -45,6 +47,11 @@ public class GameCamera : MonoBehaviour
                 cam.transform.position += cam.transform.forward * sensitiveZoomPad / 100;
             else if (trigger < 0)
                 cam.transform.position -= cam.transform.forward * sensitiveZoomPad / 100;
+
+            if (Input.GetButtonDown("LR"))
+                LRUI.SetActive(true);
+            else if (Input.GetButtonUp("LR"))
+                LRUI.SetActive(false);
         }
     }
 }

@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
     public int moveNumTotal = 0;
     public List<int> friendCatList = new List<int>();
     public int friendNum = 1;
+    bool bClear = false;
 
     public int level = 0;
     public int maxVillageLevel = 3;
@@ -96,15 +97,15 @@ public class GameManager : MonoBehaviour
                 bFirstReset = false;
         }
 
-        if (friendCatList.Count >= 20)
+        if (friendCatList.Count >= 20 && !bClear)
         {
             WindowEffect.instance.PlayClearEffect();
             StartCoroutine(DelayCoroutine(3, () =>
             {
-                //fade.FadeIn(2.0f, () => { SceneManager.LoadScene("TitleScene"); });
                 ScoreManager.instance.ScoreAdd(KemokoListOut.instance.outUnitList, KemokoListVillage.instance.villageUnitList);
-                SceneManager.LoadScene("ResultScene");
+                fade.FadeIn(2.0f, () => { SceneManager.LoadScene("ResultScene"); });
             }));
+            bClear = true;
         }
 
         if(!bFirstReset)
@@ -118,9 +119,8 @@ public class GameManager : MonoBehaviour
                 WindowEffect.instance.PlayOverEffect();
                 StartCoroutine(DelayCoroutine(3, () =>
                 {
-                    //fade.FadeIn(2.0f, () => { SceneManager.LoadScene("TitleScene"); });
                     ScoreManager.instance.ScoreAdd(KemokoListOut.instance.outUnitList, KemokoListVillage.instance.villageUnitList);
-                    SceneManager.LoadScene("ResultScene");
+                    fade.FadeIn(2.0f, () => { SceneManager.LoadScene("ResultScene"); });
                 }));
             }
             m_audiosc.NextSeason();

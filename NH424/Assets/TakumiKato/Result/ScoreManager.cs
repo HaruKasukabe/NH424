@@ -35,6 +35,7 @@ public class ScoreManager : MonoBehaviour
 
     public void ScoreAdd(List<Unit> outList, List<Unit> villageList)
     {
+        scoreList.Clear();
         for (int i = 0; i < outList.Count; i++)
         {
             outList[i].score.number = scoreList.Count;

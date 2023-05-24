@@ -14,12 +14,17 @@ public class ScoreList : MonoBehaviour
     List<SCORE> scoreList = new List<SCORE>();
 
     public GameObject origin;
-    Vector2 firstPos = new Vector2(Screen.width / 2, Screen.height - 50.0f);
-    Vector2 addNum = new Vector2(0, -30.0f);
+    //Vector2 firstPos = new Vector2(60, 313);
+    Vector2 firstPos;
+    Vector2 addNum = new Vector2(0, -60.0f);
+    Vector3 pos = new Vector3(0.5f, 0.6f, 0);
+
+    [SerializeField] Transform firstPosObj;
 
     // Start is called before the first frame update
     void Start()
     {
+        firstPos = new Vector2(firstPosObj.position.x, firstPosObj.position.y);
         unitScoreList = ScoreManager.instance.scoreList;
 
         for(int i = 0; i < unitScoreList.Count; i++)
