@@ -125,25 +125,17 @@ public class Tutorial : MonoBehaviour
         ListCanvas.Add(temp);
         ListFlg.Add(false);
 
-        /*
-        // ゲームクリア説明
-        temp.MainText = "石材マス";
-        temp.SubText = "このマスは石材マスです。\n村をレベルアップする際に使用する材料です。";
-        temp.Torumae = Resources.Load<Sprite>("Image/Stone_Before");
-        temp.Tottaato = Resources.Load<Sprite>("Image/Ston_catch");
-        temp.Kazuhyouzi = Resources.Load<Sprite>("Image/Ston_count");
-        ListCanvas.Add(temp);
-        ListFlg.Add(false);
 
-        // ゲームオーバー説明
-        temp.MainText = "石材マス";
-        temp.SubText = "このマスは石材マスです。\n村をレベルアップする際に使用する材料です。";
-        temp.Torumae = Resources.Load<Sprite>("Image/Stone_Before");
-        temp.Tottaato = Resources.Load<Sprite>("Image/Ston_catch");
-        temp.Kazuhyouzi = Resources.Load<Sprite>("Image/Ston_count");
+        // ゲームクリア説明
+        temp.MainText = "ゲームクリアについて";
+        temp.SubText = "季節が変わるまでにミッションがクリアできていない、\n" +
+            "かつターン数が30以上過ぎた場合はゲームオーバーとなってしまう。\n" +
+            "村レベルを上げることで季節を乗り越えることができる。";
+        temp.Torumae = Resources.Load<Sprite>("Image/KemokoKazu");
+        temp.Tottaato = Resources.Load<Sprite>("Image/MissionIcon");
+        temp.Kazuhyouzi = Resources.Load<Sprite>("Image/Number of turns");
         ListCanvas.Add(temp);
         ListFlg.Add(false);
-        */
 
     }
 
@@ -157,7 +149,7 @@ public class Tutorial : MonoBehaviour
             SubText.text = ListCanvas[0].SubText;
             iTorumae.sprite = ListCanvas[0].Torumae;
             iTottaato.sprite = ListCanvas[0].Tottaato;
-            iTorumae.sprite = ListCanvas[0].Kazuhyouzi;
+            iKazuhyouzi.sprite = ListCanvas[0].Kazuhyouzi;
             ListFlg[0] = true;
         }
     }
@@ -172,7 +164,7 @@ public class Tutorial : MonoBehaviour
             SubText.text = ListCanvas[1].SubText;
             iTorumae.sprite = ListCanvas[1].Torumae;
             iTottaato.sprite = ListCanvas[1].Tottaato;
-            iTorumae.sprite = ListCanvas[1].Kazuhyouzi;
+            iKazuhyouzi.sprite = ListCanvas[1].Kazuhyouzi;
             ListFlg[1] = true;
         }
     }
@@ -187,7 +179,7 @@ public class Tutorial : MonoBehaviour
             SubText.text = ListCanvas[2].SubText;
             iTorumae.sprite = ListCanvas[2].Torumae;
             iTottaato.sprite = ListCanvas[2].Tottaato;
-            iTorumae.sprite = ListCanvas[2].Kazuhyouzi;
+            iKazuhyouzi.sprite = ListCanvas[2].Kazuhyouzi;
             ListFlg[0] = true;
         }
     }
@@ -202,7 +194,7 @@ public class Tutorial : MonoBehaviour
             SubText.text = ListCanvas[3].SubText;
             iTorumae.sprite = ListCanvas[3].Torumae;
             iTottaato.sprite = ListCanvas[3].Tottaato;
-            iTorumae.sprite = ListCanvas[3].Kazuhyouzi;
+            iKazuhyouzi.sprite = ListCanvas[3].Kazuhyouzi;
             ListFlg[3] = true;
         }
     }
@@ -217,7 +209,9 @@ public class Tutorial : MonoBehaviour
             SubText.text = ListCanvas[4].SubText;
             iTorumae.sprite = ListCanvas[4].Torumae;
             iTottaato.sprite = ListCanvas[4].Tottaato;
-            iTorumae.sprite = ListCanvas[4].Kazuhyouzi;
+            iTottaato.gameObject.SetActive(false);
+            iKazuhyouzi.sprite = ListCanvas[4].Kazuhyouzi;
+            iKazuhyouzi.gameObject.SetActive(false);
             ListFlg[4] = true;
         }
     }
@@ -232,7 +226,9 @@ public class Tutorial : MonoBehaviour
             SubText.text = ListCanvas[5].SubText;
             iTorumae.sprite = ListCanvas[5].Torumae;
             iTottaato.sprite = ListCanvas[5].Tottaato;
-            iTorumae.sprite = ListCanvas[5].Kazuhyouzi;
+            iTottaato.gameObject.SetActive(false);
+            iKazuhyouzi.sprite = ListCanvas[5].Kazuhyouzi;
+            iKazuhyouzi.gameObject.SetActive(false);
             ListFlg[5] = true;
         }
     }
@@ -240,15 +236,15 @@ public class Tutorial : MonoBehaviour
     // 村レベルUP
     public void MuraLevel()
     {
-        if (ListFlg[8] == false)
+        if (ListFlg[6] == false)
         {
             Main.SetActive(true);
             MainText.text = ListCanvas[6].MainText;
             SubText.text = ListCanvas[6].SubText;
             iTorumae.sprite = ListCanvas[6].Torumae;
             iTottaato.sprite = ListCanvas[6].Tottaato;
-            iTorumae.sprite = ListCanvas[6].Kazuhyouzi;
-            ListFlg[8] = true;
+            iKazuhyouzi.sprite = ListCanvas[6].Kazuhyouzi;
+            ListFlg[6] = true;
         }
     }
 
@@ -256,14 +252,14 @@ public class Tutorial : MonoBehaviour
     public void No_Kemoko()
     {
 
-        if (ListFlg[12] == false)
+        if (ListFlg[7] == false)
         {
             Main.SetActive(true);
             MainText.text = ListCanvas[7].MainText;
             SubText.text = ListCanvas[7].SubText;
             iTorumae.sprite = ListCanvas[7].Torumae;
             iTottaato.sprite = ListCanvas[7].Tottaato;
-            iTorumae.sprite = ListCanvas[7].Kazuhyouzi;
+            iKazuhyouzi.sprite = ListCanvas[7].Kazuhyouzi;
             ListFlg[7] = true;
         }
     }
@@ -278,12 +274,11 @@ public class Tutorial : MonoBehaviour
             SubText.text = ListCanvas[8].SubText;
             iTorumae.sprite = ListCanvas[8].Torumae;
             iTottaato.sprite = ListCanvas[8].Tottaato;
-            iTorumae.sprite = ListCanvas[8].Kazuhyouzi;
+            iKazuhyouzi.sprite = ListCanvas[8].Kazuhyouzi;
             ListFlg[8] = true;
         }
     }
-
-    /*
+    
     // ゲームクリア説明
     public void Game_Clear()
     {
@@ -294,26 +289,11 @@ public class Tutorial : MonoBehaviour
             SubText.text = ListCanvas[9].SubText;
             iTorumae.sprite = ListCanvas[9].Torumae;
             iTottaato.sprite = ListCanvas[9].Tottaato;
-            iTorumae.sprite = ListCanvas[9].Torumae;
+            iKazuhyouzi.sprite = ListCanvas[9].Torumae;
             ListFlg[9] = true;
         }
     }
 
-    // ゲームオーバー説明
-    public void Game_Over()
-    {
-        if (ListFlg[10] == false)
-        {
-            Main.SetActive(true);
-            MainText.text = ListCanvas[10].MainText;
-            SubText.text = ListCanvas[10].SubText;
-            iTorumae.sprite = ListCanvas[10].Torumae;
-            iTottaato.sprite = ListCanvas[10].Tottaato;
-            iTorumae.sprite = ListCanvas[10].Torumae;
-            ListFlg[10] = true;
-        }
-    }
-    */
 
     // ボタン処理
     public void BacktoGameButton()
