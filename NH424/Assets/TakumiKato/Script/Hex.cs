@@ -66,8 +66,11 @@ public class Hex : MonoBehaviour
                 Hex hex = Map.instance.GetHex(nextNum[i]).GetComponent<Hex>();
                 hex.SetDiscover(true);
                 if (hex.bUnit && hex.gameObject.activeSelf)
-                    if(!hex.Unit.bFriend)
+                    if (!hex.Unit.bFriend)
+                    {
                         hex.Unit.gameObject.SetActive(true);
+                        Tutorial.instance.No_Kemoko();
+                    }
                 bSetDiscover = true;
             }
         }
@@ -189,6 +192,7 @@ public class Hex : MonoBehaviour
 
         newHex.rend.material.color = new Color32(255, 255, 255, 1);
         newHex.SetHexNum(hexNum);
+        newHex.bDiscover = true;
         newHex.bReverse = true;
 
         if (Unit)

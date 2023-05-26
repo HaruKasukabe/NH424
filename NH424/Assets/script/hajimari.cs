@@ -20,6 +20,7 @@ public class hajimari : MonoBehaviour
     }
     public void StartGame()
     {
+        Invoke("StartGame", 2.5f);
         fade.FadeIn(2.0f, () => { SceneManager.LoadScene("NewScene"); });
     }
 }

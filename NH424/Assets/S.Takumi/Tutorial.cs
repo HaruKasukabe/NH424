@@ -49,6 +49,8 @@ public class Tutorial : MonoBehaviour
     List<CanvasStruct> ListCanvas = new List<CanvasStruct>();
     public List<bool> ListFlg = new List<bool>();
 
+    int num = 0;
+
     private void Awake()
     {
         if (instance == null)
@@ -66,7 +68,7 @@ public class Tutorial : MonoBehaviour
     {
         Main.SetActive(false);
         Initirize();
-        Wood();
+        HaiiroMasu();
     }
 
     // Update is called once per frame
@@ -74,8 +76,12 @@ public class Tutorial : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire2") && Main.activeSelf)
         {
-            ManagementAudio.instance.PublicPlaySE(ManagementAudio.GAMESE.Back);
+            //ManagementAudio.instance.PublicPlaySE(ManagementAudio.GAMESE.Back);
             Main.SetActive(false);
+            GameManager.instance.SetUICursol(false);
+
+            if (num < 2)
+                StartTutorial();
         }
     }
 
@@ -226,7 +232,7 @@ public class Tutorial : MonoBehaviour
             iTorumae.sprite = ListCanvas[2].Torumae;
             iTottaato.sprite = ListCanvas[2].Tottaato;
             iTorumae.sprite = ListCanvas[2].Kazuhyouzi;
-            ListFlg[0] = true;
+            ListFlg[2] = true;
         }
     }
 
@@ -278,7 +284,7 @@ public class Tutorial : MonoBehaviour
     // ‘ºƒŒƒxƒ‹UP
     public void MuraLevel()
     {
-        if (ListFlg[8] == false)
+        if (ListFlg[6] == false)
         {
             Main.SetActive(true);
             MainText.text = ListCanvas[6].MainText;
@@ -286,7 +292,7 @@ public class Tutorial : MonoBehaviour
             iTorumae.sprite = ListCanvas[6].Torumae;
             iTottaato.sprite = ListCanvas[6].Tottaato;
             iTorumae.sprite = ListCanvas[6].Kazuhyouzi;
-            ListFlg[8] = true;
+            ListFlg[6] = true;
         }
     }
 
@@ -294,7 +300,7 @@ public class Tutorial : MonoBehaviour
     public void No_Kemoko()
     {
 
-        if (ListFlg[12] == false)
+        if (ListFlg[7] == false)
         {
             Main.SetActive(true);
             MainText.text = ListCanvas[7].MainText;
@@ -356,7 +362,23 @@ public class Tutorial : MonoBehaviour
     // ƒ{ƒ^ƒ“ˆ—
     public void BacktoGameButton()
     {
-        ManagementAudio.instance.PublicPlaySE(ManagementAudio.GAMESE.Back);
+        //ManagementAudio.instance.PublicPlaySE(ManagementAudio.GAMESE.Back);
         Main.SetActive(false);
+        GameManager.instance.SetUICursol(false);
+    }
+    void StartTutorial()
+    {
+        switch(num)
+        {
+            case 0:
+                KuroMasu();
+                break;
+            case 1:
+                MuraLevel();
+                break;
+            default:
+                break;
+        }
+        num++;
     }
 }

@@ -12,9 +12,6 @@ EditorBuildSettings:
     path: Assets/TakumiKato/Scene/NewScene.unity
     guid: 0fea1c31ff3a2a44291f374a0fd3d3eb
   - enabled: 1
-    path: Assets/TakumiKato/Scene/ClearScene.unity
-    guid: f99fbabee24a59a42ae604c7d00f4958
-  - enabled: 1
     path: Assets/TakumiKato/Scene/ResultScene.unity
     guid: 07226a026c9194446b3b9cb4beef962a
   m_configObjects: {}

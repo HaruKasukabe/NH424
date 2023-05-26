@@ -238,6 +238,7 @@ GameObject:
   - component: {fileID: -1281559163290490176}
   - component: {fileID: 5537156397920943022}
   - component: {fileID: -8960050125326787086}
+  - component: {fileID: 6691193270122242616}
   m_Layer: 5
   m_Name: rabitImage
   m_TagString: Untagged
@@ -405,6 +406,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &6691193270122242616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8160446217370900617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b3769ee0c4b69646be101605d296457, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Size: {x: 600, y: 450}
+  AdjType: 1
 --- !u!1001 &3335249683883578939
 PrefabInstance:
   m_ObjectHideFlags: 0

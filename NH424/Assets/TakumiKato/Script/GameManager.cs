@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
     public bool bFirstReset = true;
 
     public OptionSC option;
+    public PictorialBook book;
 
     private void Awake()
     {
@@ -84,8 +85,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         fade.FadeOut(2.0f);
-        m_audiosc.StartBGM();
-        WindowEffect.instance.PlaySeasonEffect();
     }
 
     void Update()
@@ -133,11 +132,14 @@ public class GameManager : MonoBehaviour
                 seasonRoundNum++;
             }
 
-            WindowEffect.instance.PlaySeasonEffect();
+            WindowEffect.instance.ChangeSeasonEffect();
             RenderSettings.skybox = mat[(int)season];
             SeasonIconUI.SetSeasonIcon();
             SeasonEvent.instance.ResetEvent();      
         }
+
+        if (Input.GetButtonDown("Fire2"))
+            SetUICursol(false);
     }
 
     public void LevelUp()
@@ -151,7 +153,7 @@ public class GameManager : MonoBehaviour
                     iron -= levelUpNeed;
                     level++;
                     levelUpNeed = 100.0f * (level + 1);
-                    if(level < 4)
+                    if(level < 5)
                         Map.instance.LevelUpHouse();
                 }
     }
@@ -226,28 +228,37 @@ public class GameManager : MonoBehaviour
     }
     public bool bMenuDisplay()
     {
-        if (SelectButtons.instance.GetbFriendSelect())
+        if (!Tutorial.instance.Main.activeSelf && !option.bOpenOption())
         {
-            if (!Tutorial.instance.Main.activeSelf)
+            if (SelectButtons.instance.GetbFriendSelect() && book.GetOpenFlg())
             {
-                if (MissionButton.instance.GetbMenu() && !option.bOpenOption())
+                if (MissionButton.instance.GetbMenu())
                 {
                     if (ShopButton.instance.GetbMenu() && VillageButton.instance.GetbMenu())
+                    {
+                        SetUICursol(false);
                         return true;
+                    }
                     else
+                    {
+                        SetUICursol(true);
                         return false;
+                    }
                 }
                 else
+                {
+                    SetUICursol(true);
                     return false;
+                }
             }
             else
+            {
+                SetUICursol(true);
                 return false;
+            }
         }
         else
-        {
-            SetUICursol(true);
             return false;
-        }
     }
     public void SetUICursol(bool act)
     {

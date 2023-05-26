@@ -19,6 +19,7 @@ public class zukan : MonoBehaviour
 
     public void Zukan()
     {
-        //SceneManager.LoadScene(""); //}ŠÓ‚ğŠJ‚­
+        Invoke("Zukan", 1.5f);
+        SceneManager.LoadScene(""); //}ŠÓ‚ğŠJ‚­
     }
 }

@@ -19,6 +19,7 @@ public class option : MonoBehaviour
 
     public void Option()
     {
-        //SceneManager.LoadScene(""); //オプションを開く
+        Invoke("Option", 1.5f);
+        SceneManager.LoadScene(""); //オプションを開く
     }
 }

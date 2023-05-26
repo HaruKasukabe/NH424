@@ -213,7 +213,8 @@ public class ManagementAudio : MonoBehaviour
     // BGMÇÃçƒê∂ä«óù
     private void PlayBGM(AudioClip BGMclip)
     {
-            ASBGM.PlayOneShot(BGMclip);
+        ASBGM.clip = BGMclip;
+        ASBGM.Play();
     }
     // SEÇÃçƒê∂ä«óù
     private void PlaySE(AudioClip SEclip)

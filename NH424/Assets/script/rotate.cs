@@ -23,7 +23,7 @@ public class rotate : MonoBehaviour
         // ワールド座標基準で、現在の回転量へ加算する
         myTransform.Rotate(rnd, rnd, rnd, Space.World);
 
-            if (myTransform.position.y <= -10.0)
+            if (myTransform.position.y <= -50.0)
             {
                 //fade.FadeIn(1f,()=> 
                 SceneManager.LoadScene("StartScene");

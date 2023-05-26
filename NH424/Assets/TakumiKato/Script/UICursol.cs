@@ -7,7 +7,7 @@ public class UICursol : MonoBehaviour
 {
     RectTransform trs;
     GameObject obj;
-    public float cursolSpeed = 2.0f;
+    public float cursolSpeed = 6.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +21,7 @@ public class UICursol : MonoBehaviour
         float moveX = Input.GetAxis("Horizontal") * cursolSpeed;
         float moveY = Input.GetAxis("Vertical") * cursolSpeed;
 
-        trs.position += new Vector3(moveX, moveY, 0.0f);
+        trs.position += new Vector3(moveX, moveY, 0.0f) * 2;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

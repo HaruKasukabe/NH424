@@ -16,7 +16,7 @@ public class ScoreList : MonoBehaviour
     public GameObject origin;
     //Vector2 firstPos = new Vector2(60, 313);
     Vector2 firstPos;
-    Vector2 addNum = new Vector2(0, -60.0f);
+    Vector2 addNum = new Vector2(0, -120.0f);
     Vector3 pos = new Vector3(0.5f, 0.6f, 0);
 
     [SerializeField] Transform firstPosObj;
@@ -24,7 +24,7 @@ public class ScoreList : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        firstPos = new Vector2(firstPosObj.position.x, firstPosObj.position.y);
+        firstPos = new Vector2(340, -162);
         unitScoreList = ScoreManager.instance.scoreList;
 
         for(int i = 0; i < unitScoreList.Count; i++)

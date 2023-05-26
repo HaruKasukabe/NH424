@@ -22,7 +22,7 @@ public class HexQuarry : Hex
         GetMaterial(UNIT_ACT.QUARRY);
         if (bReverse && !child.activeSelf)
         {
-            Tutorial.instance.Iron();
+            Tutorial.instance.Stone();
             child.SetActive(true);
         }
     }

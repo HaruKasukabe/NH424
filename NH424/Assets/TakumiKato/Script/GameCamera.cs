@@ -47,11 +47,11 @@ public class GameCamera : MonoBehaviour
                 cam.transform.position += cam.transform.forward * sensitiveZoomPad / 100;
             else if (trigger < 0)
                 cam.transform.position -= cam.transform.forward * sensitiveZoomPad / 100;
-
-            if (Input.GetButtonDown("LR"))
-                LRUI.SetActive(true);
-            else if (Input.GetButtonUp("LR"))
-                LRUI.SetActive(false);
         }
+
+        if (Input.GetButtonDown("LR"))
+            LRUI.SetActive(true);
+        if (Input.GetButtonUp("LR"))
+            LRUI.SetActive(false);
     }
 }

@@ -14,12 +14,12 @@ using UnityEngine.UI;
 
 public class Choice : MonoBehaviour
 {
-    Button button;
+    public Button button;
+    public Button pictoButton;
 
     // Start is called before the first frame update
     void Start()
     {
-        button = GameObject.Find("Canvas/MainMenu/Button").GetComponent<Button>();
         //É{É^ÉìÇ™ëIëÇ≥ÇÍÇΩèÛë‘Ç…Ç»ÇÈ
         button.Select();
    
@@ -29,5 +29,13 @@ public class Choice : MonoBehaviour
     void Update()
     {
         
+    }
+    public void select()
+    {
+        button.Select();
+    }
+    public void selectPicto()
+    {
+        pictoButton.Select();
     }
 }

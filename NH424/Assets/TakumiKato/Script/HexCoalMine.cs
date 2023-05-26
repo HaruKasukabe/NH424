@@ -22,7 +22,7 @@ public class HexCoalMine : Hex
         GetMaterial(UNIT_ACT.COAL_MINE);
         if (bReverse && !child.activeSelf)
         {
-            Tutorial.instance.Stone();
+            Tutorial.instance.Iron();
             child.SetActive(true);
         }
     }

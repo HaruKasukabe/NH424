@@ -18,8 +18,9 @@ public class WindowEffect : MonoBehaviour
     Vector3 overEffectPos = new Vector3(1442.3f, 9, 93.3f);
 
     [SerializeField] GameObject[] SeasonEffect;
-    Vector3 seasonEffectPos = new Vector3(1474.03f, 268, 439);
-    float destroySeasonEffectTime = 8.0f;
+    GameObject seasonEffect;
+    Vector3 seasonEffectPos = new Vector3(1441.18f, 20.04f, 51.8f);
+    Vector3 effectRota = new Vector3(88.96485f, 328.8247f, 316.608f);
 
 
     private void Awake()
@@ -52,6 +53,7 @@ public class WindowEffect : MonoBehaviour
     {
         if (!bClearEffect)
         {
+            Destroy(seasonEffect);
             rawImage.SetActive(true);
             EffekseerSystem.PlayEffect(GameClearEffect, clearEffectPos);
             bClearEffect = true;
@@ -59,18 +61,26 @@ public class WindowEffect : MonoBehaviour
     }
     public void PlayOverEffect()
     {
+        Destroy(seasonEffect);
         rawImage.SetActive(true);
         EffekseerSystem.PlayEffect(GameOverEffect[(int)GameManager.instance.season], overEffectPos);
     }
     public void PlaySeasonEffect()
     {
         rawImage.SetActive(true);
-        GameObject effect = Instantiate(SeasonEffect[(int)GameManager.instance.season], seasonEffectPos, Quaternion.identity);
-        Destroy(effect, destroySeasonEffectTime);
-        StartCoroutine(DelayCoroutine(destroySeasonEffectTime, () =>
-        {
-            rawImage.SetActive(false);
-        }));
+        seasonEffect = Instantiate(SeasonEffect[(int)GameManager.instance.season], seasonEffectPos, Quaternion.identity);
+        seasonEffect.transform.Rotate(effectRota);
+    }
+    public void DestroySeasonEffect()
+    {
+        Destroy(seasonEffect);
+    }
+    public void ChangeSeasonEffect()
+    {
+        Destroy(seasonEffect);
+        rawImage.SetActive(true);
+        seasonEffect = Instantiate(SeasonEffect[(int)GameManager.instance.season], seasonEffectPos, Quaternion.identity);
+        seasonEffect.transform.Rotate(effectRota);
     }
 
     // 一定時間後に処理を呼び出すコルーチン

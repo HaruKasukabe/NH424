@@ -69,6 +69,9 @@ public class SeasonMission : MonoBehaviour
                 if (GameManager.instance.iron >= seasonMaterial)
                 {
                     seasonMaterial += baseSeasonMaterial;
+                    GameManager.instance.wood -= seasonMaterial;
+                    GameManager.instance.stone -= seasonMaterial;
+                    GameManager.instance.iron -= seasonMaterial;
                     return true;
                 }
         return false;

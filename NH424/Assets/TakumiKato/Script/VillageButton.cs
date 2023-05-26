@@ -44,12 +44,13 @@ public class VillageButton : MonoBehaviour
                     trs.position = new Vector2(Screen.width / 2, Screen.height / 2);
                     listTrs.position = new Vector2(Screen.width / 2, Screen.height / 6);
                     GameManager.instance.SetUICursol(true);
+                    Tutorial.instance.Kemokokoutai();
 
                     bCanMenu = false;
                 }
                 else
                 {
-                    ManagementAudio.instance.PublicPlaySE(ManagementAudio.GAMESE.Back);
+                    //ManagementAudio.instance.PublicPlaySE(ManagementAudio.GAMESE.Back);
                     trs.position += new Vector3(-9999, 0, 0);
                     listTrs.position += new Vector3(-9999, 0, 0);
                     GameManager.instance.SetUICursol(false);
@@ -60,7 +61,7 @@ public class VillageButton : MonoBehaviour
         }
         else if (Input.GetButtonDown("Fire2") && !bCanMenu)
         {
-            ManagementAudio.instance.PublicPlaySE(ManagementAudio.GAMESE.Back);
+            //ManagementAudio.instance.PublicPlaySE(ManagementAudio.GAMESE.Back);
             trs.position += new Vector3(-9999, 0, 0);
             listTrs.position += new Vector3(-9999, 0, 0);
             GameManager.instance.SetUICursol(false);
@@ -74,6 +75,7 @@ public class VillageButton : MonoBehaviour
         {
             trs.position = new Vector2(Screen.width / 2, Screen.height / 2);
             listTrs.position = new Vector2(Screen.width / 2, Screen.height / 6);
+            Tutorial.instance.Kemokokoutai();
 
             bCanMenu = false;
         }

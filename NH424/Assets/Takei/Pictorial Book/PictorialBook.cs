@@ -15,6 +15,7 @@ using UnityEngine.UI;
 using System;
 using System.IO;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PictorialBook : MonoBehaviour
 {
@@ -34,7 +35,6 @@ public class PictorialBook : MonoBehaviour
     };
 
     // 変数宣言
-    public OptionSC option;
     public GameObject PictorialBookobj; // キャラクター図鑑グループオブジェクト
     private bool OpenFlg; // キャラクター図鑑を開いているか
     private List<CharacterInfo> CharaInfo = new List<CharacterInfo>(); // キャラクター情報管理構造体
@@ -95,6 +95,9 @@ public class PictorialBook : MonoBehaviour
     public Image i_Tiger;
     public Image i_Sheep;
 
+    bool bStartScene = false;
+    public Choice choice;
+
     // Initilize
     void Start()
     {
@@ -103,21 +106,26 @@ public class PictorialBook : MonoBehaviour
         InitCharaInfo(); // キャラ情報初期化処理
         pbNum = 0; // 初期値は左上
         InitCharaTexture(); // テクスチャ初期化処理
+        if (SceneManager.GetActiveScene().name == "StartScene")
+            bStartScene = true;
     }
 
     // 更新関数
     void Update()
     {
         // Zキーを押すと図鑑が開く
-        if(Input.GetKeyDown(KeyCode.Z)&& !OpenFlg)
+        //if(Input.GetKeyDown(KeyCode.Z)&& !OpenFlg)
+        //{
+        //    OpenFlg = !OpenFlg; // フラグを反転
+        //    PictorialBookobj.SetActive(OpenFlg); // 図鑑オブジェクト表示
+        //    pbNum = 0;
+        //    CheckDiscoverChara();
+        //    CheckLeftPB();
+        //    DisplayTextBox();
+        //}
+        if (Input.GetButtonDown("Fire2") && !OpenFlg)
         {
-            OpenFlg = !OpenFlg; // フラグを反転
-            PictorialBookobj.SetActive(OpenFlg); // 図鑑オブジェクト表示
-            pbNum = 0;
-            CheckDiscoverChara();
-            CheckLeftPB();
-            DisplayTextBox();
-
+            BacktoMapButton();
         }
     }
 
@@ -243,26 +251,26 @@ public class PictorialBook : MonoBehaviour
     private void InitCharaTexture()
     {
         // テクスチャをリソースから読み込み
-        s_Crow = Resources.Load<Sprite>("Image/Crow");
-        s_Rabbit = Resources.Load<Sprite>("Image/Rabbit");
-        s_Wolf = Resources.Load<Sprite>("Image/Wolf");
-        s_Giraffe = Resources.Load<Sprite>("Image/Giraffe");
-        s_Cat = Resources.Load<Sprite>("Image/Cat");
-        s_Mouse = Resources.Load<Sprite>("Image/Mouse");
-        s_Squirrel = Resources.Load<Sprite>("Image/Squirrel");
-        s_Bat = Resources.Load<Sprite>("Image/Nodata");
-        s_Crocodile = Resources.Load<Sprite>("Image/Nodata");
-        s_Elephant = Resources.Load<Sprite>("Image/Nodata");
-        s_Frog = Resources.Load<Sprite>("Image/Nodata");
-        s_Headgehog = Resources.Load<Sprite>("Image/Nodata");
-        s_Horse = Resources.Load<Sprite>("Image/Nodata");
-        s_Lion = Resources.Load<Sprite>("Image/Nodata");
-        s_Mole = Resources.Load<Sprite>("Image/Nodata");
-        s_Panda = Resources.Load<Sprite>("Image/Nodata");
-        s_Swan = Resources.Load<Sprite>("Image/Nodata");
-        s_Turtle = Resources.Load<Sprite>("Image/Nodata");
-        s_Tiger = Resources.Load<Sprite>("Image/Nodata");
-        s_Sheep = Resources.Load<Sprite>("Image/Nodata");
+        s_Crow = Resources.Load<Sprite>("Image/crow");
+        s_Rabbit = Resources.Load<Sprite>("Image/rabbit");
+        s_Wolf = Resources.Load<Sprite>("Image/wolf");
+        s_Giraffe = Resources.Load<Sprite>("Image/giraffe");
+        s_Cat = Resources.Load<Sprite>("Image/cat");
+        s_Mouse = Resources.Load<Sprite>("Image/mouse");
+        s_Squirrel = Resources.Load<Sprite>("Image/squirrel");
+        s_Bat = Resources.Load<Sprite>("Image/bat");
+        s_Crocodile = Resources.Load<Sprite>("Image/crocodile");
+        s_Elephant = Resources.Load<Sprite>("Image/elephant");
+        s_Frog = Resources.Load<Sprite>("Image/frog");
+        s_Headgehog = Resources.Load<Sprite>("Image/headgehog");
+        s_Horse = Resources.Load<Sprite>("Image/horse");
+        s_Lion = Resources.Load<Sprite>("Image/lion");
+        s_Mole = Resources.Load<Sprite>("Image/mole");
+        s_Panda = Resources.Load<Sprite>("Image/panda");
+        s_Swan = Resources.Load<Sprite>("Image/swan");
+        s_Turtle = Resources.Load<Sprite>("Image/turtle");
+        s_Tiger = Resources.Load<Sprite>("Image/tiger");
+        s_Sheep = Resources.Load<Sprite>("Image/sheep");
         s_Undiscavered = Resources.Load<Sprite>("Image/Undiscovered");
 
         // 読み込んだリソースをImageに渡す
@@ -416,14 +424,28 @@ public class PictorialBook : MonoBehaviour
     // 図鑑を閉じるボタンを押したとき
     public void BacktoMapButton()
     {
+        OpenFlg = true;
         PictorialBookobj.SetActive(false);
+        if (!bStartScene)
+            GameManager.instance.SetUICursol(false);
+        else
+            choice.select();
     }
     public void SetDisplay()
     {
+        OpenFlg = false;
         PictorialBookobj.SetActive(true); // 図鑑オブジェクト表示
         pbNum = 0;
         CheckDiscoverChara();
         CheckLeftPB();
         DisplayTextBox();
+        if (!bStartScene)
+            GameManager.instance.SetUICursol(true);
+        else
+            choice.selectPicto();
+    }
+    public bool GetOpenFlg()
+    {
+        return OpenFlg;
     }
 }
