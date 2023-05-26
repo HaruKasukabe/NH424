@@ -56,6 +56,7 @@ public class ShopList : MonoBehaviour
             GameManager.instance.friendNum++;
             GameManager.instance.nowTurn++;
             GameManager.instance.food -= unit.sta.cost * 2;
+            GameManager.instance.book.DiscoverCharacter(number);
             RemoveList(id);
         }
         else

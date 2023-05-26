@@ -85,6 +85,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         fade.FadeOut(2.0f);
+        book.DiscoverCharacter(0);
     }
 
     void Update()

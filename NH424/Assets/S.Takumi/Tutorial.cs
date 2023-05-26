@@ -8,7 +8,8 @@ using TMPro;
 
 public class Tutorial : MonoBehaviour
 {
-    [SerializeField] GameObject Main;
+    public static Tutorial instance = null;
+    public GameObject Main;
     [SerializeField] TextMeshProUGUI MainText;
     [SerializeField] TextMeshProUGUI SubText;
     [SerializeField] Image iTorumae;
@@ -25,19 +26,40 @@ public class Tutorial : MonoBehaviour
     }
     List<CanvasStruct> ListCanvas = new List<CanvasStruct>();
     List<bool> ListFlg = new List<bool>();
+
+    int num = 0;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         Main.SetActive(false);
         Initirize();
+        HaiiroMasu();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetButtonDown("Fire2") && Main.activeSelf)
         {
-            Stone();
+            //ManagementAudio.instance.PublicPlaySE(ManagementAudio.GAMESE.Back);
+            Main.SetActive(false);
+            GameManager.instance.SetUICursol(false);
+
+            if (num < 2)
+                StartTutorial();
         }
     }
 
@@ -299,5 +321,22 @@ public class Tutorial : MonoBehaviour
     public void BacktoGameButton()
     {
         Main.SetActive(false);
+        GameManager.instance.SetUICursol(false);
+    }
+
+    void StartTutorial()
+    {
+        switch (num)
+        {
+            case 0:
+                KuroMasu();
+                break;
+            case 1:
+                MuraLevel();
+                break;
+            default:
+                break;
+        }
+        num++;
     }
 }

@@ -17,27 +17,27 @@ using System.IO;
 using TMPro;
 using UnityEngine.SceneManagement;
 
+// 構造体宣言
+public struct CharacterInfo
+{
+    public int Num;        // キャラクター番号
+    public string Name;    // キャラクターネーム
+    public string Motif;   // キャラクターモチーフ
+    public int Encounter;  // 出会った回数
+    public string Sex;     // 性別
+    public int MoveArea;   // 移動範囲
+    public string Comment; // 一言コメント
+    public string Tag1;    // タグ1
+    public string Tag2;    // タグ2
+    public string Tag3;    // タグ3
+};
+
 public class PictorialBook : MonoBehaviour
 {
-    // 構造体宣言
-    private struct CharacterInfo
-    {
-        public int Num;        // キャラクター番号
-        public string Name;    // キャラクターネーム
-        public string Motif;   // キャラクターモチーフ
-        public int Encounter;  // 出会った回数
-        public string Sex;     // 性別
-        public int MoveArea;   // 移動範囲
-        public string Comment; // 一言コメント
-        public string Tag1;    // タグ1
-        public string Tag2;    // タグ2
-        public string Tag3;    // タグ3
-    };
-
     // 変数宣言
     public GameObject PictorialBookobj; // キャラクター図鑑グループオブジェクト
     private bool OpenFlg; // キャラクター図鑑を開いているか
-    private List<CharacterInfo> CharaInfo = new List<CharacterInfo>(); // キャラクター情報管理構造体
+    private List<CharacterInfo> CharaInfo; // キャラクター情報管理構造体
     static private string PB_CSVFile = "CSV/PictorialBook"; // CSVデータ保存場所
     private TextAsset csvFile;
     private int pbNum; // 今見てる図鑑の位置
@@ -101,6 +101,7 @@ public class PictorialBook : MonoBehaviour
     // Initilize
     void Start()
     {
+        CharaInfo = charaInfo.instance.GetInfo();
         OpenFlg = false; // 初期値で図鑑は閉じている
         PictorialBookobj.SetActive(false); // 図鑑オブジェクトは非表示
         InitCharaInfo(); // キャラ情報初期化処理
@@ -251,18 +252,18 @@ public class PictorialBook : MonoBehaviour
     private void InitCharaTexture()
     {
         // テクスチャをリソースから読み込み
-        s_Crow = Resources.Load<Sprite>("Image/crow");
-        s_Rabbit = Resources.Load<Sprite>("Image/rabbit");
-        s_Wolf = Resources.Load<Sprite>("Image/wolf");
+        s_Crow = Resources.Load<Sprite>("Image/Crow");
+        s_Rabbit = Resources.Load<Sprite>("Image/Rabbit");
+        s_Wolf = Resources.Load<Sprite>("Image/Wolf");
         s_Giraffe = Resources.Load<Sprite>("Image/giraffe");
-        s_Cat = Resources.Load<Sprite>("Image/cat");
-        s_Mouse = Resources.Load<Sprite>("Image/mouse");
+        s_Cat = Resources.Load<Sprite>("Image/Cat");
+        s_Mouse = Resources.Load<Sprite>("Image/rat");
         s_Squirrel = Resources.Load<Sprite>("Image/squirrel");
         s_Bat = Resources.Load<Sprite>("Image/bat");
         s_Crocodile = Resources.Load<Sprite>("Image/crocodile");
         s_Elephant = Resources.Load<Sprite>("Image/elephant");
         s_Frog = Resources.Load<Sprite>("Image/frog");
-        s_Headgehog = Resources.Load<Sprite>("Image/headgehog");
+        s_Headgehog = Resources.Load<Sprite>("Image/hedgehog");
         s_Horse = Resources.Load<Sprite>("Image/horse");
         s_Lion = Resources.Load<Sprite>("Image/lion");
         s_Mole = Resources.Load<Sprite>("Image/mole");
@@ -302,19 +303,19 @@ public class PictorialBook : MonoBehaviour
     private void CheckDiscoverChara()
     {
         if (CharaInfo[0].Encounter != 0)
-            i_Crow.sprite = s_Crow;
-        if (CharaInfo[1].Encounter != 0)
-            i_Rabbit.sprite = s_Rabbit;
-        if (CharaInfo[2].Encounter != 0)
-            i_Wolf.sprite = s_Wolf;
-        if (CharaInfo[3].Encounter != 0)
-            i_Giraffe.sprite = s_Giraffe;
-        if (CharaInfo[4].Encounter != 0)
             i_Cat.sprite = s_Cat;
-        if (CharaInfo[5].Encounter != 0)
+        if (CharaInfo[1].Encounter != 0)
+            i_Crow.sprite = s_Crow;
+        if (CharaInfo[2].Encounter != 0)
+            i_Giraffe.sprite = s_Giraffe;
+        if (CharaInfo[3].Encounter != 0)
+            i_Rabbit.sprite = s_Rabbit;
+        if (CharaInfo[4].Encounter != 0)
             i_Mouse.sprite = s_Mouse;
-        if (CharaInfo[6].Encounter != 0)
+        if (CharaInfo[5].Encounter != 0)
             i_Squirrel.sprite = s_Squirrel;
+        if (CharaInfo[6].Encounter != 0)
+            i_Wolf.sprite = s_Wolf;
         if (CharaInfo[7].Encounter != 0)
             i_Bat.sprite = s_Bat;
         if (CharaInfo[8].Encounter != 0)
@@ -332,15 +333,15 @@ public class PictorialBook : MonoBehaviour
         if (CharaInfo[14].Encounter != 0)
             i_Mole.sprite = s_Mole;
         if (CharaInfo[15].Encounter != 0)
-            i_Panda.sprite = s_Panda;
+            i_Sheep.sprite = s_Sheep;
         if (CharaInfo[16].Encounter != 0)
             i_Swan.sprite = s_Swan;
         if (CharaInfo[17].Encounter != 0)
-            i_Turtle.sprite = s_Turtle;
-        if (CharaInfo[18].Encounter != 0)
             i_Tiger.sprite = s_Tiger;
+        if (CharaInfo[18].Encounter != 0)
+            i_Turtle.sprite = s_Turtle;
         if (CharaInfo[19].Encounter != 0)
-            i_Sheep.sprite = s_Sheep;
+            i_Panda.sprite = s_Panda;
     }
 
     // ==========================
@@ -350,46 +351,87 @@ public class PictorialBook : MonoBehaviour
     {
         if(CharaInfo[pbNum].Encounter !=0)
         {
+            int num = 0;
             if (CharaInfo[0].Encounter != 0)
-                LeftPB.sprite = s_Crow;
-            if (CharaInfo[1].Encounter != 0)
-                LeftPB.sprite = s_Rabbit;
-            if (CharaInfo[2].Encounter != 0)
-                LeftPB.sprite = s_Wolf;
-            if (CharaInfo[3].Encounter != 0)
-                LeftPB.sprite = s_Giraffe;
-            if (CharaInfo[4].Encounter != 0)
                 LeftPB.sprite = s_Cat;
-            if (CharaInfo[5].Encounter != 0)
+            if (pbNum == num) return;
+            num++;
+            if (CharaInfo[1].Encounter != 0)
+                LeftPB.sprite = s_Crow;
+            if (pbNum == num) return;
+            num++;
+            if (CharaInfo[2].Encounter != 0)
+                LeftPB.sprite = s_Giraffe;
+            if (pbNum == num) return;
+            num++;
+            if (CharaInfo[3].Encounter != 0)
+                LeftPB.sprite = s_Rabbit;
+            if (pbNum == num) return;
+            num++;
+            if (CharaInfo[4].Encounter != 0)
                 LeftPB.sprite = s_Mouse;
-            if (CharaInfo[6].Encounter != 0)
+            if (pbNum == num) return;
+            num++;
+            if (CharaInfo[5].Encounter != 0)
                 LeftPB.sprite = s_Squirrel;
+            if (pbNum == num) return;
+            num++;
+            if (CharaInfo[6].Encounter != 0)
+                LeftPB.sprite = s_Wolf;
+            if (pbNum == num) return;
+            num++;
             if (CharaInfo[7].Encounter != 0)
                 LeftPB.sprite = s_Bat;
+            if (pbNum == num) return;
+            num++;
             if (CharaInfo[8].Encounter != 0)
                 LeftPB.sprite = s_Crocodile;
+            if (pbNum == num) return;
+            num++;
             if (CharaInfo[9].Encounter != 0)
                 LeftPB.sprite = s_Elephant;
+            if (pbNum == num) return;
+            num++;
             if (CharaInfo[10].Encounter != 0)
                 LeftPB.sprite = s_Frog;
+            if (pbNum == num) return;
+            num++;
             if (CharaInfo[11].Encounter != 0)
                 LeftPB.sprite = s_Headgehog;
+            if (pbNum == num) return;
+            num++;
             if (CharaInfo[12].Encounter != 0)
                 LeftPB.sprite = s_Horse;
+            if (pbNum == num) return;
+            num++;
             if (CharaInfo[13].Encounter != 0)
                 LeftPB.sprite = s_Lion;
+            if (pbNum == num) return;
+            num++;
             if (CharaInfo[14].Encounter != 0)
                 LeftPB.sprite = s_Mole;
+            if (pbNum == num) return;
+            num++;
             if (CharaInfo[15].Encounter != 0)
-                LeftPB.sprite = s_Panda;
+                LeftPB.sprite = s_Sheep;
+            if (pbNum == num) return;
+            num++;
             if (CharaInfo[16].Encounter != 0)
                 LeftPB.sprite = s_Swan;
+            if (pbNum == num) return;
+            num++;
             if (CharaInfo[17].Encounter != 0)
-                LeftPB.sprite = s_Turtle;
-            if (CharaInfo[18].Encounter != 0)
                 LeftPB.sprite = s_Tiger;
+            if (pbNum == num) return;
+            num++;
+            if (CharaInfo[18].Encounter != 0)
+                LeftPB.sprite = s_Turtle;
+            if (pbNum == num) return;
+            num++;
             if (CharaInfo[19].Encounter != 0)
-                LeftPB.sprite = s_Sheep;
+                LeftPB.sprite = s_Panda;
+            if (pbNum == num) return;
+            num++;
         }
         else
         {

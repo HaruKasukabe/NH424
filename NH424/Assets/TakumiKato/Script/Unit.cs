@@ -319,6 +319,7 @@ public class Unit : MonoBehaviour
             GameManager.instance.AddUnit(this);
             GameManager.instance.AddFriendCatNum(this);
             GameManager.instance.friendNum++;
+            GameManager.instance.book.DiscoverCharacter(sta.number);
 
             return true;
         }
