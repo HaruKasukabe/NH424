@@ -1,14 +1,19 @@
+//=============================================================================
+//
+// マスの上のオブジェクト クラス [ObjectOnHex.cpp]
+//
+//=============================================================================
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectOnHex : MonoBehaviour
 {
-    Hex parentHex;
+    Hex parentHex;  // このオブジェクトが置かれているマス
     List<Material> materialList = new List<Material>();
-    public Material alphaMaterial;
+    public Material alphaMaterial;  // ケモコと重なった時に置き換えるマテリアル
     int listNum = 0;
-    bool b = true;
+    bool bChange = true;
 
     // Start is called before the first frame update
     void Start()
@@ -21,31 +26,27 @@ public class ObjectOnHex : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (parentHex.bUnit && b)
+        if (parentHex.bUnit && bChange)
         {
             ChangeColorOfGameObject(gameObject);
-            b = false;
+            bChange = false;
         }
-        if (!parentHex.bUnit && !b)
+        if (!parentHex.bUnit && !bChange)
         {
             ResetColorOfGameObject(gameObject);
             listNum = 0;
-            b = true;
+            bChange = true;
         }
     }
 
+    // オブジェクト(子オブジェクト)のマテリアルを全て置き換える
     private void ChangeColorOfGameObject(GameObject targetObject)
     {
-
         //入力されたオブジェクトのRendererを全て取得し、さらにそのRendererに設定されている全Materialの色を変える
         foreach (Renderer targetRenderer in targetObject.GetComponents<Renderer>())
         {
-            //for (int i = 0; i < targetRenderer.materials.Length; i++)
-            //    targetRenderer.materials[i] = alphaMaterial;
-
             Material[] mat = targetRenderer.materials;
 
-            //targetRenderer.material = materialList[listNum];
             for (int i = 0; i < mat.Length; i++)
                 mat[i] = alphaMaterial;
 
@@ -59,6 +60,7 @@ public class ObjectOnHex : MonoBehaviour
         }
 
     }
+    // オブジェクト(子オブジェクト)のマテリアルを全て元に戻す
     private void ResetColorOfGameObject(GameObject targetObject)
     {
 
@@ -84,6 +86,8 @@ public class ObjectOnHex : MonoBehaviour
         }
 
     }
+
+    // オブジェクト(子オブジェクト)のマテリアルを全て取得してリストに追加
     private void GetColorOfGameObject(GameObject targetObject)
     {
 
@@ -92,8 +96,6 @@ public class ObjectOnHex : MonoBehaviour
         {
             for (int i = 0; i < targetRenderer.materials.Length; i++)
             {
-                //targetRenderer.materials[i] = materialList[listNum];
-                //listNum++;
                 materialList.Add(targetRenderer.materials[i]);
             }
         }
@@ -106,10 +108,12 @@ public class ObjectOnHex : MonoBehaviour
 
     }
 
+    // このオブジェクトが置かれているマスを設定
     public void SetHex(Hex hex)
     {
         parentHex = hex;
     }
+    // このオブジェクトが置かれているマスを取得
     public Hex GetHex()
     {
         return parentHex;

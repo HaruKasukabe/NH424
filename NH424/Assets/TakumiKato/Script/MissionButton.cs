@@ -1,3 +1,8 @@
+//=============================================================================
+//
+// ミッションボタン クラス [MissionButton.cpp]
+//
+//=============================================================================
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,8 +11,8 @@ public class MissionButton : MonoBehaviour
 {
     public static MissionButton instance = null;
 
-    bool bCanMenu = true;
-    RectTransform trs;
+    bool bCanMenu = true;           // メニューを表示できるか
+    RectTransform trs;              // ミッションメニューのtransform
     public GameObject MissionMenu;
 
     private void Awake()
@@ -31,17 +36,19 @@ public class MissionButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // LBを押しながら
         if (Input.GetButton("Trigger_L"))
         {
+            // Aを押す
             if (Input.GetButtonDown("Fire1"))
             {
-                if (bCanMenu)
+                if (bCanMenu)   // メニューを表示する
                 {
                     trs.position = new Vector2(Screen.width / 2, Screen.height / 2);
                     GameManager.instance.SetUICursol(true);
                     bCanMenu = false;
                 }
-                else
+                else    // メニューを非表示にする
                 {
                     //ManagementAudio.instance.PublicPlaySE(ManagementAudio.GAMESE.Back);
                     trs.position += new Vector3(-9999, 0, 0);
@@ -50,7 +57,7 @@ public class MissionButton : MonoBehaviour
                 }
             }
         }
-        else if(Input.GetButtonDown("Fire2") && !bCanMenu)
+        else if(Input.GetButtonDown("Fire2") && !bCanMenu)  // Bを押すとメニューを非表示にする
         {
             //ManagementAudio.instance.PublicPlaySE(ManagementAudio.GAMESE.Back);
             trs.position += new Vector3(-9999, 0, 0);
@@ -72,6 +79,8 @@ public class MissionButton : MonoBehaviour
             bCanMenu = true;
         }
     }
+
+    // true : 今非表示, false : 今表示
     public bool GetbMenu()
     {
         return bCanMenu;

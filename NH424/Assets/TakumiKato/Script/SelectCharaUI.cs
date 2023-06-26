@@ -1,3 +1,8 @@
+//=============================================================================
+//
+// セレクトキャラUI クラス [SelectCharaUI.cpp]
+//
+//=============================================================================
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +17,7 @@ public class SelectCharaUI : MonoBehaviour
     void Start()
     {
         text = GetComponent<TextMeshProUGUI>();
-        sta = Map.instance.firstUnit.GetComponent<Unit>().sta;
+        sta = Map.instance.firstUnit.GetComponent<Unit>().sta;  // 初期ユニットのステータスを取得
         SetText();
         transform.parent.gameObject.SetActive(false);
     }
@@ -32,6 +37,7 @@ public class SelectCharaUI : MonoBehaviour
         text.text += "\n木材獲得量：" + sta.wood + "\n石材獲得量：" + sta.stone + "\n鉄材獲得量：" + sta.iron + "\n食材獲得量：" + sta.food.ToString("f0");
     }
 
+    // 今動かしているユニットを設定
     public void SetUnit(Unit unit)
     {
         if (sta.number != unit.sta.number)

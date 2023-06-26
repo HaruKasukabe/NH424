@@ -1,3 +1,8 @@
+//=============================================================================
+//
+// UIカーソル クラス [UICursol.cpp]
+//
+//=============================================================================
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +12,7 @@ public class UICursol : MonoBehaviour
 {
     RectTransform trs;
     GameObject obj;
-    public float cursolSpeed = 6.0f;
+    [SerializeField] float cursolSpeed = 6.0f;  // カーソルの移動速度
 
     // Start is called before the first frame update
     void Start()

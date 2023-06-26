@@ -1,7 +1,13 @@
+//=============================================================================
+//
+// ユニットのタグ効果 クラス [UnitTagAbility.cpp]
+//
+//=============================================================================
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// タグ情報
 public struct tagData
 {
     public int num;
@@ -13,8 +19,12 @@ public class UnitTagAbility : MonoBehaviour
 {
     public static UnitTagAbility instance = null;
 
-    public tagData[] tagDatas = new tagData[(int)UnitTag.MAX];
-    public int[] numConditions;
+    public tagData[] tagDatas = new tagData[(int)UnitTag.MAX];  // タグの種類分のタグ情報配列
+    public int[] numConditions; // 能力発動条件数
+
+    int bandTagNum = 0;
+    bool woodShadow = true;
+    bool mostOld = true;
 
     private void Awake()
     {
@@ -31,6 +41,7 @@ public class UnitTagAbility : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // タグ情報を初期化
         for (int i = 0; i < tagDatas.Length; i++)
         {
             tagDatas[i].num = 0;
@@ -55,6 +66,7 @@ public class UnitTagAbility : MonoBehaviour
         
     }
 
+    // 仲間になったユニットのタグ情報を追加
     public void addTag(Unit unit)
     {
         UnitTag[] tag = unit.sta.unitTag;
@@ -80,6 +92,7 @@ public class UnitTagAbility : MonoBehaviour
             }
         }
     }
+    // いなくなったユニットのタグを削除
     public void deleteTag(Unit unit)
     {
         UnitTag[] tag = unit.sta.unitTag;
@@ -106,6 +119,7 @@ public class UnitTagAbility : MonoBehaviour
         }
     }
 
+    // 能力　true : 発動、false : 元に戻す
     void SetAbility(List<UnitData> unitDatas, UnitTag tag, bool b)
     {
         switch(tag)
@@ -115,7 +129,7 @@ public class UnitTagAbility : MonoBehaviour
                 {
                     for (int i = 0; i < unitDatas.Count; i++)
                     {
-                        unitDatas[i].moveNum += 1;
+                        unitDatas[i].moveNum += 1;  // 移動可能数１回増加
                     }
                 }
                 else
@@ -126,8 +140,67 @@ public class UnitTagAbility : MonoBehaviour
                     }
                 }
                 break;
+            case UnitTag.インターネット海を泳ぐ:
+                if (b)
+                {
+                    for (int i = 0; i < unitDatas.Count; i++)
+                    {
+                        unitDatas[i].moveNum += 1;  // 移動可能数１回増加
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < unitDatas.Count; i++)
+                    {
+                        unitDatas[i].moveNum -= 1;
+                    }
+                }
+                break;
+            case UnitTag.最年長組:
+                if (b && mostOld)
+                {
+                    GameManager.instance.nowTurn -= 3;
+                    mostOld = false;
+                }
+                break;
+            case UnitTag.ちっちゃいもんクラブ:
+                if (b)
+                {
+                    for (int i = 0; i < unitDatas.Count; i++)
+                    {
+                        unitDatas[i].moveLong += 1;  // 移動可能数１回増加
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < unitDatas.Count; i++)
+                    {
+                        unitDatas[i].moveLong -= 1;
+                    }
+                }
+                break;
+            case UnitTag.バンド:
+                if (b)
+                {
+                    int dif = tagDatas[(int)tag].num - bandTagNum;
+                    if (dif > 0)
+                    {
+                        GameManager.instance.nowTurn -= dif;
+                        bandTagNum = tagDatas[(int)tag].num;
+                    }
+                }
+                break;
+            case UnitTag.木陰で一休み:
+                if (b && woodShadow)
+                {
+                    GameManager.instance.nowTurn -= 3;
+                    woodShadow = false;
+                }
+                break;
         }
     }
+
+    // 能力発動条件チェック
     bool GetCondition(UnitTag tag)
     {
         switch (tag)
@@ -137,9 +210,53 @@ public class UnitTagAbility : MonoBehaviour
                     return true;
                 else
                     return false;
-
+            case UnitTag.インターネット海を泳ぐ:
+                if (KemokoListOut.instance.outUnitList.Count <= numConditions[(int)tag])
+                    return true;
+                else
+                    return false;
+            case UnitTag.最年長組:
+                if (tagDatas[(int)tag].num >= numConditions[(int)tag])
+                    return true;
+                else
+                    return false;
+            case UnitTag.ちっちゃいもんクラブ:
+                if (tagDatas[(int)tag].num >= numConditions[(int)tag])
+                    return true;
+                else
+                    return false;
+            case UnitTag.バンド:
+                if (tagDatas[(int)tag].num >= numConditions[(int)tag])
+                    return true;
+                else
+                    return false;
+            case UnitTag.木陰で一休み:
+                if (tagDatas[(int)tag].num >= numConditions[(int)tag])
+                    return true;
+                else
+                    return false;
             default:
                 return false;
         }
+    }
+
+    // 村のアイドル数取得
+    public int GetVillageIdol()
+    {
+        int num = tagDatas[(int)UnitTag.村のアイドル].num;
+        if (num > 1)
+            return num;
+        else
+            return 0;
+    }
+
+    // 寝る子は育つ数取得
+    public int GetSleep()
+    {
+        int num = tagDatas[(int)UnitTag.寝る子は育つ].num;
+        if (GameManager.instance.IsEven(num))
+            return num;
+        else
+            return 0;
     }
 }

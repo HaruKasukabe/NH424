@@ -1,3 +1,8 @@
+//=============================================================================
+//
+// ケモコの移動可能数テキスト クラス [MoveText.cpp]
+//
+//=============================================================================
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,7 +24,7 @@ public class MoveText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (unit.bFriend && unit.bMoveNumDisplay)
+        if (unit.bFriend && unit.bMoveNumDisplay)   // ユニットが仲間で移動可能数を表示する時
         {
             text.color = new Color32(255, 255, 255, 255);
             text.text = "" + unit.actNum;
@@ -28,7 +33,7 @@ public class MoveText : MonoBehaviour
         else if(unit.bFriend && !unit.bMoveNumDisplay)
         {
             text.text = "" + unit.actNum;
-            text.color = text.color - new Color32(0, 0, 0, 1);
+            text.color = text.color - new Color32(0, 0, 0, 1);  // フェイドアウト
         }
     }
 }

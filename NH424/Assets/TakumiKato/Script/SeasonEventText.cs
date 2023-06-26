@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿//=============================================================================
+//
+// シーズンイベントテキスト クラス [SeasonEventText.cpp]
+//
+//=============================================================================
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -17,6 +22,7 @@ public class SeasonEventText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // 季節が変わった時
         if(season != GameManager.instance.season)
         {
             seasonEventText[(int)season].gameObject.SetActive(false);

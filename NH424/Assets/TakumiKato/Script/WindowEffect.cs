@@ -1,4 +1,9 @@
-﻿using System;
+﻿//=============================================================================
+//
+//  画面効果　クラス [WindowEffect.cpp]
+//
+//=============================================================================
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,9 +43,8 @@ public class WindowEffect : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        rawImage.SetActive(false);
         bClearEffect = false;
-        PlaySeasonEffect();
+        PlaySeasonEffect();     // 最初の季節のエフェクトを再生
     }
 
     // Update is called once per frame
@@ -49,6 +53,7 @@ public class WindowEffect : MonoBehaviour
 
     }
 
+    // ゲームクリアエフェクトを再生
     public void PlayClearEffect()
     {
         if (!bClearEffect)
@@ -59,22 +64,26 @@ public class WindowEffect : MonoBehaviour
             bClearEffect = true;
         }
     }
+    // ゲームオーバーエフェクトを再生
     public void PlayOverEffect()
     {
         Destroy(seasonEffect);
         rawImage.SetActive(true);
         EffekseerSystem.PlayEffect(GameOverEffect[(int)GameManager.instance.season], overEffectPos);
     }
+    // 季節エフェクトを再生
     public void PlaySeasonEffect()
     {
         rawImage.SetActive(true);
         seasonEffect = Instantiate(SeasonEffect[(int)GameManager.instance.season], seasonEffectPos, Quaternion.identity);
         seasonEffect.transform.Rotate(effectRota);
     }
+    // 季節エフェクトを削除
     public void DestroySeasonEffect()
     {
         Destroy(seasonEffect);
     }
+    // 季節エフェクトを変更
     public void ChangeSeasonEffect()
     {
         Destroy(seasonEffect);

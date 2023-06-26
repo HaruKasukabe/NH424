@@ -1,3 +1,8 @@
+//=============================================================================
+//
+//  村ボタン　クラス [VillageButton.cpp]
+//
+//=============================================================================
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +12,7 @@ public class VillageButton : MonoBehaviour
 {
     public static VillageButton instance = null;
 
-    bool bCanMenu = true;
+    bool bCanMenu = true;   // メニューを表示させられるか
     RectTransform trs;
     RectTransform listTrs;
     public GameObject villageMenu;
@@ -35,11 +40,13 @@ public class VillageButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // LBを押しながら
         if (Input.GetButton("Trigger_L"))
         {
+            // Yを押す
             if (Input.GetButtonDown("Jump"))
             {
-                if (bCanMenu)
+                if (bCanMenu)   // 村メニューを表示する
                 {
                     trs.position = new Vector2(Screen.width / 2, Screen.height / 2);
                     listTrs.position = new Vector2(Screen.width / 2, Screen.height / 6);
@@ -48,9 +55,8 @@ public class VillageButton : MonoBehaviour
 
                     bCanMenu = false;
                 }
-                else
+                else　          // 村メニューを非表示にする
                 {
-                    //ManagementAudio.instance.PublicPlaySE(ManagementAudio.GAMESE.Back);
                     trs.position += new Vector3(-9999, 0, 0);
                     listTrs.position += new Vector3(-9999, 0, 0);
                     GameManager.instance.SetUICursol(false);
@@ -59,6 +65,7 @@ public class VillageButton : MonoBehaviour
                 }
             }
         }
+        // Bを押してメニューを消す
         else if (Input.GetButtonDown("Fire2") && !bCanMenu)
         {
             //ManagementAudio.instance.PublicPlaySE(ManagementAudio.GAMESE.Back);

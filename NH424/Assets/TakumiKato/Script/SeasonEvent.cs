@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿//=============================================================================
+//
+// シーズンイベント クラス [SeasonEvent.cpp]
+//
+//=============================================================================
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,8 +11,8 @@ public class SeasonEvent : MonoBehaviour
 {
     public static SeasonEvent instance = null;
 
-    List<Hex> hexList = new List<Hex>();
-    bool bSetEvent = true;
+    List<Hex> hexList = new List<Hex>();    // イベントヘクスリスト
+    bool bSetEvent = true;                  // イベントを設定するか
 
     private void Awake()
     {
@@ -30,6 +35,7 @@ public class SeasonEvent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // 最初のリセット後に
         if (!GameManager.instance.bFirstReset)
         {
             if (bSetEvent)
@@ -39,6 +45,7 @@ public class SeasonEvent : MonoBehaviour
         }
     }
 
+    // イベントを達成できたか確認
     void CheckEvent(SEASON season)
     {
         switch (season)
@@ -55,7 +62,8 @@ public class SeasonEvent : MonoBehaviour
                 break;
         }
     }
-    public void SetEvent(SEASON season)
+    // イベントを発生させる
+    void SetEvent(SEASON season)
     {
         hexList.Clear();
         switch (season)
@@ -77,7 +85,8 @@ public class SeasonEvent : MonoBehaviour
         }
         bSetEvent = false;
     }
-    public void ChangeEvent()
+    // イベントマスを消す
+    void ChangeEvent()
     {
         if (!bSetEvent)
         {
@@ -85,14 +94,17 @@ public class SeasonEvent : MonoBehaviour
                 hexList[i].SetEventHex(false);
         }
     }
+    // 春イベント確認
     void CheckSpringEvent()
     {
         bool b = true;
         for (int i = 0; i < hexList.Count; i++)
         {
+            // ユニットがいなかったらfalseに
             if (!hexList[i].bUnit)
                 b = false;
         }
+        // ユニットが全イベントマスにいるなら
         if (b)
         {
             for (int j = 0; j < hexList.Count; j++)
@@ -104,14 +116,17 @@ public class SeasonEvent : MonoBehaviour
             bSetEvent = true;
         }
     }
+    // 冬イベント確認
     void CheckWinterEvent()
     {
         bool b = true;
         for (int i = 0; i < hexList.Count; i++)
         {
+            // ユニットがいなかったらfalseに
             if (!hexList[i].bUnit)
                 b = false;
         }
+        // ユニットが全イベントマスにいるなら
         if (b)
         {
             for (int j = 0; j < hexList.Count; j++)
@@ -123,11 +138,13 @@ public class SeasonEvent : MonoBehaviour
             bSetEvent = true;
         }
     }
+    // イベントをリセットする
     public void ResetEvent()
     {
         ChangeEvent();
         SetEvent(GameManager.instance.season);
     }
+    // マップリセット時に遅らせてからイベントをリセット
     public void ResetMap()
     {
         Invoke("ResetEvent", 2);

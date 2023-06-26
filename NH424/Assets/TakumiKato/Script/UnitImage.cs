@@ -1,3 +1,8 @@
+//=============================================================================
+//
+// ユニットのイメージ画像 クラス [UnitImage.cpp]
+//
+//=============================================================================
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,12 +28,16 @@ public class UnitImage : MonoBehaviour
     {
         if(bShop && !bShopActive)
         {
+            // 価格テキストと背景を表示
             for(int i = 0; i < transform.childCount - 1; i++)
             {
                 transform.GetChild(i).gameObject.SetActive(true);
             }
+
+            // まだ仲間にしたことのない種類の時
             if(!GameManager.instance.bFriendCat(number))
-                transform.GetChild(3).gameObject.SetActive(true);
+                transform.GetChild(3).gameObject.SetActive(true);   // ビックリマークを表示
+
             bShopActive = true;
         }
     }

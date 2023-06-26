@@ -1,3 +1,8 @@
+//=============================================================================
+//
+//  村マス判定　クラス [VillageCollision.cpp]
+//
+//=============================================================================
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +17,7 @@ public class VillageCollision : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        level = GameManager.instance.level;
+        level = GameManager.instance.level;     // 生成した時点のレベルを代入
         hex = GetComponent<Hex>();
     }
 
@@ -21,8 +26,10 @@ public class VillageCollision : MonoBehaviour
     {
         if (!b)
         {
+            // 村最大レベル以下
             if (level < GameManager.instance.maxVillageLevel)
             {
+                // レベルが変わった時
                 if (level != GameManager.instance.level)
                 {
                     SetVillage();
@@ -31,6 +38,7 @@ public class VillageCollision : MonoBehaviour
         }
     }
 
+    // 周りを村マスにする
     void SetVillage()
     {
         if (!b)
@@ -68,6 +76,8 @@ public class VillageCollision : MonoBehaviour
             b = true;
         }
     }
+
+    // マップリセット時の村マス生成
     public void SetVillage(int villageNum)
     {
         if (!b)

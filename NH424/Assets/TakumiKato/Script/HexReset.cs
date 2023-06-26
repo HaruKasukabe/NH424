@@ -1,3 +1,8 @@
+//=============================================================================
+//
+// リセットヘクス クラス [HexReset.cpp]
+//
+//=============================================================================
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,10 +20,11 @@ public class HexReset : Hex
     {
         base.Update();
 
+        // 上に置かれたユニットが仲間の場合
         if(bUnit && Unit.bFriend)
         {
-            DestroyObjects(Map.instance.map);
-            Map.instance.ResetMap();
+            DestroyObjects(Map.instance.map);   // 今あるマップをすべて削除
+            Map.instance.ResetMap();            // マップを再生成
         }
     }
 

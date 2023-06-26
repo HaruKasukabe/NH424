@@ -1,3 +1,8 @@
+//=============================================================================
+//
+// シーズンテキスト クラス [SeasonText.cpp]
+//
+//=============================================================================
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +27,7 @@ public class SeasonText : MonoBehaviour
         {
             turn = GameManager.instance.nowTurn;
             text.text = "" + turn;
+            // 26ターンで文字を赤色に
             if (turn == 26)
                 text.color = new Color(1, 0, 0);
             if (turn == 1)

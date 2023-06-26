@@ -1,3 +1,8 @@
+//=============================================================================
+//
+// 村にいるケモコリスト クラス [KemokoListVillage.cpp]
+//
+//=============================================================================
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,17 +10,16 @@ using UnityEngine;
 public class KemokoListVillage : MonoBehaviour
 {
     public static KemokoListVillage instance = null;
-    public List<Unit> villageUnitList = new List<Unit>();
-    public List<UnitImage> villageImageList = new List<UnitImage>();
-    public int selectId;
-    public bool bSelect;
+    public List<Unit> villageUnitList = new List<Unit>();               // 村のユニットリスト
+    public List<UnitImage> villageImageList = new List<UnitImage>();    // 村のユニットのイメージリスト
+    int selectId;           // 交換するユニットのId
+    public bool bSelect;    // 選択してあるか
 
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
-            //DontDestroyOnLoad(this.gameObject);
         }
         else
         {
@@ -32,6 +36,7 @@ public class KemokoListVillage : MonoBehaviour
     {
     }
 
+    // リストに追加
     public void Add(Unit unit)
     {
         GameObject obj = Instantiate(unit.sta.sprite, new Vector3(-1000, 0, 0), Quaternion.identity);
@@ -51,6 +56,8 @@ public class KemokoListVillage : MonoBehaviour
 
         villageUnitList.Add(unit);
     }
+
+    // 交換したユニットをリストから削除
     public void RemoveVillageList()
     {
         for (int i = 0; i < villageUnitList.Count; i++)
@@ -69,6 +76,8 @@ public class KemokoListVillage : MonoBehaviour
             }
         }
     }
+
+    // 交換するユニットを選択
     public void SelectVillageUnit(int id)
     {
         selectId = id;
@@ -88,6 +97,8 @@ public class KemokoListVillage : MonoBehaviour
             GameManager.instance.nowTurn++;
         }
     }
+
+    // 交換に選択したユニットを取得
     public Unit GetSelectVillageUnit()
     {
         for (int i = 0; i < villageUnitList.Count; i++)
@@ -100,21 +111,21 @@ public class KemokoListVillage : MonoBehaviour
 
         return null;
     }
-    public void DestroyAll()
-    {
-        for (int i = 0; i < villageUnitList.Count; i++)
-        {
-            Destroy(villageUnitList[i].gameObject);
-        }
-        villageUnitList.Clear();
-    }
-    public void SetDontDestroy()
-    {
-        for (int i = 0; i < villageUnitList.Count; i++)
-        {
-            DontDestroyOnLoad(villageUnitList[i].gameObject);
-        }
-    }
+    //public void DestroyAll()
+    //{
+    //    for (int i = 0; i < villageUnitList.Count; i++)
+    //    {
+    //        Destroy(villageUnitList[i].gameObject);
+    //    }
+    //    villageUnitList.Clear();
+    //}
+    //public void SetDontDestroy()
+    //{
+    //    for (int i = 0; i < villageUnitList.Count; i++)
+    //    {
+    //        DontDestroyOnLoad(villageUnitList[i].gameObject);
+    //    }
+    //}
 }
 
 

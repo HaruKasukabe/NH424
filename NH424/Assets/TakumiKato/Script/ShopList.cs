@@ -1,3 +1,8 @@
+//=============================================================================
+//
+// ショップリスト クラス [ShopList.cpp]
+//
+//=============================================================================
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +12,7 @@ public class ShopList : MonoBehaviour
     public static ShopList instance = null;
     List<UnitImage> ImageList = new List<UnitImage>();
 
-    int maxShopNum = 5;
+    int maxShopNum = 5;    // 同時にショップに並べるユニット数
 
     private void Awake()
     {
@@ -40,6 +45,7 @@ public class ShopList : MonoBehaviour
     {
     }
 
+    // ショップで購入したユニットを追加
     public void Add(int id, int number)
     {
         GameObject obj = Instantiate(Map.instance.GetUnit(number));
@@ -76,6 +82,8 @@ public class ShopList : MonoBehaviour
             }
         }
     }
+
+    // 並びを変える
     public void ChengeList()
     {
         for (int i = 0; i < ImageList.Count; i++)

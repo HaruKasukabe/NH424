@@ -1,3 +1,8 @@
+//=============================================================================
+//
+//  リザルトからの遷移　クラス [ResultTo.cpp]
+//
+//=============================================================================
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,10 +25,12 @@ public class ResultTo : MonoBehaviour
         
     }
 
+    // タイトルへ
     public void Title()
     {
         fade.FadeIn(2.0f, () => { SceneManager.LoadScene("StartScene"); });
     }
+    // ゲームへ
     public void Game()
     {
         fade.FadeIn(2.0f, () => { SceneManager.LoadScene("NewScene"); });

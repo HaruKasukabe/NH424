@@ -202,7 +202,7 @@ public class Tutorial : MonoBehaviour
             iTorumae.sprite = ListCanvas[2].Torumae;
             iTottaato.sprite = ListCanvas[2].Tottaato;
             iKazuhyouzi.sprite = ListCanvas[2].Kazuhyouzi;
-            ListFlg[0] = true;
+            ListFlg[2] = true;
         }
     }
 

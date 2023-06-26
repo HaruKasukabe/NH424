@@ -1,3 +1,8 @@
+//=============================================================================
+//
+// ユニット色変更 クラス [UnitColorChange.cpp]
+//
+//=============================================================================
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,11 +23,13 @@ public class UnitColorChange : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // 移動可能数が0以下のとき
         if (this.GetComponentInParent<Unit>().actNum <= 0 && b)
         {
             ChangeColorOfGameObject(gameObject, new Color(-vol, -vol, -vol));
             b = false;
         }
+        // 移動可能数が1以上のとき
         if (this.GetComponentInParent<Unit>().actNum > 0 && !b)
         {
             ResetColorOfGameObject(gameObject);
@@ -33,8 +40,6 @@ public class UnitColorChange : MonoBehaviour
 
     private void ChangeColorOfGameObject(GameObject targetObject, Color color)
     {
-
-        //入力されたオブジェクトのRendererを全て取得し、さらにそのRendererに設定されている全Materialの色を変える
         foreach (Renderer targetRenderer in targetObject.GetComponents<Renderer>())
         {
             targetRenderer.material.color += color;
@@ -45,12 +50,9 @@ public class UnitColorChange : MonoBehaviour
         {
             ChangeColorOfGameObject(targetObject.transform.GetChild(i).gameObject, color);
         }
-
     }
     private void ResetColorOfGameObject(GameObject targetObject)
     {
-
-        //入力されたオブジェクトのRendererを全て取得し、さらにそのRendererに設定されている全Materialの色を変える
         foreach (Renderer targetRenderer in targetObject.GetComponents<Renderer>())
         {
             targetRenderer.material.color = colorList[listNum];
@@ -66,7 +68,6 @@ public class UnitColorChange : MonoBehaviour
     }
     private void GetColorOfGameObject(GameObject targetObject)
     {
-
         //入力されたオブジェクトのRendererを全て取得
         foreach (Renderer targetRenderer in targetObject.GetComponents<Renderer>())
         {
@@ -78,6 +79,5 @@ public class UnitColorChange : MonoBehaviour
         {
             GetColorOfGameObject(targetObject.transform.GetChild(i).gameObject);
         }
-
     }
 }

@@ -1,3 +1,8 @@
+//=============================================================================
+//
+// シーズンアイコンUI クラス [SeasonIconUI.cpp]
+//
+//=============================================================================
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +14,21 @@ public class SeasonIconUI : MonoBehaviour
     public Sprite[] sprite;
 
     public static bool bChangeSeasonIcon = false;
+
+    public static SeasonIconUI instance = null;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +45,8 @@ public class SeasonIconUI : MonoBehaviour
         }
     }
 
-    public static void SetSeasonIcon()
+    // 季節アイコン切り替えフラグ設定
+    public void SetSeasonIcon()
     {
         bChangeSeasonIcon = true;
     }

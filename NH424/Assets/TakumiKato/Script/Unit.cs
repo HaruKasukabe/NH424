@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum UNIT_ACT    // 獲得が得意な素材　※今不使用
+public enum UNIT_ACT    // 獲得が得意な素材
 {
     GARDEN,
     FOREST,
     COAL_MINE,
     QUARRY,
+
+    ALL,
 
     NULL,
 }
@@ -49,6 +51,15 @@ public class Unit : MonoBehaviour
     private float deleteTime = 1.5f;        // エフェクトを消すまでの時間
     private float offsetY = -0.55f;         // エフェクトの高さ
 
+    public bool[] bTags = new bool[(int)UnitTag.MAX];
+    bool bRaan = false;
+    public bool bGourmetTag = false;
+    public bool bGourmetSeason = false;
+    public bool bCarbonatedTag = false;
+    public bool bCarbonatedSeason = false;
+    public bool bSleepTag = false;
+    public bool bSleepSeason = false;
+
     // Start is called before the first frame update
     protected void Start()
     {
@@ -58,6 +69,24 @@ public class Unit : MonoBehaviour
         score.sprite = sta.sprite;
         score.motifName = sta.motifName;
         score.charName = sta.charName;
+
+        for (int i = 0; i < bTags.Length; i++)
+            bTags[i] = false;
+        for (int i = 0; i < sta.unitTag.Length; i++)
+            bTags[(int)sta.unitTag[i]] = true;
+
+        if (bTags[(int)UnitTag.美食家])
+        {
+            bGourmetTag = true;
+            bGourmetSeason = true;
+        }
+        if (bTags[(int)UnitTag.炭酸水は定期便])
+        {
+            bCarbonatedTag = true;
+            bCarbonatedSeason = true;
+        }
+        if (bTags[(int)UnitTag.寝る子は育つ])
+            bSleepTag = true;
     }
 
     // Update is called once per frame
@@ -87,6 +116,19 @@ public class Unit : MonoBehaviour
                     if (!(hit.transform.gameObject.CompareTag("Village") && bVillage))
                     {
                         float moveLimit = move1HexLong * sta.moveLong;
+
+                        if (GameManager.instance.bMoveUnitThisTurn())
+                        {
+                            if (bTags[(int)UnitTag.蒼い炎])
+                                moveLimit += move1HexLong * 2.0f;
+                            if (bTags[(int)UnitTag.天然])
+                                moveLimit += move1HexLong * 2.0f;
+                            if (bTags[(int)UnitTag.キラッ])
+                                moveLimit += move1HexLong * 2.0f;
+                        }
+                        if (bRaan)
+                            moveLimit += move1HexLong;
+
                         pos.x = Mathf.Clamp(pos.x, OriginPos.x - moveLimit, OriginPos.x + moveLimit);
                         pos.z = Mathf.Clamp(pos.z, OriginPos.z - moveLimit, OriginPos.z + moveLimit);
                     }
@@ -130,6 +172,19 @@ public class Unit : MonoBehaviour
                 if (!(hit.transform.gameObject.CompareTag("Village") && bVillage))
                 {
                     float moveLimit = move1HexLong * sta.moveLong;
+
+                    if (GameManager.instance.bMoveUnitThisTurn())
+                    {
+                        if (bTags[(int)UnitTag.蒼い炎])
+                            moveLimit += move1HexLong * 2.0f;
+                        if (bTags[(int)UnitTag.天然])
+                            moveLimit += move1HexLong * 2.0f;
+                        if (bTags[(int)UnitTag.キラッ])
+                            moveLimit += move1HexLong * 2.0f;
+                    }
+                    if (bRaan)
+                        moveLimit += move1HexLong;
+
                     pos.x = Mathf.Clamp(pos.x, OriginPos.x - moveLimit, OriginPos.x + moveLimit);
                     pos.z = Mathf.Clamp(pos.z, OriginPos.z - moveLimit, OriginPos.z + moveLimit);
                 }
@@ -230,6 +285,16 @@ public class Unit : MonoBehaviour
         actNum--;
         GameManager.instance.canActUnitNum--;
         bMoveNumDisplay = false;
+
+        if (bTags[(int)UnitTag.ラーーーン])
+            if (!Hex.bMaterialHex && !bVillage)
+                bRaan = true;
+            else
+                bRaan = false;
+
+        if (bTags[(int)UnitTag.長寿の秘訣])
+            if (Hex.bGarden)
+                actNum = sta.moveNum;
     }
     // 同じマスに置く時
     void UpActSameHex()
@@ -280,6 +345,16 @@ public class Unit : MonoBehaviour
         actNum--;
         GameManager.instance.canActUnitNum--;
         bMoveNumDisplay = false;
+
+        if (bTags[(int)UnitTag.ラーーーン])
+            if (!Hex.bMaterialHex && !bVillage)
+                bRaan = true;
+            else
+                bRaan = false;
+
+        if (bTags[(int)UnitTag.長寿の秘訣])
+            if (Hex.bGarden)
+                actNum = sta.moveNum;
     }
     // 置いたまま素材を獲得する時
     public void ActMaterial()
@@ -290,6 +365,10 @@ public class Unit : MonoBehaviour
             actNum--;
             GameManager.instance.canActUnitNum--;
             bMoveNumDisplay = true;
+
+            if (bTags[(int)UnitTag.長寿の秘訣])
+                if (Hex.bGarden)
+                    actNum = sta.moveNum;
         }
     }
 
@@ -329,10 +408,35 @@ public class Unit : MonoBehaviour
     // ターン切り替わり時のリセット
     public void SetAct()
     {
-        actNum = sta.moveNum;
+        if (bSleepTag)
+        {
+            if (UnitTagAbility.instance.GetSleep() > 0)
+            {
+                if (bSleepSeason)
+                {
+                    actNum = sta.moveNum * 2;
 
-        GameObject instantiateEffect = Instantiate(effectObject, transform.position + new Vector3(0f, offsetY, 0f), Quaternion.identity);
-        Destroy(instantiateEffect, deleteTime);
+                    GameObject instantiateEffect = Instantiate(effectObject, transform.position + new Vector3(0f, offsetY, 0f), Quaternion.identity);
+                    Destroy(instantiateEffect, deleteTime);
+                }
+                else
+                    actNum = 0;
+            }
+            else
+            {
+                actNum = sta.moveNum;
+
+                GameObject instantiateEffect = Instantiate(effectObject, transform.position + new Vector3(0f, offsetY, 0f), Quaternion.identity);
+                Destroy(instantiateEffect, deleteTime);
+            }
+        }
+        else
+        {
+            actNum = sta.moveNum;
+
+            GameObject instantiateEffect = Instantiate(effectObject, transform.position + new Vector3(0f, offsetY, 0f), Quaternion.identity);
+            Destroy(instantiateEffect, deleteTime);
+        }
     }
 
     // 削除する時にマスに設定されているこのユニットを削除

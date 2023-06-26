@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿//=============================================================================
+//
+//  スコアマネージャー　クラス [ScoreManager.cpp]
+//
+//=============================================================================
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -33,6 +38,7 @@ public class ScoreManager : MonoBehaviour
 
     }
 
+    // スコアを保存
     public void ScoreAdd(List<Unit> outList, List<Unit> villageList)
     {
         scoreList.Clear();

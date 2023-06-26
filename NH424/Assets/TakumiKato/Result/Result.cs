@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿//=============================================================================
+//
+//  リザルト　クラス [Result.cpp]
+//
+//=============================================================================
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -24,6 +29,7 @@ public class Result : MonoBehaviour
 
     }
 
+    // リザルトの画像とテキストを設定
     public void SetText(UNIT_SCORE score)
     {
         rend.sprite = score.sprite.GetComponent<Image>().sprite;

@@ -659,7 +659,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   villageUnitList: []
   villageImageList: []
-  selectId: 0
   bSelect: 0
 --- !u!1 &170730938
 GameObject:
@@ -6926,7 +6925,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outUnitList: []
   outImageList: []
-  selectId: 0
   bSelect: 0
   maxOutNum: 5
 --- !u!224 &1409349561 stripped
@@ -8633,6 +8631,18 @@ MonoBehaviour:
   i_Tiger: {fileID: 1014422622}
   i_Sheep: {fileID: 1113999625}
   choice: {fileID: 0}
+--- !u!114 &1722573952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 428784119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d81a9dd649377d42b6a4f127a77986e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1726262905 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4299116768640493168, guid: f3feee2910527b54ab9fe77bf86fd155, type: 3}
@@ -8970,17 +8980,10 @@ MonoBehaviour:
   - {x: 7.603983, y: 0.0900152, z: 7.579909}
   - {x: 10.25093, y: 0.0900152, z: 10.25093}
   - {x: 12.54957, y: 0.0900152, z: 12.54957}
-  mat:
-  - {fileID: 2100000, guid: aa1dd3b938799574fadf16b1ce2476ce, type: 2}
-  - {fileID: 2100000, guid: 7b40bc805547358499c71f54757ac989, type: 2}
-  - {fileID: 2100000, guid: ee8e354416fd4f94097ba0cfe95ee416, type: 2}
-  - {fileID: 2100000, guid: 64f2f66304f70684e95fb444121edc02, type: 2}
+  skyMat: []
   season: 0
-  seasonRoundNum: 0
-  seasonTurnNum: 31
   nowTurn: 1
   canActUnitNum: 0
-  moveNumTotal: 0
   friendCatList: 
   friendNum: 1
   level: 0
@@ -9052,13 +9055,11 @@ MonoBehaviour:
   - {fileID: 5001585674591618795, guid: bd886cdea14493549a324f389afb94d4, type: 3}
   - {fileID: 7864954559480230242, guid: 0e4d748871281ce408df5e8eb484c0ae, type: 3}
   - {fileID: 7799492206434213934, guid: cfa65d321eaae9d4db4a4329280501bd, type: 3}
-  wildUnitList: []
   mapSize: 100
   startRound: 7
   round: 0
   hexSizeX: 1.05
   hexSizeZ: 0.9
-  startPos2: 0
   unitProbability: 50
 --- !u!54 &1816755140
 Rigidbody:
@@ -9088,7 +9089,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d17a9e76f3605342a5e7a6e3db90538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numConditions: 03000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  numConditions: 03000000000000000000000000000000030000000000000000000000000000000000000000000000000000000000000002000000000000000000000003000000020000000200000002000000
 --- !u!1 &1818015030
 GameObject:
   m_ObjectHideFlags: 0
@@ -10458,7 +10459,7 @@ MonoBehaviour:
   m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
-  m_SubmitButton: Fire1
+  m_SubmitButton: Fire2
   m_CancelButton: null
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5

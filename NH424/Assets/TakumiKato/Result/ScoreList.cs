@@ -1,11 +1,17 @@
+//=============================================================================
+//
+//  スコアリスト　クラス [ScoreList.cpp]
+//
+//=============================================================================
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// スコア情報
 public struct SCORE
 {
-    public UNIT_SCORE unitScore;
-    public GameObject obj;
+    public UNIT_SCORE unitScore;    // スコア
+    public GameObject obj;          // スコアのオブジェクト
 }
 
 public class ScoreList : MonoBehaviour
@@ -14,8 +20,7 @@ public class ScoreList : MonoBehaviour
     List<SCORE> scoreList = new List<SCORE>();
 
     public GameObject origin;
-    //Vector2 firstPos = new Vector2(60, 313);
-    Vector2 firstPos;
+    Vector2 scorePos = new Vector2(340, -162);
     Vector2 addNum = new Vector2(0, -120.0f);
     Vector3 pos = new Vector3(0.5f, 0.6f, 0);
 
@@ -24,24 +29,23 @@ public class ScoreList : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        firstPos = new Vector2(340, -162);
-        unitScoreList = ScoreManager.instance.scoreList;
+        unitScoreList = ScoreManager.instance.scoreList;    // ユニットのスコアリストを取得
 
         for(int i = 0; i < unitScoreList.Count; i++)
         {
             SCORE score;
 
-            GameObject obj = Instantiate(origin);
+            GameObject obj = Instantiate(origin);   // スコアを生成
             obj.transform.parent = transform;
-            obj.GetComponent<Result>().SetText(unitScoreList[i]);
-            obj.transform.position = firstPos;
+            obj.GetComponent<Result>().SetText(unitScoreList[i]);   // テキストと画像を設定
+            obj.transform.position = scorePos;
 
-            score.obj = obj;
-            score.unitScore = unitScoreList[i];
+            score.obj = obj;    // オブジェクトを設定
+            score.unitScore = unitScoreList[i]; // スコアを設定
 
-            scoreList.Add(score);
+            scoreList.Add(score);   // スコアリストに追加
 
-            firstPos += addNum;
+            scorePos += addNum; // 次のスコアの位置をずらす
         }
     }
 

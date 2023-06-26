@@ -1,3 +1,8 @@
+//=============================================================================
+//
+// 村ヘクス クラス [HexVillage.cpp]
+//
+//=============================================================================
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +15,8 @@ public class HexVillage : Hex
     new void Awake()
     {
         base.Awake();
+
+        // 最初から開いている状態に
         rend.material.color = new Color32(255, 255, 255, 1);
         bReverse = true;
     }

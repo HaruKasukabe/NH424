@@ -1,3 +1,8 @@
+//=============================================================================
+//
+// ショップボタン クラス [ShopButton.cpp]
+//
+//=============================================================================
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,11 +11,11 @@ public class ShopButton : MonoBehaviour
 {
     public static ShopButton instance = null;
 
-    bool bCanMenu = true;
+    bool bCanMenu = true; // メニューを表示させられるか
     RectTransform trs;
     RectTransform listTrs;
-    public GameObject ShopMenu;
-    public GameObject villageImageList;
+    [SerializeField] GameObject ShopMenu;
+    [SerializeField] GameObject villageImageList;
 
     private void Awake()
     {
@@ -34,11 +39,13 @@ public class ShopButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // LBを押しながら
         if (Input.GetButton("Trigger_L"))
         {
+            // Xを押す
             if (Input.GetButtonDown("Fire3"))
             {
-                if (bCanMenu)
+                if (bCanMenu)       // ショップメニューを表示する
                 {
                     trs.position = new Vector2(Screen.width / 2, Screen.height / 2);
                     listTrs.position = new Vector2(Screen.width / 2, Screen.height / 6);
@@ -46,9 +53,8 @@ public class ShopButton : MonoBehaviour
 
                     bCanMenu = false;
                 }
-                else if (!bCanMenu)
+                else                // ショップメニューを非表示にする
                 {
-                    //ManagementAudio.instance.PublicPlaySE(ManagementAudio.GAMESE.Back);
                     trs.position += new Vector3(-9999, 0, 0);
                     listTrs.position += new Vector3(-9999, 0, 0);
                     GameManager.instance.SetUICursol(false);
@@ -57,9 +63,9 @@ public class ShopButton : MonoBehaviour
                 }
             }
         }
+        // Bを押してメニューを消す
         else if (Input.GetButtonDown("Fire2") && !bCanMenu)
         {
-            //ManagementAudio.instance.PublicPlaySE(ManagementAudio.GAMESE.Back);
             trs.position += new Vector3(-9999, 0, 0);
             listTrs.position += new Vector3(-9999, 0, 0);
             GameManager.instance.SetUICursol(false);

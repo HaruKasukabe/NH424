@@ -1,3 +1,8 @@
+//=============================================================================
+//
+// セレクトボタン クラス [SelectButton.cpp]
+//
+//=============================================================================
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -62,7 +67,11 @@ public class SelectButtons : MonoBehaviour
         // 仲間にする選択をした時
         if (Selected == 0)
             if (unit.BeMyFriend())
+            {
                 myUnit.score.friendNum++;
+                if (myUnit.bTags[(int)UnitTag.秘訣は笑顔])
+                    myUnit.actNum = myUnit.sta.moveNum;
+            }
 
         //ゲームオブジェクトを非表示
         gameObject.SetActive(false);

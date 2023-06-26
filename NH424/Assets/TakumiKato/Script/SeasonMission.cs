@@ -1,3 +1,8 @@
+//=============================================================================
+//
+// シーズンミッション クラス [SeasonMission.cpp]
+//
+//=============================================================================
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +14,7 @@ public class SeasonMission : MonoBehaviour
 
     TextMeshProUGUI text;
 
-    float baseSeasonMaterial = 30.0f;
+    float baseSeasonMaterial = 30.0f;   // 最初に必要な素材量
     public float seasonMaterial;
 
     private void Awake()
@@ -36,45 +41,33 @@ public class SeasonMission : MonoBehaviour
         text.text = "木材：" + seasonMaterial + " 以上" + " 石材：" + seasonMaterial + " 以上" + " 鉄材：" + seasonMaterial + " 以上";
     }
 
-    public bool Check(SEASON season, int roundNum)
+    // シーズンミッション達成確認
+    public bool Check()
     {
-        if (SpringMission())
+        if (BaseMission())
             return true;
-
-        //switch (season)
-        //{
-        //    case SEASON.SPRING:
-        //        SpringMission();
-        //        break;
-        //    case SEASON.SUMMER:
-        //        SummerMission(roundNum);
-        //        break;
-        //    case SEASON.FALL:
-        //        FallMission(roundNum);
-        //        break;
-        //    case SEASON.WINTER:
-        //        WinterMission(roundNum);
-        //        break;
-        //    default:
-        //        return false;
-        //}
 
         return false;
     }
 
-    bool SpringMission()
+    bool BaseMission()
     {
+        // 素材があるか確認
         if (GameManager.instance.wood >= seasonMaterial)
             if (GameManager.instance.stone >= seasonMaterial)
                 if (GameManager.instance.iron >= seasonMaterial)
                 {
-                    seasonMaterial += baseSeasonMaterial;
+                    seasonMaterial += baseSeasonMaterial;   // 次回に必要な素材量を増加
                     GameManager.instance.wood -= seasonMaterial;
                     GameManager.instance.stone -= seasonMaterial;
                     GameManager.instance.iron -= seasonMaterial;
                     return true;
                 }
         return false;
+    }
+    bool SpringMission(int roundNum)
+    {
+        return true;
     }
     bool SummerMission(int roundNum)
     {
