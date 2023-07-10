@@ -79,6 +79,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] OptionSC option;                   // オプション
     public PictorialBook book;                          // 図鑑
 
+    bool bUseUICursol = true;
+
     private void Awake()
     {
         if (instance == null)
@@ -94,7 +96,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         fade.FadeOut(2.0f);         // フェイドアウト
-        book.DiscoverCharacter(0);  // 最初のユニットの図鑑解放
     }
 
     void Update()
@@ -233,6 +234,8 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < unitList.Count; i++)
             unitList[i].SetAct();
+
+        book.DiscoverCharacter(0);  // 最初のユニットの図鑑解放
     }
 
     // 偶数奇数判定
@@ -246,7 +249,7 @@ public class GameManager : MonoBehaviour
     {
         if (!Tutorial.instance.Main.activeSelf && !option.bOpenOption())
         {
-            if (SelectButtons.instance.GetbFriendSelect() && book.GetOpenFlg())
+            if (SelectButtons.instance.GetbFriendSelect() && !book.GetOpenFlg())
             {
                 if (MissionButton.instance.GetbMenu())
                 {
@@ -280,7 +283,15 @@ public class GameManager : MonoBehaviour
     // UIカーソルを設定
     public void SetUICursol(bool act)
     {
-        UICursol.gameObject.SetActive(act);
+        if(bUseUICursol)
+            UICursol.gameObject.SetActive(act);
+
+        UICursol.gameObject.SetActive(false);
+    }
+    // UIカーソルを使わないフラグ設定
+    public void SetUICursolFlg()
+    {
+        bUseUICursol = false;
     }
 
     // 選択したユニットの情報UIを設定

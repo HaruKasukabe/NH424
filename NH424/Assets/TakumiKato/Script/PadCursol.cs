@@ -6,18 +6,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PadCursol : MonoBehaviour
 {
-    public float padCursolSpeed = 2.0f;     // 動かす速度
-    Unit padSelectUnit = null;              // 今掴んでいるユニット
-    RaycastHit hitDown;                     // カーソルの下を取得
-    Hex Hex;                                // 今下にあるマス
+    public float padCursolSpeed = 2.0f;         // 動かす速度
+    Unit padSelectUnit = null;                  // 今掴んでいるユニット
+    RaycastHit hitDown;                         // カーソルの下を取得
+    Hex Hex;                                    // 今下にあるマス
+    [SerializeField] StandaloneInputModule eventSystem;   // イベントシステム
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        // 接続されているコントローラの名前を調べる
+        var controllerNames = Input.GetJoystickNames();
+
+        // 一台もコントローラが接続されていない場合
+        if (controllerNames.Length == 0)
+        {
+            eventSystem.submitButton = "Fire2";
+            gameObject.SetActive(false);
+            GameManager.instance.SetUICursolFlg();
+        }
     }
 
     // Update is called once per frame

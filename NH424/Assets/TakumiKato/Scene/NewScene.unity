@@ -5237,6 +5237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   padCursolSpeed: 0.1
+  eventSystem: {fileID: 1938821186}
 --- !u!23 &1105116189
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5295,7 +5296,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1105116187}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 55.3, y: 1.2, z: 43.9}
+  m_LocalPosition: {x: 55.3, y: 1.5, z: 43.9}
   m_LocalScale: {x: 1.1503879, y: 1.1503879, z: 1.1503879}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8558,7 +8559,7 @@ PrefabInstance:
       objectReference: {fileID: 868569403}
     - target: {fileID: 3344688831925519160, guid: 5a313e7f2c8bb904d9010808fdd98a61, type: 3}
       propertyPath: m_Name
-      value: Cube
+      value: CubeScript
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a313e7f2c8bb904d9010808fdd98a61, type: 3}
@@ -10459,7 +10460,7 @@ MonoBehaviour:
   m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
-  m_SubmitButton: Fire2
+  m_SubmitButton: Fire1
   m_CancelButton: null
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5

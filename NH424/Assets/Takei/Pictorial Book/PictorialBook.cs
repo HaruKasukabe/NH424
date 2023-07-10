@@ -37,7 +37,6 @@ public class PictorialBook : MonoBehaviour
     // 変数宣言
     public GameObject PictorialBookobj; // キャラクター図鑑グループオブジェクト
     private bool OpenFlg; // キャラクター図鑑を開いているか
-    private List<CharacterInfo> CharaInfo; // キャラクター情報管理構造体
     static private string PB_CSVFile = "CSV/PictorialBook"; // CSVデータ保存場所
     private TextAsset csvFile;
     private int pbNum; // 今見てる図鑑の位置
@@ -101,10 +100,9 @@ public class PictorialBook : MonoBehaviour
     // Initilize
     void Start()
     {
-        CharaInfo = charaInfo.instance.GetInfo();
         OpenFlg = false; // 初期値で図鑑は閉じている
         PictorialBookobj.SetActive(false); // 図鑑オブジェクトは非表示
-        InitCharaInfo(); // キャラ情報初期化処理
+        //InitcharaInfo.instance.GetInfo()(); // キャラ情報初期化処理
         pbNum = 0; // 初期値は左上
         InitCharaTexture(); // テクスチャ初期化処理
         if (SceneManager.GetActiveScene().name == "StartScene")
@@ -124,7 +122,7 @@ public class PictorialBook : MonoBehaviour
         //    CheckLeftPB();
         //    DisplayTextBox();
         //}
-        if (Input.GetButtonDown("Fire2") && !OpenFlg)
+        if (Input.GetButtonDown("Fire2") && OpenFlg)
         {
             BacktoMapButton();
         }
@@ -137,9 +135,9 @@ public class PictorialBook : MonoBehaviour
     public void DiscoverCharacter(int Num)
     {
         CharacterInfo ciTemp = new CharacterInfo();
-        ciTemp = CharaInfo[Num];
+        ciTemp = charaInfo.instance.GetInfo()[Num];
         ciTemp.Encounter++;
-        CharaInfo[Num] = ciTemp;
+        charaInfo.instance.GetInfo()[Num] = ciTemp;
     }
 
     // ==========================
@@ -148,26 +146,26 @@ public class PictorialBook : MonoBehaviour
     private void DisplayTextBox()
     {
         // 出会っていたら情報表示
-        if (CharaInfo[pbNum].Encounter != 0)
+        if (charaInfo.instance.GetInfo()[pbNum].Encounter != 0)
         {
             // キャラクターネーム更新
-            TB_CharacterName.text = CharaInfo[pbNum].Name;
+            TB_CharacterName.text = charaInfo.instance.GetInfo()[pbNum].Name;
             // モチーフ更新
-            TB_Motif.text = CharaInfo[pbNum].Motif;
+            TB_Motif.text = charaInfo.instance.GetInfo()[pbNum].Motif;
             // 出会った回数
-            TB_Encounter.text = CharaInfo[pbNum].Encounter.ToString() + "回";
+            TB_Encounter.text = charaInfo.instance.GetInfo()[pbNum].Encounter.ToString() + "回";
             // 性別更新
-            TB_Sex.text = CharaInfo[pbNum].Sex;
+            TB_Sex.text = charaInfo.instance.GetInfo()[pbNum].Sex;
             // 移動範囲更新
-            TB_MoveArea.text = CharaInfo[pbNum].MoveArea.ToString() + "マス";
+            TB_MoveArea.text = charaInfo.instance.GetInfo()[pbNum].MoveArea.ToString() + "マス";
             // 一言コメント更新
-            TB_Comment.text = CharaInfo[pbNum].Comment;
+            TB_Comment.text = charaInfo.instance.GetInfo()[pbNum].Comment;
             // タグ更新
-            TB_Tags.text = CharaInfo[pbNum].Tag1;
-            if (CharaInfo[pbNum].Tag2 != "Null")
-                TB_Tags.text = TB_Tags + " " + CharaInfo[pbNum].Tag2;
-            if (CharaInfo[pbNum].Tag3 != "Null")
-                TB_Tags.text = TB_Tags + " " + CharaInfo[pbNum].Tag3;
+            TB_Tags.text = charaInfo.instance.GetInfo()[pbNum].Tag1;
+            if (charaInfo.instance.GetInfo()[pbNum].Tag2 != "Null")
+                TB_Tags.text = TB_Tags + " " + charaInfo.instance.GetInfo()[pbNum].Tag2;
+            if (charaInfo.instance.GetInfo()[pbNum].Tag3 != "Null")
+                TB_Tags.text = TB_Tags + " " + charaInfo.instance.GetInfo()[pbNum].Tag3;
         }
         else
         {
@@ -228,7 +226,7 @@ public class PictorialBook : MonoBehaviour
             CItemp.Tag3 = CItempList[i][9];
 
 
-            CharaInfo.Add(CItemp);
+            charaInfo.instance.GetInfo().Add(CItemp);
         }
         // 最後に終了の行を入れる
         CItemp.Num = -1;
@@ -242,7 +240,7 @@ public class PictorialBook : MonoBehaviour
         CItemp.Tag2 = "-1";
         CItemp.Tag3 = "-1";
 
-        CharaInfo.Add(CItemp);
+        charaInfo.instance.GetInfo().Add(CItemp);
 
     }
 
@@ -302,45 +300,45 @@ public class PictorialBook : MonoBehaviour
     // ==========================
     private void CheckDiscoverChara()
     {
-        if (CharaInfo[0].Encounter != 0)
+        if (charaInfo.instance.GetInfo()[0].Encounter != 0)
             i_Cat.sprite = s_Cat;
-        if (CharaInfo[1].Encounter != 0)
+        if (charaInfo.instance.GetInfo()[1].Encounter != 0)
             i_Crow.sprite = s_Crow;
-        if (CharaInfo[2].Encounter != 0)
+        if (charaInfo.instance.GetInfo()[2].Encounter != 0)
             i_Giraffe.sprite = s_Giraffe;
-        if (CharaInfo[3].Encounter != 0)
+        if (charaInfo.instance.GetInfo()[3].Encounter != 0)
             i_Rabbit.sprite = s_Rabbit;
-        if (CharaInfo[4].Encounter != 0)
+        if (charaInfo.instance.GetInfo()[4].Encounter != 0)
             i_Mouse.sprite = s_Mouse;
-        if (CharaInfo[5].Encounter != 0)
+        if (charaInfo.instance.GetInfo()[5].Encounter != 0)
             i_Squirrel.sprite = s_Squirrel;
-        if (CharaInfo[6].Encounter != 0)
+        if (charaInfo.instance.GetInfo()[6].Encounter != 0)
             i_Wolf.sprite = s_Wolf;
-        if (CharaInfo[7].Encounter != 0)
+        if (charaInfo.instance.GetInfo()[7].Encounter != 0)
             i_Bat.sprite = s_Bat;
-        if (CharaInfo[8].Encounter != 0)
+        if (charaInfo.instance.GetInfo()[8].Encounter != 0)
             i_Crocodile.sprite = s_Crocodile;
-        if (CharaInfo[9].Encounter != 0)
+        if (charaInfo.instance.GetInfo()[9].Encounter != 0)
             i_Elephant.sprite = s_Elephant;
-        if (CharaInfo[10].Encounter != 0)
+        if (charaInfo.instance.GetInfo()[10].Encounter != 0)
             i_Frog.sprite = s_Frog;
-        if (CharaInfo[11].Encounter != 0)
+        if (charaInfo.instance.GetInfo()[11].Encounter != 0)
             i_Headgehog.sprite = s_Headgehog;
-        if (CharaInfo[12].Encounter != 0)
+        if (charaInfo.instance.GetInfo()[12].Encounter != 0)
             i_Horse.sprite = s_Horse;
-        if (CharaInfo[13].Encounter != 0)
+        if (charaInfo.instance.GetInfo()[13].Encounter != 0)
             i_Lion.sprite = s_Lion;
-        if (CharaInfo[14].Encounter != 0)
+        if (charaInfo.instance.GetInfo()[14].Encounter != 0)
             i_Mole.sprite = s_Mole;
-        if (CharaInfo[15].Encounter != 0)
+        if (charaInfo.instance.GetInfo()[15].Encounter != 0)
             i_Sheep.sprite = s_Sheep;
-        if (CharaInfo[16].Encounter != 0)
+        if (charaInfo.instance.GetInfo()[16].Encounter != 0)
             i_Swan.sprite = s_Swan;
-        if (CharaInfo[17].Encounter != 0)
+        if (charaInfo.instance.GetInfo()[17].Encounter != 0)
             i_Tiger.sprite = s_Tiger;
-        if (CharaInfo[18].Encounter != 0)
+        if (charaInfo.instance.GetInfo()[18].Encounter != 0)
             i_Turtle.sprite = s_Turtle;
-        if (CharaInfo[19].Encounter != 0)
+        if (charaInfo.instance.GetInfo()[19].Encounter != 0)
             i_Panda.sprite = s_Panda;
     }
 
@@ -349,86 +347,86 @@ public class PictorialBook : MonoBehaviour
     // ==========================
     private void CheckLeftPB()
     {
-        if(CharaInfo[pbNum].Encounter !=0)
+        if(charaInfo.instance.GetInfo()[pbNum].Encounter !=0)
         {
             int num = 0;
-            if (CharaInfo[0].Encounter != 0)
+            if (charaInfo.instance.GetInfo()[0].Encounter != 0)
                 LeftPB.sprite = s_Cat;
             if (pbNum == num) return;
             num++;
-            if (CharaInfo[1].Encounter != 0)
+            if (charaInfo.instance.GetInfo()[1].Encounter != 0)
                 LeftPB.sprite = s_Crow;
             if (pbNum == num) return;
             num++;
-            if (CharaInfo[2].Encounter != 0)
+            if (charaInfo.instance.GetInfo()[2].Encounter != 0)
                 LeftPB.sprite = s_Giraffe;
             if (pbNum == num) return;
             num++;
-            if (CharaInfo[3].Encounter != 0)
+            if (charaInfo.instance.GetInfo()[3].Encounter != 0)
                 LeftPB.sprite = s_Rabbit;
             if (pbNum == num) return;
             num++;
-            if (CharaInfo[4].Encounter != 0)
+            if (charaInfo.instance.GetInfo()[4].Encounter != 0)
                 LeftPB.sprite = s_Mouse;
             if (pbNum == num) return;
             num++;
-            if (CharaInfo[5].Encounter != 0)
+            if (charaInfo.instance.GetInfo()[5].Encounter != 0)
                 LeftPB.sprite = s_Squirrel;
             if (pbNum == num) return;
             num++;
-            if (CharaInfo[6].Encounter != 0)
+            if (charaInfo.instance.GetInfo()[6].Encounter != 0)
                 LeftPB.sprite = s_Wolf;
             if (pbNum == num) return;
             num++;
-            if (CharaInfo[7].Encounter != 0)
+            if (charaInfo.instance.GetInfo()[7].Encounter != 0)
                 LeftPB.sprite = s_Bat;
             if (pbNum == num) return;
             num++;
-            if (CharaInfo[8].Encounter != 0)
+            if (charaInfo.instance.GetInfo()[8].Encounter != 0)
                 LeftPB.sprite = s_Crocodile;
             if (pbNum == num) return;
             num++;
-            if (CharaInfo[9].Encounter != 0)
+            if (charaInfo.instance.GetInfo()[9].Encounter != 0)
                 LeftPB.sprite = s_Elephant;
             if (pbNum == num) return;
             num++;
-            if (CharaInfo[10].Encounter != 0)
+            if (charaInfo.instance.GetInfo()[10].Encounter != 0)
                 LeftPB.sprite = s_Frog;
             if (pbNum == num) return;
             num++;
-            if (CharaInfo[11].Encounter != 0)
+            if (charaInfo.instance.GetInfo()[11].Encounter != 0)
                 LeftPB.sprite = s_Headgehog;
             if (pbNum == num) return;
             num++;
-            if (CharaInfo[12].Encounter != 0)
+            if (charaInfo.instance.GetInfo()[12].Encounter != 0)
                 LeftPB.sprite = s_Horse;
             if (pbNum == num) return;
             num++;
-            if (CharaInfo[13].Encounter != 0)
+            if (charaInfo.instance.GetInfo()[13].Encounter != 0)
                 LeftPB.sprite = s_Lion;
             if (pbNum == num) return;
             num++;
-            if (CharaInfo[14].Encounter != 0)
+            if (charaInfo.instance.GetInfo()[14].Encounter != 0)
                 LeftPB.sprite = s_Mole;
             if (pbNum == num) return;
             num++;
-            if (CharaInfo[15].Encounter != 0)
+            if (charaInfo.instance.GetInfo()[15].Encounter != 0)
                 LeftPB.sprite = s_Sheep;
             if (pbNum == num) return;
             num++;
-            if (CharaInfo[16].Encounter != 0)
+            if (charaInfo.instance.GetInfo()[16].Encounter != 0)
                 LeftPB.sprite = s_Swan;
             if (pbNum == num) return;
             num++;
-            if (CharaInfo[17].Encounter != 0)
+            if (charaInfo.instance.GetInfo()[17].Encounter != 0)
                 LeftPB.sprite = s_Tiger;
             if (pbNum == num) return;
             num++;
-            if (CharaInfo[18].Encounter != 0)
+            if (charaInfo.instance.GetInfo()[18].Encounter != 0)
                 LeftPB.sprite = s_Turtle;
             if (pbNum == num) return;
             num++;
-            if (CharaInfo[19].Encounter != 0)
+            if (charaInfo.instance.GetInfo()[19].Encounter != 0)
                 LeftPB.sprite = s_Panda;
             if (pbNum == num) return;
             num++;
