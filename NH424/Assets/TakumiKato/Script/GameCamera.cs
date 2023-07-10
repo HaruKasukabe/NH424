@@ -10,8 +10,8 @@ public class GameCamera : MonoBehaviour
     public float sensitiveMoveMouse = 0.8f;
     public float sensitiveZoomMouse = 10.0f;
 
-    public float sensitiveMovePad = 0.1f;
-    public float sensitiveZoomPad = 2;
+    public float sensitiveMovePad = 0.3f;
+    public float sensitiveZoomPad = 3;
 
     void Start()
     {

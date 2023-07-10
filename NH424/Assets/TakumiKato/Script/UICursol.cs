@@ -7,7 +7,7 @@ public class UICursol : MonoBehaviour
 {
     RectTransform trs;
     GameObject obj;
-    public float cursolSpeed = 2.0f;
+    public float cursolSpeed = 2.2f;
 
     // Start is called before the first frame update
     void Start()
