@@ -10,11 +10,18 @@ using UnityEngine.EventSystems;
 
 public class PadCursol : MonoBehaviour
 {
+<<<<<<< HEAD
     public float padCursolSpeed = 2.0f;         // 動かす速度
     Unit padSelectUnit = null;                  // 今掴んでいるユニット
     RaycastHit hitDown;                         // カーソルの下を取得
     Hex Hex;                                    // 今下にあるマス
     [SerializeField] StandaloneInputModule eventSystem;   // イベントシステム
+=======
+    public float padCursolSpeed = 0.08f;     // 動かす速度
+    Unit padSelectUnit = null;              // 今掴んでいるユニット
+    RaycastHit hitDown;                     // カーソルの下を取得
+    Hex Hex;                                // 今下にあるマス
+>>>>>>> origin/Tokuda2023
 
     // Start is called before the first frame update
     void Start()

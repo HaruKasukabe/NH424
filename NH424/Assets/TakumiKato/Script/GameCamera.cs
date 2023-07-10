@@ -11,6 +11,7 @@ public class GameCamera : MonoBehaviour
 {
     Camera cam;     // カメラ
 
+<<<<<<< HEAD
     public float sensitiveMoveMouse = 0.8f;     // マウスでのカメラ移動速度
     public float sensitiveZoomMouse = 10.0f;    // マウスでのカメラ拡縮速度
 
@@ -18,6 +19,10 @@ public class GameCamera : MonoBehaviour
     public float sensitiveZoomPad = 2;          // パッドでのカメラ拡縮速度
 
     [SerializeField] GameObject LRUI; // LRを押した時にでるUIのゲームオブジェクト
+=======
+    public float sensitiveMovePad = 0.3f;
+    public float sensitiveZoomPad = 3;
+>>>>>>> origin/Tokuda2023
 
     void Start()
     {

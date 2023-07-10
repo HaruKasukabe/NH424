@@ -12,7 +12,11 @@ public class UICursol : MonoBehaviour
 {
     RectTransform trs;
     GameObject obj;
+<<<<<<< HEAD
     [SerializeField] float cursolSpeed = 6.0f;  // カーソルの移動速度
+=======
+    public float cursolSpeed = 2.2f;
+>>>>>>> origin/Tokuda2023
 
     // Start is called before the first frame update
     void Start()
