@@ -47,13 +47,20 @@ public class UnitImage : MonoBehaviour
         if (bShop)
         {
             ShopList.instance.Add(id, number);
+            ManagementAudio.instance.PublicPlayClickSE();
         }
         else
         {
             if (bOut)
+            {
                 KemokoListOut.instance.SelectOutUnit(id);
+                ManagementAudio.instance.PublicPlayClickSE();
+            }
             else
+            {
                 KemokoListVillage.instance.SelectVillageUnit(id);
+                ManagementAudio.instance.PublicPlayClickSE();
+            }
         }
     }
 }

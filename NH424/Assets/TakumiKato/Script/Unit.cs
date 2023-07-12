@@ -60,6 +60,13 @@ public class Unit : MonoBehaviour
     public bool bSleepTag = false;
     public bool bSleepSeason = false;
 
+    protected void Awake()
+    {
+        score.sprite = sta.sprite;
+        score.motifName = sta.motifName;
+        score.charName = sta.charName;
+    }
+
     // Start is called before the first frame update
     protected void Start()
     {
@@ -101,8 +108,11 @@ public class Unit : MonoBehaviour
         {
             if (bFriend && actNum > 0)
             {
-                if(col.enabled)
+                if (col.enabled)
+                {
                     GameManager.instance.SetCharacterUI(true, this);
+                    ManagementAudio.instance.PublicPlaySE(ManagementAudio.GAMESE.GameStart);
+                }
                 bMoveNumDisplay = true;
                 col.enabled = false;
                 var pos = transform.position;
@@ -251,6 +261,7 @@ public class Unit : MonoBehaviour
     // 通常動作
     void UpActDefault()
     {
+        ManagementAudio.instance.PublicPlaySE(ManagementAudio.GAMESE.Select);
         if (Hex.gameObject.CompareTag("Village"))
             bVillage = true;
         else
@@ -299,6 +310,7 @@ public class Unit : MonoBehaviour
     // 同じマスに置く時
     void UpActSameHex()
     {
+        ManagementAudio.instance.PublicPlaySE(ManagementAudio.GAMESE.Select);
         OriginPos = new Vector3(OldHex.transform.position.x, OldHex.transform.position.y + height, OldHex.transform.position.z);
         transform.position = OriginPos;
         OldHex.SetCursol(false);
@@ -308,6 +320,7 @@ public class Unit : MonoBehaviour
     // 置いたマスにユニットがいた時
     void UpActUnit()
     {
+        ManagementAudio.instance.PublicPlaySE(ManagementAudio.GAMESE.Select);
         if (OldHitHex.gameObject.CompareTag("Village"))
             bVillage = true;
         else

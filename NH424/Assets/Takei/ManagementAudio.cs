@@ -11,6 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class ManagementAudio : MonoBehaviour
 {
@@ -86,7 +87,8 @@ public class ManagementAudio : MonoBehaviour
         GameBGM = 0; // 初期値が春
         FadeSecond = FadeSecond * 60; // フレームレートに直すため秒数*60fps
         ASSE.volume = 0.2f;
-        StartBGM();
+        if (SceneManager.GetActiveScene().name == "NewScene")
+            StartBGM();
     }
 
     // 更新処理
@@ -309,5 +311,9 @@ public class ManagementAudio : MonoBehaviour
     public void PublicPlaySE(GAMESE se)
     {
         PlaySE(ACGameSE[(int)se]);
+    }
+    public void PublicPlayClickSE()
+    {
+        PlaySE(ACGameSE[(int)GAMESE.Click]);
     }
 }

@@ -1,9 +1,19 @@
 fileFormatVersion: 2
-guid: 397bfee7a1125ae408107c8456b10490
+guid: 2e57d1aec70ff7d40af29f221c298ed3
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bad_body1
+    second: {fileID: 2100000, guid: ef5fadefaafefb5458c5377d447b3f6c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: black1
+    second: {fileID: 4362962105363994262, guid: 3c5e2c2e1f6ae9e4db571c4467850bb9, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

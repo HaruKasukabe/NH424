@@ -8430,6 +8430,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1711174331}
   m_CullTransparentMesh: 1
+--- !u!1 &1715541119
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1715541121}
+  - component: {fileID: 1715541120}
+  m_Layer: 0
+  m_Name: CharaInfo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1715541120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1715541119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d81a9dd649377d42b6a4f127a77986e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1715541121
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1715541119}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 544.74347, y: 535.5682, z: 33.245544}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1722573932
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8632,18 +8676,6 @@ MonoBehaviour:
   i_Tiger: {fileID: 1014422622}
   i_Sheep: {fileID: 1113999625}
   choice: {fileID: 0}
---- !u!114 &1722573952
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 428784119}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d81a9dd649377d42b6a4f127a77986e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1726262905 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4299116768640493168, guid: f3feee2910527b54ab9fe77bf86fd155, type: 3}
@@ -8981,7 +9013,11 @@ MonoBehaviour:
   - {x: 7.603983, y: 0.0900152, z: 7.579909}
   - {x: 10.25093, y: 0.0900152, z: 10.25093}
   - {x: 12.54957, y: 0.0900152, z: 12.54957}
-  skyMat: []
+  skyMat:
+  - {fileID: 2100000, guid: aa1dd3b938799574fadf16b1ce2476ce, type: 2}
+  - {fileID: 2100000, guid: 7b40bc805547358499c71f54757ac989, type: 2}
+  - {fileID: 2100000, guid: ee8e354416fd4f94097ba0cfe95ee416, type: 2}
+  - {fileID: 2100000, guid: 64f2f66304f70684e95fb444121edc02, type: 2}
   season: 0
   nowTurn: 1
   canActUnitNum: 0
@@ -9922,7 +9958,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!82 &1930060370
 AudioSource:
   m_ObjectHideFlags: 0

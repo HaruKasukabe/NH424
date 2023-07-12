@@ -445,6 +445,7 @@ public class PictorialBook : MonoBehaviour
         if (pbNum > 0)
         {
             pbNum--;
+            ManagementAudio.instance.PublicPlaySE(ManagementAudio.GAMESE.Select);
             Debug.Log("通過");
             CheckLeftPB();
             DisplayTextBox();
@@ -455,6 +456,7 @@ public class PictorialBook : MonoBehaviour
         if (pbNum < 19)
         {
             pbNum++;
+            ManagementAudio.instance.PublicPlaySE(ManagementAudio.GAMESE.Select);
             Debug.Log("通過");
             CheckLeftPB();
             DisplayTextBox();
@@ -464,7 +466,7 @@ public class PictorialBook : MonoBehaviour
     // 図鑑を閉じるボタンを押したとき
     public void BacktoMapButton()
     {
-        OpenFlg = true;
+        OpenFlg = false;
         PictorialBookobj.SetActive(false);
         if (!bStartScene)
             GameManager.instance.SetUICursol(false);
@@ -473,7 +475,7 @@ public class PictorialBook : MonoBehaviour
     }
     public void SetDisplay()
     {
-        OpenFlg = false;
+        OpenFlg = true;
         PictorialBookobj.SetActive(true); // 図鑑オブジェクト表示
         pbNum = 0;
         CheckDiscoverChara();

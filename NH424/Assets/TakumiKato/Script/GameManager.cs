@@ -201,6 +201,7 @@ public class GameManager : MonoBehaviour
         // 何かメニューを表示していない時
         if (bMenuDisplay())
         {
+            ManagementAudio.instance.PublicPlaySE(ManagementAudio.GAMESE.Start);
             nowTurn++;  // ターン数を+1
             List<Unit> unitList = KemokoListOut.instance.outUnitList;
 
